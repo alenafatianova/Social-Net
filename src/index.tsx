@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {PostType} from './components/Profile/Profile'
+
+export type PropsType = {
+  postsData: Array<PostType>
+}
+
+
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
+<React.StrictMode>
+    <App postsData={postsData}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

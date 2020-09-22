@@ -1,0 +1,17 @@
+.users_dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+   
+}
+
+.users {
+    padding: 20px;
+    .user {
+        margin-bottom: 30px;
+        color: blue;
+    } 
+}
+
+.messages {
+    padding: 20px;
+}
