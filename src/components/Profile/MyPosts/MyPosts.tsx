@@ -6,9 +6,6 @@ import {PostsType} from './../../../redux/state'
 
 
 export type OldPostsType = {
-    id: number
-    post: string
-    likes: number
     postsData: Array<PostsType>
 }
 

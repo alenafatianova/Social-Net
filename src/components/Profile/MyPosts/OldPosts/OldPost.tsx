@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './OldPost.module.scss';
-
+import {PostsType} from './../../../../redux/state'
 
 type PostPropsType = {
     post: string

@@ -17,7 +17,6 @@ export type postsDataType = {
 }
 
 export default function MyPage(props: postsDataType) {
-  
   return (
     <div className={classes.mainContent}>
       <ProfileInfo 
