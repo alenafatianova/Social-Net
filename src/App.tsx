@@ -9,26 +9,24 @@ import Friends from './components/Friends/Friends';
 import Music from './components/Music/Music';
 import Photos from './components/Photos/Photos'
 import Settings from './components/Settings/Settings';
-import state from './redux/state'
+import {RootStateType}  from './redux/state'
 
 
 
+export type AppStateType = {
+  appState: RootStateType
+}
 
 
-
-function App() {
-
-  state.profilePage.postsData
-
+function App(props: AppStateType) {
   return (
     <BrowserRouter>
-    
     <div>
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <Dialogs /> }/>
-      <Route exact path='/profile' render={() => <Profile  postsData={postsData}/> }/>
+      <Route exact path='/dialogs' render={() => <Dialogs dialogsData={props.appState.dialogsPage.dialogsData} messageData={props.appState.messagePage.messageData} /> }/>
+      <Route exact path='/profile' render={() => <Profile  postsData={props.appState.profilePage.postsData}/> }/>
       <Route exact path='/friends' render={() => <Friends /> }/>
       <Route exact path='/music' render={() => <Music /> }/>
       <Route exact path='/photos' render={() => <Photos /> }/>
@@ -39,11 +37,6 @@ function App() {
   </BrowserRouter>
   );
 }
-
-
-
-
-
 
 
 

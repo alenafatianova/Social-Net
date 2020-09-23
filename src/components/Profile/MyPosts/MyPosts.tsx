@@ -1,18 +1,19 @@
 import React from 'react';
 import NewPost from './NewPost/NewPost';
 import OldPost from './OldPosts/OldPost';
-import {PostType} from '../Profile'
+import {PostsType} from './../../../redux/state'
 
 
 
-export type PropsType = {
-    postsData: Array<PostType>
+export type OldPostsType = {
+    id: number
+    post: string
+    likes: number
+    postsData: Array<PostsType>
 }
 
 
-export default function MyPosts(props: PropsType) {
-
-
+export default function MyPosts(props: OldPostsType) {
 let postElement = props.postsData.map(posts => <OldPost id={posts.id} post={posts.post} likes={posts.likes}/> )
 
     return (

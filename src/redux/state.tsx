@@ -15,15 +15,15 @@ export type MessageType = {
 type ProfilePageType = {
     postsData: Array<PostsType>
 }
-type DialogsPageType = {
+export type DialogsPageType = {
     dialogsData: Array<DialogsType>
 }
-type MessagePageType = {
+export type MessagePageType = {
     messageData: Array<MessageType>
 }
 type SidebarType = {}
 
-type RootStateType = {
+export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     messagePage: MessagePageType

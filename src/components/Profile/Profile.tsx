@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Profile.module.scss";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo";
-
+import {PostsType} from './../../redux/state'
 
 
 const profileInfo = {
@@ -11,15 +11,13 @@ const profileInfo = {
   age: 27,
   city: 'New York'
 }
-export type PostType = {
-  id: number
-  post: string
-  likes: number
-  postsData: Array<PostType>
+
+export type postsDataType = {
+  postsData: Array<PostsType>
 }
 
-
-export default function MyPage(props: PostType) {
+export default function MyPage(props: postsDataType) {
+  
   return (
     <div className={classes.mainContent}>
       <ProfileInfo 
