@@ -18,6 +18,7 @@ export default function Dialogs(props: dialogDataType) {
     <div className={classes.users_dialogs}>
       <div className={classes.users}>{dialogsElements}</div>
       <div className={classes.messages}>{messagesElements}</div>
+     
     </div>
   );
 }

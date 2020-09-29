@@ -11,6 +11,8 @@ export default function Message(props: UserMessagePropsType) {
   return (
     <div>
       <span className={classes.message}>{props.message}</span>
+      <div><textarea></textarea></div>
+      <button>send</button>
     </div>
   );
 }
