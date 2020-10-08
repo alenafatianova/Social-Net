@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Profile.module.scss";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo";
-import {addPost, PostsType } from './../../redux/state'
+import { PostsType } from './../../redux/state'
 
 
 
@@ -16,18 +16,27 @@ const profileInfo = {
 export type postsDataType = {
   postsData: Array<PostsType>
   addPost: (postMessage: string)=> void
+  newPostText: string
+  updateText: (newText: string) => void
 }
 
-export default function MyPage(props: postsDataType) {
+export default function Profile(props: postsDataType) {
   return (
     <div className={classes.mainContent}>
+      
       <ProfileInfo 
       name={profileInfo.name} 
       surname={profileInfo.surname} 
       age={profileInfo.age} 
       city={profileInfo.city}
       />
-      <MyPosts postsData={props.postsData} addPost={addPost} />
+     
+      <MyPosts 
+      postsData={props.postsData} 
+      newPostText={props.newPostText}
+      addPost={props.addPost} 
+      updateText={props.updateText}
+      />
       
     </div>
   );

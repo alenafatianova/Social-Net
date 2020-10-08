@@ -16,6 +16,7 @@ import {RootStateType}  from './redux/state'
 export type AppStateType = {
   appState: RootStateType
   addPost: (postMessage: string)=> void
+  updateText: (newText: string) => void
 }
 
 
@@ -27,7 +28,12 @@ function App(props: AppStateType) {
       <Header/>
       <Navbar/>
       <Route exact path='/dialogs' render={() => <Dialogs dialogsData={props.appState.dialogsPage.dialogsData} messageData={props.appState.messagePage.messageData} /> }/>
-      <Route exact path='/profile' render={() => <Profile  postsData={props.appState.profilePage.postsData} addPost={props.addPost} /> }/>
+      <Route exact path='/profile' render={() => <Profile  
+          newPostText={props.appState.profilePage.newPostText}
+          postsData={props.appState.profilePage.postsData} 
+          addPost={props.addPost} 
+          updateText={props.updateText}
+          /> }/>
       <Route exact path='/friends' render={() => <Friends /> }/>
       <Route exact path='/music' render={() => <Music /> }/>
       <Route exact path='/photos' render={() => <Photos /> }/>
