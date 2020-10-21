@@ -9,30 +9,29 @@ import Friends from './components/Friends/Friends';
 import Music from './components/Music/Music';
 import Photos from './components/Photos/Photos'
 import Settings from './components/Settings/Settings';
-import {RootStateType}  from './redux/state'
-
+import {RootStateType, ActionsType}  from './redux/state'
 
 
 export type AppStateType = {
   appState: RootStateType
-  addPost: (postMessage: string)=> void
-  updateText: (newText: string) => void
+  dispatch: (action: ActionsType) => void 
 }
 
 
-function App(props: AppStateType) {
+const App: React.FC<AppStateType> = (props) => {
   return (
     <BrowserRouter>
     <div>
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <Dialogs dialogsData={props.appState.dialogsPage.dialogsData} messageData={props.appState.messagePage.messageData} /> }/>
+      <Route exact path='/dialogs' render={() => <Dialogs 
+          dialogsData={props.appState.dialogsPage.dialogsData} 
+          messageData={props.appState.messagePage.messageData} /> }/>
       <Route exact path='/profile' render={() => <Profile  
           newPostText={props.appState.profilePage.newPostText}
           postsData={props.appState.profilePage.postsData} 
-          addPost={props.addPost} 
-          updateText={props.updateText}
+          dispatch={props.dispatch}
           /> }/>
       <Route exact path='/friends' render={() => <Friends /> }/>
       <Route exact path='/music' render={() => <Music /> }/>
@@ -40,7 +39,6 @@ function App(props: AppStateType) {
       <Route exact path='/settings' render={() => <Settings /> }/>
   </div>
   </div>
-
   </BrowserRouter>
   );
 }

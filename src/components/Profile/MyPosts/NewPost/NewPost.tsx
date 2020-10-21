@@ -1,27 +1,34 @@
 import React, { ChangeEvent } from "react";
+import { ActionsType, addPostActionCreator,changeNewPostCreator } from "../../../../redux/state";
 
 export type addPostType = {
-  addPost: (postMessage: string) => void
+  //updateText: (newText: string) => void
+  // addPost: (postMessage: string) => void
   newPostText: string
-  updateText: (newText: string) => void
+  dispatch: (action: ActionsType) => void
 };
+
+
+
 
 export default function NewPost(props: addPostType) {
   
 
   let addNewPost = () => {
-      props.addPost(props.newPostText)
+      //  props.addPost(props.newPostText)
+      props.dispatch(addPostActionCreator())
   }
 
 let newPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.updateText(e.currentTarget.value)
+     //props.updateText(e.currentTarget.value)
+    props.dispatch(changeNewPostCreator(e.currentTarget.value ))
 }
 
   return (
     <div>
       <div>
         <h5>New Post</h5>
-        <textarea value={props.newPostText} onChange={newPostChange}  />
+        <textarea value={props.newPostText} onChange={newPostChange} placeholder='Whats new?' />
         <div>
           <button onClick={addNewPost}>send</button>{" "}
         </div>
