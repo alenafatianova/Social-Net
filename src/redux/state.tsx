@@ -20,11 +20,13 @@ let store: StoreType = {
       ],
     },
     messagePage: {
+      newMessageTextBody: "",
       messageData: [
         { id: 1, message: "Hi, whatsapp?" },
         { id: 2, message: "Go to the cinema tonight?" },
         { id: 3, message: "By the way, did you go to your aunt?" },
       ],
+      
     },
     sidebar: {},
   },
@@ -50,18 +52,31 @@ let store: StoreType = {
     } else if (action.type === 'UPDATE_TEXT') {
         this._state.profilePage.newPostText = action.newText;
         this._callSubscriber();
-
+    } else if (action.type === 'MESSAGE_REPLY') {
+      this._state.messagePage.newMessageTextBody = action.messageBody;
+      this._callSubscriber();
+    } else if (action.type === 'SEND_MESSAGE') {
+      let messageBody = this._state.messagePage.newMessageTextBody;
+      this._state.messagePage.messageData.push({id: 6, message: messageBody})
+      this._state.messagePage.newMessageTextBody = '';
+      this._callSubscriber();
     }
   },
 };
 const ADD_POST = 'ADD-POST';
 const UPDATE_TEXT = 'UPDATE-TEXT';
+const MESSAGE_REPLY = 'MESSAGE_REPLY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 
-
-export type ActionsType = ReturnType <typeof addPostActionCreator> |  ReturnType <typeof changeNewPostCreator>
+export type ActionsType = ReturnType <typeof addPostActionCreator> |  
+                          ReturnType <typeof changeNewPostCreator> |
+                          ReturnType <typeof messageBodyCreator> |
+                          ReturnType <typeof sendMessageCreator>
 
 export const addPostActionCreator = () => ({type: 'ADD_POST'}) as const;
 export const changeNewPostCreator = (newText: string)  => ({type: 'UPDATE_TEXT', newText: newText}) as const
+export const messageBodyCreator = (messageBody: string) => ({type: 'MESSAGE_REPLY', messageBody: messageBody}) as const
+export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'}) as const
 
 export type StoreType = {
   _state: RootStateType
@@ -84,6 +99,7 @@ export type DialogsType = {
 export type MessageType = {
   id: number;
   message: string;
+  
 };
 export type ProfilePageType = {
   newPostText: string;
@@ -93,7 +109,8 @@ export type DialogsPageType = {
   dialogsData: Array<DialogsType>;
 };
 export type MessagePageType = {
-  messageData: Array<MessageType>;
+  messageData: Array<MessageType>
+  newMessageTextBody: string
 };
 export type postMessageType = {
   // new post is here

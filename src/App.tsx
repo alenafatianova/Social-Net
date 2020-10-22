@@ -26,6 +26,8 @@ const App: React.FC<AppStateType> = (props) => {
       <Header/>
       <Navbar/>
       <Route exact path='/dialogs' render={() => <Dialogs 
+          dispatch={props.dispatch}
+          newMessageTextBody={props.appState.messagePage.newMessageTextBody}
           dialogsData={props.appState.dialogsPage.dialogsData} 
           messageData={props.appState.messagePage.messageData} /> }/>
       <Route exact path='/profile' render={() => <Profile  
