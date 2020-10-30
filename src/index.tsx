@@ -4,11 +4,11 @@ import React from 'react'
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import  store, { RootStateType }  from "./redux/store";
+import  store, {RootStateType}  from "./redux/store";
 
 
 
-export const rerenderEntireTree = () => {
+export const rerenderEntireTree = (state: RootStateType) => {
   
   ReactDOM.render(
     <React.StrictMode>
@@ -21,7 +21,10 @@ export const rerenderEntireTree = () => {
 };
 
 
-rerenderEntireTree();
-store.subscribe(rerenderEntireTree);
+rerenderEntireTree(store.getState());
+store.subscribe(() => {
+  let state = store.getState();
+  rerenderEntireTree(state);
+});
 
 ServiceWorker.unregister();
