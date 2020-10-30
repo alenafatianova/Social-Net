@@ -9,16 +9,15 @@ import Friends from './components/Friends/Friends';
 import Music from './components/Music/Music';
 import Photos from './components/Photos/Photos'
 import Settings from './components/Settings/Settings';
-import {RootStateType, ActionsType}  from './redux/state'
-
+import {RootStateType, ActionsType}  from './redux/store'
 
 export type AppStateType = {
   appState: RootStateType
   dispatch: (action: ActionsType) => void 
 }
 
-
 const App: React.FC<AppStateType> = (props) => {
+  console.log(props)
   return (
     <BrowserRouter>
     <div>
@@ -35,10 +34,10 @@ const App: React.FC<AppStateType> = (props) => {
           postsData={props.appState.profilePage.postsData} 
           dispatch={props.dispatch}
           /> }/>
-      <Route exact path='/friends' render={() => <Friends /> }/>
-      <Route exact path='/music' render={() => <Music /> }/>
-      <Route exact path='/photos' render={() => <Photos /> }/>
-      <Route exact path='/settings' render={() => <Settings /> }/>
+      <Route exact path='/friends' render={() => <Friends/>}/>
+      <Route exact path='/music' render={() => <Music/>}/>
+      <Route exact path='/photos' render={() => <Photos/>}/>
+      <Route exact path='/settings' render={() => <Settings/>}/>
   </div>
   </div>
   </BrowserRouter>

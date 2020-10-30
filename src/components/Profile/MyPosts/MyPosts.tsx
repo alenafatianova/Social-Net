@@ -1,13 +1,14 @@
 import React from 'react';
 import NewPost from './NewPost/NewPost';
 import OldPost from './OldPosts/OldPost';
-import {ActionsType, PostsType} from './../../../redux/state'
+import {PostsType} from '../../../redux/store'
+import {ProfileActionsType} from './../../../redux/ProfileReducer'
 
 
 
 export type OldPostsType = {
     postsData: Array<PostsType>
-    dispatch: (action: ActionsType) => void
+    dispatch: (action: ProfileActionsType) => void
     newPostText: string
 }
 

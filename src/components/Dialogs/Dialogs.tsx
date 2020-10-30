@@ -2,13 +2,14 @@ import React, { ChangeEvent, useState } from "react";
 import classes from "./Dialogs.module.scss";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionsType, DialogsType, MessageType, sendMessageCreator, messageBodyCreator} from './../../redux/state'
+import {DialogsActionsType, sendMessageCreator, messageBodyCreator} from '../../redux/DialogsReducer'
+import { DialogsType, MessageType,} from './../../redux/store'
 
 export type dialogDataType = {
   dialogsData: Array<DialogsType>
   messageData: Array<MessageType>
   newMessageTextBody: string
-  dispatch: (action: ActionsType) => void
+  dispatch: (action: DialogsActionsType) => void
 }
 
 let newMessage = React.createRef<HTMLTextAreaElement>()

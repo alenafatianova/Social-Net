@@ -1,4 +1,8 @@
-let store: StoreType = {
+import {DialogsReducer, DialogsActionsType} from "./DialogsReducer";
+import {ProfileReducer, ProfileActionsType} from "./ProfileReducer";
+import {NavbarReducer} from "./NavbarReducer"
+
+export let store: StoreType = {
   _state: {
     profilePage: {
       newPostText: "",
@@ -28,7 +32,9 @@ let store: StoreType = {
       ],
       
     },
-    sidebar: {},
+    navbar: {},
+    header: {},
+
   },
   getState() {
     return this._state;
@@ -40,43 +46,14 @@ let store: StoreType = {
     this._callSubscriber = observer;
   },
   dispatch(action) {
-    if (action.type === 'ADD_POST') {
-      const newPost: newPostType = {
-        id: 5,
-        post: this._state.profilePage.newPostText,
-        likes: 0,
-      };
-      this._state.profilePage.postsData.unshift(newPost);
-      this._state.profilePage.newPostText = "";
-      this._callSubscriber();
-    } else if (action.type === 'UPDATE_TEXT') {
-        this._state.profilePage.newPostText = action.newText;
-        this._callSubscriber();
-    } else if (action.type === 'MESSAGE_REPLY') {
-      this._state.messagePage.newMessageTextBody = action.messageBody;
-      this._callSubscriber();
-    } else if (action.type === 'SEND_MESSAGE') {
-      let messageBody = this._state.messagePage.newMessageTextBody;
-      this._state.messagePage.messageData.push({id: 6, message: messageBody})
-      this._state.messagePage.newMessageTextBody = '';
-      this._callSubscriber();
-    }
-  },
-};
-const ADD_POST = 'ADD-POST';
-const UPDATE_TEXT = 'UPDATE-TEXT';
-const MESSAGE_REPLY = 'MESSAGE_REPLY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+    this._state.profilePage = ProfileReducer(this._state.profilePage, action as ProfileActionsType)
+    this._state.messagePage = DialogsReducer(this._state.messagePage, action as DialogsActionsType)
+    this._state.navbar = NavbarReducer(this._state.navbar, action)
+    this._callSubscriber();
+  }
+}
 
-export type ActionsType = ReturnType <typeof addPostActionCreator> |  
-                          ReturnType <typeof changeNewPostCreator> |
-                          ReturnType <typeof messageBodyCreator> |
-                          ReturnType <typeof sendMessageCreator>
-
-export const addPostActionCreator = () => ({type: 'ADD_POST'}) as const;
-export const changeNewPostCreator = (newText: string)  => ({type: 'UPDATE_TEXT', newText: newText}) as const
-export const messageBodyCreator = (messageBody: string) => ({type: 'MESSAGE_REPLY', messageBody: messageBody}) as const
-export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'}) as const
+export type ActionsType =  ProfileActionsType | DialogsActionsType
 
 export type StoreType = {
   _state: RootStateType
@@ -122,13 +99,15 @@ export type newPostType = {
   post: string;
   likes: 0;
 };
-type SidebarType = {};
+export type NavbarType = {};
+export type HeaderType = {}
 
 export type RootStateType = {
-  profilePage: ProfilePageType;
-  dialogsPage: DialogsPageType;
-  messagePage: MessagePageType;
-  sidebar: SidebarType;
+  profilePage: ProfilePageType
+  dialogsPage: DialogsPageType
+  messagePage: MessagePageType
+  navbar: NavbarType
+  header: HeaderType
 };
 
 export default store;

@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from "react";
-import { ActionsType, addPostActionCreator,changeNewPostCreator } from "../../../../redux/state";
+import {addPostActionCreator,changeNewPostCreator, ProfileActionsType } from "../../../../redux/ProfileReducer";
 
 export type addPostType = {
   //updateText: (newText: string) => void
   // addPost: (postMessage: string) => void
   newPostText: string
-  dispatch: (action: ActionsType) => void
+  dispatch: (action: ProfileActionsType) => void
 };
 
 
