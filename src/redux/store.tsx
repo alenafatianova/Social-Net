@@ -65,7 +65,6 @@ export type PostsType = {
   post: string;
   likes: number;
 };
-
 export type DialogsType = {
   id: number;
   name: string;
@@ -84,7 +83,6 @@ export type DialogsPageType = {
   messageData: Array<MessageType>
   newMessageTextBody: string
 };
-
 export type postMessageType = {
   // new post is here
   postMessage: newPostType;

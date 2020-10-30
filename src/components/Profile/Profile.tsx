@@ -31,11 +31,11 @@ export default function Profile(props: postsDataType) {
       />
      
       <MyPosts 
+      
       postsData={props.postsData} 
       newPostText={props.newPostText}
       dispatch={props.dispatch}
       />
-      
     </div>
   );
 }
