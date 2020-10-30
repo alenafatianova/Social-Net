@@ -22,15 +22,12 @@ export let store: StoreType = {
         { id: 6, name: "Jennisse" },
         { id: 7, name: "Phoebe" },
       ],
-    },
-    messagePage: {
       newMessageTextBody: "",
       messageData: [
         { id: 1, message: "Hi, whatsapp?" },
         { id: 2, message: "Go to the cinema tonight?" },
         { id: 3, message: "By the way, did you go to your aunt?" },
       ],
-      
     },
     navbar: {},
     header: {},
@@ -47,7 +44,7 @@ export let store: StoreType = {
   },
   dispatch(action) {
     this._state.profilePage = ProfileReducer(this._state.profilePage, action as ProfileActionsType)
-    this._state.messagePage = DialogsReducer(this._state.messagePage, action as DialogsActionsType)
+    this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action as DialogsActionsType)
     this._state.navbar = NavbarReducer(this._state.navbar, action)
     this._callSubscriber();
   }
@@ -83,12 +80,11 @@ export type ProfilePageType = {
   postsData: Array<PostsType>;
 };
 export type DialogsPageType = {
-  dialogsData: Array<DialogsType>;
-};
-export type MessagePageType = {
+  dialogsData: Array<DialogsType>
   messageData: Array<MessageType>
   newMessageTextBody: string
 };
+
 export type postMessageType = {
   // new post is here
   postMessage: newPostType;
@@ -105,7 +101,6 @@ export type HeaderType = {}
 export type RootStateType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType
-  messagePage: MessagePageType
   navbar: NavbarType
   header: HeaderType
 };

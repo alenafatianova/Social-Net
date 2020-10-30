@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import  store  from "./redux/store";
+import  store, { RootStateType }  from "./redux/store";
 
 
 
@@ -20,7 +20,8 @@ export const rerenderEntireTree = () => {
   );
 };
 
-store.subscribe(rerenderEntireTree);
+
 rerenderEntireTree();
+store.subscribe(rerenderEntireTree);
 
 ServiceWorker.unregister();

@@ -17,7 +17,6 @@ export type AppStateType = {
 }
 
 const App: React.FC<AppStateType> = (props) => {
-  console.log(props)
   return (
     <BrowserRouter>
     <div>
@@ -26,9 +25,9 @@ const App: React.FC<AppStateType> = (props) => {
       <Navbar/>
       <Route exact path='/dialogs' render={() => <Dialogs 
           dispatch={props.dispatch}
-          newMessageTextBody={props.appState.messagePage.newMessageTextBody}
+          newMessageTextBody={props.appState.dialogsPage.newMessageTextBody}
           dialogsData={props.appState.dialogsPage.dialogsData} 
-          messageData={props.appState.messagePage.messageData} /> }/>
+          messageData={props.appState.dialogsPage.messageData} /> }/>
       <Route exact path='/profile' render={() => <Profile  
           newPostText={props.appState.profilePage.newPostText}
           postsData={props.appState.profilePage.postsData} 

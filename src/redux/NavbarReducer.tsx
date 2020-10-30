@@ -1,6 +1,6 @@
-import React from 'react'
-import {NavbarType } from './store';
 
-export const  NavbarReducer = (state: NavbarType, action: any) => {
+let initialNavbarState = {}
+
+export const  NavbarReducer = (state = initialNavbarState, action: any) => {
     return state;
 }

@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.scss";
-import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogsActionsType, sendMessageCreator, messageBodyCreator} from '../../redux/DialogsReducer'
 import { DialogsType, MessageType,} from './../../redux/store'
@@ -11,7 +10,10 @@ export type dialogDataType = {
   newMessageTextBody: string
   dispatch: (action: DialogsActionsType) => void
 }
-
+type UserMessagePropsType = {
+  message: string
+  id: number
+}
 let newMessage = React.createRef<HTMLTextAreaElement>()
 
 export default function Dialogs(props: dialogDataType) {
@@ -46,10 +48,18 @@ export default function Dialogs(props: dialogDataType) {
         </div>
         </div>
       </div>
-     
-     <div>
-       
+     <div>  
      </div>
+    </div>
+  );
+}
+
+export  function Message(props: UserMessagePropsType) {
+  return (
+    <div>
+      <span className={classes.message}>
+        {props.message}
+        </span>
     </div>
   );
 }
