@@ -9,7 +9,8 @@ import Friends from './components/Friends/Friends';
 import Music from './components/Music/Music';
 import Photos from './components/Photos/Photos'
 import Settings from './components/Settings/Settings';
-import {RootStateType, ActionsType}  from './redux/store'
+import store, {RootStateType, ActionsType}  from './redux/store'
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 export type AppStateType = {
   appState: RootStateType
@@ -23,16 +24,8 @@ const App: React.FC<AppStateType> = (props) => {
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <Dialogs 
-          dispatch={props.dispatch}
-          newMessageTextBody={props.appState.dialogsPage.newMessageTextBody}
-          dialogsData={props.appState.dialogsPage.dialogsData} 
-          messageData={props.appState.dialogsPage.messageData} /> }/>
-      <Route exact path='/profile' render={() => <Profile  
-          newPostText={props.appState.profilePage.newPostText}
-          postsData={props.appState.profilePage.postsData} 
-          dispatch={props.dispatch}
-          /> }/>
+      <Route exact path='/dialogs' render={() => <DialogsContainer/> }/>
+      <Route exact path='/profile' render={() => <Profile /> }/>
       <Route exact path='/friends' render={() => <Friends/>}/>
       <Route exact path='/music' render={() => <Music/>}/>
       <Route exact path='/photos' render={() => <Photos/>}/>

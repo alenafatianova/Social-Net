@@ -31,7 +31,6 @@ export let store: StoreType = {
     },
     navbar: {},
     header: {},
-
   },
   getState() {
     return this._state;
@@ -49,9 +48,7 @@ export let store: StoreType = {
     this._callSubscriber();
   }
 }
-
 export type ActionsType =  ProfileActionsType | DialogsActionsType
-
 export type StoreType = {
   _state: RootStateType
   _callSubscriber: () => void
@@ -59,7 +56,6 @@ export type StoreType = {
   subscribe: (observer: () => void) => void
   dispatch: (action: ActionsType) => void
 };
-
 export type PostsType = {
   id: number;
   post: string;
@@ -95,7 +91,6 @@ export type newPostType = {
 };
 export type NavbarType = {};
 export type HeaderType = {}
-
 export type RootStateType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType

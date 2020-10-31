@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./Profile.module.scss";
-import MyPosts from "./MyPosts/MyPosts";
+import MyPostsContainer from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo";
-import {ProfileActionsType} from '../../redux/ProfileReducer'
-import {PostsType} from './../../redux/store'
+import store, {PostsType, StoreType} from './../../redux/store'
+import { ProfileActionsType } from "../../redux/ProfileReducer";
+
 
 const profileInfo = {
   name: 'Alisa',
@@ -13,29 +14,27 @@ const profileInfo = {
 }
 
 export type postsDataType = {
-  postsData: Array<PostsType>
-  newPostText: string
-  dispatch: (action: ProfileActionsType) => void
-  
+  updateText: (newText: string) => void
+  addPost: () => void
 }
 
-export default function Profile(props: postsDataType) {
+export default function Profile (props: postsDataType) {
   return (
     <div className={classes.mainContent}>
       
-      <ProfileInfo 
-      name={profileInfo.name} 
-      surname={profileInfo.surname} 
-      age={profileInfo.age} 
-      city={profileInfo.city}
-      />
-     
-      <MyPosts 
-      
-      postsData={props.postsData} 
-      newPostText={props.newPostText}
-      dispatch={props.dispatch}
-      />
+    <ProfileInfo 
+             name={profileInfo.name} 
+             surname={profileInfo.surname} 
+             age={profileInfo.age} 
+             city={profileInfo.city}
+    />
+    <MyPostsContainer 
+          newPostText={store._state.profilePage.newPostText}
+          postsData={store._state.profilePage.postsData} 
+          dispatch={store.dispatch}
+          store={store}
+          updateText={props.updateText}
+          addPost={props.addPost} />
     </div>
   );
 }
