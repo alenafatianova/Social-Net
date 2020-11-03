@@ -1,3 +1,4 @@
+import { connect } from "http2";
 import React, {ChangeEvent} from "react";
 import {sendMessageCreator, messageBodyCreator} from '../../redux/DialogsReducer'
 import store from '../../redux/store'
@@ -19,3 +20,4 @@ export default function DialogsContainer () {
     messageBody={onNewMessageChange} 
     sendMessage={sendMessageOnClick}/>
 }
+

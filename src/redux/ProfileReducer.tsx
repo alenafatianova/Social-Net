@@ -14,7 +14,7 @@ let initialProfileState = {
 
 export const ProfileReducer = (state = initialProfileState, action:ProfileActionsType) => {
     switch(action.type) {
-    case 'ADD_POST': 
+    case ADD_POST: 
     const newPost: newPostType = {
         id: 5,
         post: state.newPostText,
@@ -23,7 +23,7 @@ export const ProfileReducer = (state = initialProfileState, action:ProfileAction
         state.postsData.unshift(newPost);
         state.newPostText = "";
         return state
-        case 'UPDATE_TEXT': 
+        case UPDATE_TEXT: 
         state.newPostText = action.newText;
         return state 
         default:
@@ -31,5 +31,5 @@ export const ProfileReducer = (state = initialProfileState, action:ProfileAction
     }
 }
 export type ProfileActionsType = ReturnType <typeof addPostActionCreator> | ReturnType <typeof changeNewPostCreator> 
-export const addPostActionCreator = () => ({type: 'ADD_POST'}) as const;
-export const changeNewPostCreator = (newText: string)  => ({type: 'UPDATE_TEXT', newText: newText}) as const
+export const addPostActionCreator = () => ({type: ADD_POST}) as const;
+export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}) as const

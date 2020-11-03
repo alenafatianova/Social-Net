@@ -23,9 +23,8 @@ export default function Dialogs (props: dialogDataType) {
   let messagesElements = props.messageData.map(message => <Message message={message.message} id={message.id} /> )
   let newMessageBody = newMessage.current?.value
 
-  let sendMessageOnClick = () => {
-    props.sendMessage();
-  }
+  let sendMessageOnClick = props.sendMessage
+    
   let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.messageBody(e) 
   }
