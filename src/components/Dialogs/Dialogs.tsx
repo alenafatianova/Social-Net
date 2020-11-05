@@ -1,14 +1,11 @@
 import React, {ChangeEvent} from "react";
 import classes from "./Dialogs.module.scss";
-import DialogItem from "./DialogItem/DialogItem";
-import {DialogsActionsType, sendMessageCreator, messageBodyCreator} from '../../redux/DialogsReducer'
-import store, { DialogsType, MessageType,} from './../../redux/store'
+import DialogItem from "./DialogItem/DialogItem"
+import { DialogsType, MessageType,} from './../../redux/store'
 
 export type dialogDataType = {
   dialogsData: Array<DialogsType>
   messageData: Array<MessageType>
-  newMessageTextBody: string
-  dispatch: (action: DialogsActionsType) => void
   messageBody: (e: ChangeEvent<HTMLTextAreaElement>) => void
   sendMessage: () => void
 }
@@ -19,6 +16,7 @@ type UserMessagePropsType = {
   let newMessage = React.createRef<HTMLTextAreaElement>()
  
 export default function Dialogs (props: dialogDataType) {
+  
   let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem name={dialog.name} id={dialog.id} /> ); 
   let messagesElements = props.messageData.map(message => <Message message={message.message} id={message.id} /> )
   let newMessageBody = newMessage.current?.value
@@ -39,7 +37,7 @@ export default function Dialogs (props: dialogDataType) {
         <textarea 
           ref={newMessage} 
           placeholder='Enter your message here'
-          value={props.newMessageTextBody}
+          value={newMessageBody}
           onChange={onNewMessageChange}>
           </textarea>
         </div>

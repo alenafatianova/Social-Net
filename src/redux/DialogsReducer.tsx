@@ -1,6 +1,6 @@
 import { DialogsPageType } from "./store";
 const MESSAGE_REPLY = 'MESSAGE_REPLY';
-const SEND_MESSAGE = 'SEND-MESSAGE'; 
+const SEND_MESSAGE = 'SEND_MESSAGE'; 
 
 let initialDialogsStore = {
     dialogsData: [
@@ -21,10 +21,10 @@ let initialDialogsStore = {
   }
 export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType) => {
     switch(action.type) {
-        case 'MESSAGE_REPLY': 
+        case MESSAGE_REPLY: 
         state.newMessageTextBody = action.messageBody;
         return state;
-        case 'SEND_MESSAGE': 
+        case SEND_MESSAGE: 
         let messageBody = state.newMessageTextBody;
         state.messageData.push({id: 6, message: messageBody})
         state.newMessageTextBody = '';

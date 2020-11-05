@@ -1,23 +1,25 @@
-import { connect } from "http2";
-import React, {ChangeEvent} from "react";
+import { connect } from 'react-redux';
+import {ChangeEvent} from "react";
 import {sendMessageCreator, messageBodyCreator} from '../../redux/DialogsReducer'
-import store from '../../redux/store'
+import {ActionsType, RootStateType} from '../../redux/store'
 import Dialogs from "./Dialogs";
 
-export default function DialogsContainer () {
 
-  let sendMessageOnClick = () => {
-    store.dispatch(sendMessageCreator())
+let mapStateToProps = (state: RootStateType) => {
+  return {
+    dialogsData: state.dialogsPage.dialogsData,
+    messageData: state.dialogsPage.messageData
+    
   }
-  let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    store.dispatch(messageBodyCreator(e.currentTarget.value))
-  }
-  return <Dialogs 
-    dispatch={store.dispatch}
-    newMessageTextBody={store._state.dialogsPage.newMessageTextBody}
-    dialogsData={store._state.dialogsPage.dialogsData} 
-    messageData={store._state.dialogsPage.messageData}
-    messageBody={onNewMessageChange} 
-    sendMessage={sendMessageOnClick}/>
 }
-
+let mapDispatchToProps = (dispatch: (actions: ActionsType)=> void) => {
+  return {
+    sendMessage: () => {
+      dispatch(sendMessageCreator())
+    },
+    messageBody: (e: ChangeEvent<HTMLTextAreaElement>) => {
+      dispatch(messageBodyCreator(e.currentTarget.value))
+    }
+  }
+}
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

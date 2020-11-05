@@ -27,11 +27,7 @@ export default function Profile (props: postsDataType) {
              age={profileInfo.age} 
              city={profileInfo.city}
     />
-    <MyPostsContainer 
-          newPostText={props.profilePage.newPostText}
-          postsData={props.profilePage.postsData} 
-          dispatch={props.dispatch}
-        />
+    <MyPostsContainer  />
     </div>
   );
 }
