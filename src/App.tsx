@@ -12,18 +12,23 @@ import Settings from './components/Settings/Settings';
 import {RootStateType, ActionsType, StoreType}  from './redux/store'
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
+// export type AppStateType = {
+//   state: RootStateType
+//   dispatch: (action: ActionsType) => void 
+//   store: StoreType
+// }
 
-
-const App: React.FC = () => {
+const App: React.FC = (props) => {
   return (
     <BrowserRouter>
     <div>
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <DialogsContainer /> }
+      <Route exact path='/dialogs' render={() => <DialogsContainer 
+           /> }
           />
-      <Route exact path='/profile' render={() => <Profile   /> }/>
+      <Route exact path='/profile' render={() => <Profile  /> }/>
       <Route exact path='/friends' render={() => <Friends/>}/>
       <Route exact path='/music' render={() => <Music/>}/>
       <Route exact path='/photos' render={() => <Photos/>}/>

@@ -12,12 +12,13 @@ const profileInfo = {
   city: 'New York'
 }
 
-export type postsDataType = {
-  profilePage: ProfilePageType
-  dispatch: (action: ProfileActionsType) => void
-}
+// export type postsDataType = {
+//   profilePage: ProfilePageType
+//   dispatch: (action: ProfileActionsType) => void
+// }
 
-export default function Profile (props: postsDataType) {
+export default function Profile () {
+  
   return (
     <div className={classes.mainContent}>
       
