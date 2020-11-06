@@ -19,15 +19,20 @@ export const ProfileReducer = (state = initialProfileState, action:ProfileAction
         id: 5,
         post: state.newPostText,
         likes: 0,
-    }
-        state.postsData.unshift(newPost);
-        state.newPostText = "";
-        return state
-        case UPDATE_TEXT: 
-        state.newPostText = action.newText;
-        return state 
+    };
+    let stateCopy = {...state}
+        stateCopy.postsData = [...state.postsData];
+        stateCopy.postsData.unshift(newPost);
+        stateCopy.newPostText = "";
+        return stateCopy;
+        case UPDATE_TEXT: {
+        let stateCopy = {...state}
+        stateCopy.newPostText = action.newText;
+        return stateCopy;
+        }
         default:
             return state;
+      
     }
 }
 export type ProfileActionsType = ReturnType <typeof addPostActionCreator> | ReturnType <typeof changeNewPostCreator> 
