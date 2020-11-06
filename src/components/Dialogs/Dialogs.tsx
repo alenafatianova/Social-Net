@@ -21,7 +21,7 @@ export default function Dialogs (props: dialogDataType) {
   
   let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} /> ); 
   let messagesElements = props.messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> )
-  let newMessageBody = newMessage.current?.value
+  //let newMessageBody = newMessage.current?.value
 
   let sendMessageOnClick = props.sendMessage
     
