@@ -18,16 +18,14 @@ import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 //   store: StoreType
 // }
 
-const App: React.FC = (props) => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
     <div>
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <DialogsContainer 
-           /> }
-          />
+      <Route exact path='/dialogs' render={() => <DialogsContainer /> }/>
       <Route exact path='/profile' render={() => <Profile  /> }/>
       <Route exact path='/friends' render={() => <Friends/>}/>
       <Route exact path='/music' render={() => <Music/>}/>

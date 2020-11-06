@@ -1,4 +1,4 @@
-import { DialogsPageType } from "./store";
+
 const MESSAGE_REPLY = 'MESSAGE_REPLY';
 const SEND_MESSAGE = 'SEND_MESSAGE'; 
 
@@ -12,28 +12,29 @@ let initialDialogsStore = {
       { id: 6, name: "Jennisse" },
       { id: 7, name: "Phoebe" },
     ],
-    newMessageTextBody: "",
     messageData: [
       { id: 1, message: "Hi, whatsapp?" },
       { id: 2, message: "Go to the cinema tonight?" },
       { id: 3, message: "By the way, did you go to your aunt?" },
     ],
+    newMessageTextBody: ''
   }
 export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType) => {
-    switch(action.type) {
-        
+  
+  let stateCopy = {
+    ...state,
+    messageData: [...state.messageData]
+  }  
+  switch(action.type) {  
       case MESSAGE_REPLY: 
-        let stateCopy = {...state}
         stateCopy.newMessageTextBody = action.messageBody;
         return stateCopy;
         
         case SEND_MESSAGE: {
-        let stateCopy = {...state}
-        stateCopy.messageData = [...state.messageData]
-        let messageBody = stateCopy.newMessageTextBody;
-        stateCopy.messageData.push({id: 6, message: messageBody})
-        stateCopy.newMessageTextBody = '';
-        return stateCopy;
+          let messageBody = stateCopy.newMessageTextBody;
+          stateCopy.newMessageTextBody = '';
+          stateCopy.messageData.push({id: 6, message: messageBody})
+          return stateCopy;
         }
         default: 
         return state;

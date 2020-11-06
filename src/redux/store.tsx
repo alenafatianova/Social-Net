@@ -36,7 +36,6 @@ export let store: StoreType = {
     return this._state;
   },
   _callSubscriber() {
-    console.log("state changed");
   },
   subscribe(observer) {
     this._callSubscriber = observer;
