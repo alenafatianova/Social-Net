@@ -24,10 +24,10 @@ const App: React.FC = () => {
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <DialogsContainer /> }/>
-      <Route exact path='/profile' render={() => <Profile  /> }/>
-      <Route exact path='/friends' render={() => <Friends/>}/>
-      <Route exact path='/users' render={() => <Users/>}/>
+      <Route exact path='/dialogs' render={() => <DialogsContainer/> }/>
+      <Route exact path='/profile' render={() => <Profile/> }/>
+      <Route exact path='/friends' render={() => <Friends/> }/>
+      <Route exact path='/users' render={() => <Users users={users}/> }/>
       <Route exact path='/music' render={() => <Music/>}/>
       <Route exact path='/photos' render={() => <Photos/>}/>
       <Route exact path='/settings' render={() => <Settings/>}/>
