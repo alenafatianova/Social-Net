@@ -2,8 +2,7 @@ import React from "react";
 import classes from "./Profile.module.scss";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo";
-import {ProfilePageType} from './../../redux/store'
-import { ProfileActionsType } from "../../redux/ProfileReducer";
+
 
 const profileInfo = {
   name: 'Alisa',
