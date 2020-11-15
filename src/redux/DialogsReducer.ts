@@ -19,7 +19,7 @@ let initialDialogsStore = {
     ],
     newMessageTextBody: ''
   }
-export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType) => {
+export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType): InitialStateType => {
   switch(action.type) {  
       case MESSAGE_REPLY: 
       return  {
@@ -42,3 +42,4 @@ export const messageBodyCreator = (messageBody: string) => ({type: 'MESSAGE_REPL
 export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'}) as const
 
 export type DialogsActionsType = ReturnType <typeof messageBodyCreator> | ReturnType <typeof sendMessageCreator>
+export type InitialStateType = typeof initialDialogsStore

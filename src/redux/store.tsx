@@ -1,6 +1,7 @@
 import {DialogsReducer, DialogsActionsType} from "./DialogsReducer";
 import {ProfileReducer, ProfileActionsType} from "./ProfileReducer";
 import {NavbarReducer} from "./NavbarReducer"
+import { UsersActionType, UsersReducer } from "./UsersReducer";
 
 export let store: StoreType = {
   _state: {
@@ -47,7 +48,7 @@ export let store: StoreType = {
     this._callSubscriber();
   }
 }
-export type ActionsType =  ProfileActionsType | DialogsActionsType
+export type ActionsType =  ProfileActionsType | DialogsActionsType 
 export type StoreType = {
   _state: RootStateType
   _callSubscriber: () => void
@@ -66,8 +67,7 @@ export type DialogsType = {
 };
 export type MessageType = {
   id: number;
-  message: string;
-  
+  message: string; 
 };
 export type ProfilePageType = {
   newPostText: string;

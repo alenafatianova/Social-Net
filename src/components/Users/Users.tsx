@@ -1,21 +1,49 @@
+import axios  from 'axios'
 import React from 'react'
+import { UsersListType } from '../../redux/UsersReducer'
+import style from './Users.module.scss'
+import userAvatar from '../../assets/images/userAvatar.jpg'
 
-type UsersPropsType = {
-    users: UsersType[]
-}
-type UsersType = {
-    id: number
-    name: string
-    country: string
-    city: string
-    age: number
-    status: string
+export type UsersPropsType = {
+    addUser: (userID: number) => void
+    deleteUser: (userID: number) => void
+    users: Array<UsersListType>
+    setUsers: (users: Array<UsersListType>) => void
+
 }
 
 export default function Users(props: UsersPropsType) {
+   if (props.users.length ===  0) {
+       axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        props.setUsers(response.data.items)
+       })
+    
+   }
     return (
         <div>
-            
+            {
+            props.users.map(u => 
+                <div key={u.id}>
+                    <span>
+                        <div>
+                            <img className={style.img} src={u.photos.small != null ? u.photos.small : userAvatar}/>
+                        </div>
+                        <div>
+                            {u.followed 
+                            ? <button onClick={() => props.addUser(u.id)}>Add to friends</button> 
+                            : <button onClick={() => props.deleteUser(u.id)}>Your friend</button>}
+                        </div>
+                    </span>
+                    <span>
+                        <div>
+                            <div>{u.name}</div>
+                            <div>{u.status}</div>
+                        </div>
+                        <div>{'u.location.country'}</div>
+                        <div>{'u.location.city'}</div>
+                    </span>
+                </div>)
+            }
         </div>
     )
 }
