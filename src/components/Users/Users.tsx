@@ -7,22 +7,25 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 export type UsersPropsType = {
     addUser: (userID: number) => void
     deleteUser: (userID: number) => void
-    users: Array<UsersListType>
-    setUsers: (users: Array<UsersListType>) => void
 
+    setUsers: (users: Array<UsersListType>) => void
+    usersArray: Array<UsersListType>
 }
 
 export default function Users(props: UsersPropsType) {
-   if (props.users.length ===  0) {
-       axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-        props.setUsers(response.data.items)
-       })
-    
+   
+    let getUsers = () => {
+    if (props.usersArray.length ===  0) {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+         props.setUsers(response.data.items)
+        })
    }
+}
     return (
         <div>
+            <button onClick={getUsers}>GET USERS</button>
             {
-            props.users.map(u => 
+            props.usersArray.map(u => 
                 <div key={u.id}>
                     <span>
                         <div>

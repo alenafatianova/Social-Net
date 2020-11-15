@@ -1,9 +1,9 @@
-import Users from './Users'
+import  Users from './Users'
 import {connect} from 'react-redux'
+
 import {addUserAC, deleteUserAC, setUsersAC, UsersActionType} from '../../redux/UsersReducer'
 import { StateType } from '../../redux/reduxStore'
 import {UsersListType} from '../../redux/UsersReducer'
-
 
 let mapStateToProps = (state: StateType) => {
     return {
@@ -18,8 +18,8 @@ let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
         deleteUser: (userID: number) => {
             dispatch(deleteUserAC(userID))
         },
-        setUsers: (users: Array<UsersListType>) => {
-            dispatch(setUsersAC(users))
+        setUsers: (usersArray: Array<UsersListType>) => {
+            dispatch(setUsersAC(usersArray))
         }
     }
 }

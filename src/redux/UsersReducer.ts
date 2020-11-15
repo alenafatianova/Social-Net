@@ -14,6 +14,7 @@ export type UsersListType = {
     age: number
     location: {country: string, city: string}
     status: string
+    photos: {small: string, large: string}
 }
 const InitialUsersState: UsersType = {
     users: [] as Array<UsersListType>
