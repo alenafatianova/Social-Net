@@ -1,6 +1,5 @@
-import  Users from './Users'
+import  {Users} from './UsersClassComponent'
 import {connect} from 'react-redux'
-
 import {addUserAC, deleteUserAC, setUsersAC, UsersActionType} from '../../redux/UsersReducer'
 import { StateType } from '../../redux/reduxStore'
 import {UsersListType} from '../../redux/UsersReducer'

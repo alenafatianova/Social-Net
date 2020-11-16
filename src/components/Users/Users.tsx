@@ -7,7 +7,6 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 export type UsersPropsType = {
     addUser: (userID: number) => void
     deleteUser: (userID: number) => void
-
     setUsers: (users: Array<UsersListType>) => void
     usersArray: Array<UsersListType>
 }
