@@ -11,7 +11,11 @@ export type UsersPropsType = {
     usersArray: Array<UsersListType>
 }
 
-export class Users extends React.Component<{}, > {
+export class Users extends React.Component<{
+    addUser: (userID: number) => void, 
+    deleteUser: (userID: number) => void,
+    setUsers: (users: Array<UsersListType>) => void,
+    usersArray: Array<UsersListType>}, {}> {
 
     constructor(props: UsersPropsType) {
         super(props) 
@@ -19,17 +23,11 @@ export class Users extends React.Component<{}, > {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
              this.props.setUsers(response.data.items)
             })
-        
-}
-
-    getUsers = () => {
-        
-       }
-
+        }
+    }
     render () {
         return (
             <div>
-                <button onClick={this.getUsers}>GET USERS</button>
                 {
                 this.props.usersArray.map(u => 
                     <div key={u.id}>
