@@ -11,11 +11,6 @@ import Settings from './components/Settings/Settings';
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {UsersContainer} from './components/Users/UsersContainer'
 
-// export type AppStateType = {
-//   state: RootStateType
-//   dispatch: (action: ActionsType) => void 
-//   store: StoreType
-// }
 
 const App: React.FC = () => {
   return (

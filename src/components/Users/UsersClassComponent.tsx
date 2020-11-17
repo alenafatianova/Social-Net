@@ -2,24 +2,24 @@ import React from 'react'
 import style from './Users.module.scss'
 import axios from 'axios'
 import userAvatar from '../../assets/images/userAvatar.jpg'
-import { UsersListType } from '../../redux/UsersReducer'
+import { UsersType } from '../../redux/UsersReducer'
 
-export type UsersPropsType = {
+export type  ClassPropsType = {
     addUser: (userID: number) => void
     deleteUser: (userID: number) => void
-    setUsers: (users: Array<UsersListType>) => void
-    usersArray: Array<UsersListType>
+    setUsers: (users: Array<UsersType>) => void
+    users: Array<UsersType>  
 }
 
 export class Users extends React.Component<{
     addUser: (userID: number) => void, 
     deleteUser: (userID: number) => void,
-    setUsers: (users: Array<UsersListType>) => void,
-    usersArray: Array<UsersListType>}, {}> {
+    setUsers: (users: Array<UsersType>) => void,
+    users: Array<UsersType>}, {}> {
 
-    constructor(props: UsersPropsType) {
+    constructor(props: ClassPropsType) {
         super(props) 
-         if (this.props.usersArray.length ===  0) {
+         if (this.props.users.length ===  0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
              this.props.setUsers(response.data.items)
             })
@@ -29,7 +29,7 @@ export class Users extends React.Component<{
         return (
             <div>
                 {
-                this.props.usersArray.map(u => 
+                this.props.users.map(u => 
                     <div key={u.id}>
                         <span>
                             <div>
