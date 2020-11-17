@@ -7,7 +7,11 @@ import {UsersType} from '../../redux/UsersReducer'
 type mapStatePropsType = {
     users: Array<UsersType>
 }
-type mapDispatchPropsType = {}
+type mapDispatchPropsType = {
+    addUser: (id: number) => void
+    deleteUser: (id: number) => void
+    setUsers: (users: Array<UsersType>) => void
+}
 
 let mapStateToProps = (state: StateType) => {
     return {
@@ -16,11 +20,11 @@ let mapStateToProps = (state: StateType) => {
 }
 let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
     return {
-        addUser: (userID: number) => {
-            dispatch(addUserAC(userID))
+        addUser: (id: number) => {
+            dispatch(addUserAC(id))
         },
-        deleteUser: (userID: number) => {
-            dispatch(deleteUserAC(userID))
+        deleteUser: (id: number) => {
+            dispatch(deleteUserAC(id))
         },
         setUsers: (users: Array<UsersType>) => {
             dispatch(setUsersAC(users))

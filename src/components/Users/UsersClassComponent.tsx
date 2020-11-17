@@ -5,15 +5,15 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 import { UsersType } from '../../redux/UsersReducer'
 
 export type  ClassPropsType = {
-    addUser: (userID: number) => void
-    deleteUser: (userID: number) => void
+    addUser: (id: number) => void
+    deleteUser: (id: number) => void
     setUsers: (users: Array<UsersType>) => void
     users: Array<UsersType>  
 }
 
 export class Users extends React.Component<{
-    addUser: (userID: number) => void, 
-    deleteUser: (userID: number) => void,
+    addUser: (id: number) => void, 
+    deleteUser: (id: number) => void,
     setUsers: (users: Array<UsersType>) => void,
     users: Array<UsersType>}, {}> {
 
@@ -29,16 +29,16 @@ export class Users extends React.Component<{
         return (
             <div>
                 {
-                this.props.users.map(u => 
-                    <div key={u.id}>
+                this.props.users.map(u => <div key={u.id}>
                         <span>
                             <div>
                                 <img className={style.img} src={u.photos.small != null ? u.photos.small : userAvatar}/>
                             </div>
                             <div>
                                 {u.followed 
-                                ? <button onClick={() => this.props.addUser(u.id)}>Add to friends</button> 
-                                : <button onClick={() => this.props.deleteUser(u.id)}>Your friend</button>}
+                                ? <button onClick={() => this.props.deleteUser(u.id)}>Delete</button>
+                                :<button onClick={() => this.props.addUser(u.id)}>Add</button> 
+                                }
                             </div>
                         </span>
                         <span>

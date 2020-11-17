@@ -40,8 +40,8 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
         case DELETE_USER: {
            return  {
                 ...state,
-                users: state.users.map( u => {
-                    if(u.id === action.userID) {
+                users: state.users.map(u => {
+                    if (u.id === action.userID) {
                         return {...u, followed: false}
                     }
                     return u
@@ -51,8 +51,7 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
         case SET_USERS: {
             return {
                 ...state, 
-                users: action.users
-                    
+                users: action.users   
             }
         }
         default: 
@@ -60,9 +59,9 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
     }
 }
 
-export const deleteUserAC = (userID: number) => ({type: DELETE_USER, userID}) as const
-export const addUserAC = (userID: number) => ({type: ADD_USER, userID}) as const
-export const setUsersAC = (users: Array<UsersType>) => ({type: SET_USERS, users}) as const
+export const deleteUserAC = (id: number) => ({type: DELETE_USER, userID: id} as const) 
+export const addUserAC = (id: number) => ({type: ADD_USER, userID: id} as const) 
+export const setUsersAC = (users: Array<UsersType>) => ({type: SET_USERS, users} as const) 
 
 export type UsersActionType = 
             ReturnType <typeof deleteUserAC> | 
