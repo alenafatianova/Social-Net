@@ -1,6 +1,6 @@
 import  {Users} from './UsersClassComponent'
 import {connect} from 'react-redux'
-import {addUserAC, deleteUserAC, setUsersAC, UsersActionType} from '../../redux/UsersReducer'
+import {addUserAC, deleteUserAC, setUsersAC, UsersActionType, setCurrentPageAC} from '../../redux/UsersReducer'
 import { StateType } from '../../redux/reduxStore'
 import {UsersType} from '../../redux/UsersReducer'
 
@@ -22,6 +22,9 @@ let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
         },
         setUsers: (users: Array<UsersType>) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage: (currentPage: number) => {
+            dispatch(setCurrentPageAC(currentPage))
         }
     }
 }
