@@ -12,14 +12,14 @@ export type  ClassPropsType = {
 }
 
 export class Users extends React.Component<{
+    
     addUser: (id: number) => void, 
     deleteUser: (id: number) => void,
     setUsers: (users: Array<UsersType>) => void,
     users: Array<UsersType>}, {}> {
 
-    constructor(props: ClassPropsType) {
-        super(props) 
-         if (this.props.users.length ===  0) {
+    componentDidMount() {
+        if (this.props.users.length ===  0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
              this.props.setUsers(response.data.items)
             })
