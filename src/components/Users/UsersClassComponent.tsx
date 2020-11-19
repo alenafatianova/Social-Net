@@ -11,6 +11,7 @@ export type  ClassPropsType = {
     users: Array<UsersType> 
     totalUsersCount: number 
     pageSize: number
+    currentPage: number
 }
 
 export class Users extends React.Component<{
@@ -19,7 +20,8 @@ export class Users extends React.Component<{
     setUsers: (users: Array<UsersType>,) => void,
     users: Array<UsersType>,
     totalUsersCount: number,
-    pageSize: number
+    pageSize: number,
+    currentPage: number
     }, {}> 
     
     {
@@ -30,24 +32,29 @@ export class Users extends React.Component<{
             })
         }
     }
+    
     render () {
 
         let pagesCount = this.props.totalUsersCount / this.props.pageSize
 
+        let pages = []
+        for (let i = 1; i <= pagesCount; i ++ ) {
+            pages.push(i);
+        }
+        
         return (
             <div>
                 <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span className={style.selectedPage}>3</span>
-                    <span>4</span>
-                    <span>5</span>
+                    {pages.map(p => {
+                       return  <span className={this.props.currentPage === p ? style.selectedPage : ''}>{p}</span>
+                    })}
+                    
                 </div>
                 {
                 this.props.users.map(u => <div key={u.id}>
                         <span>
                             <div>
-                                <img className={style.img} src={u.photos.small != null ? u.photos.small : userAvatar}/>
+                                <img alt="user-avatar" className={style.img} src={u.photos.small != null ? u.photos.small : userAvatar}/>
                             </div>
                             <div>
                                 {u.followed 

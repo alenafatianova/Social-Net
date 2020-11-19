@@ -19,12 +19,14 @@ export type InitialStateType = {
     users: Array<UsersType>
     pageSize: number
     totalUsersCount: number
+    currentPage: number
 }
 
 const InitialUsersState: InitialStateType = {
     users: [] as Array<UsersType>,
     pageSize: 5,
-    totalUsersCount: 5
+    totalUsersCount: 15,
+    currentPage: 1
 }
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {

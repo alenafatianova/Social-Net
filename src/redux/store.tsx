@@ -1,7 +1,7 @@
 import {DialogsReducer, DialogsActionsType} from "./DialogsReducer";
 import {ProfileReducer, ProfileActionsType} from "./ProfileReducer";
 import {NavbarReducer} from "./NavbarReducer"
-import { UsersActionType, UsersReducer } from "./UsersReducer";
+
 
 export let store: StoreType = {
   _state: {

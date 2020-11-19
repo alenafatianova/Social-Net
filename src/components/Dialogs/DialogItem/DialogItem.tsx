@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./DialogItem.module.scss";
 import { NavLink } from "react-router-dom";
-import { UrlObject } from "url";
 
 type namePropsType = {
     name: string
