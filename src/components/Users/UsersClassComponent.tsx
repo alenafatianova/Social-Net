@@ -8,16 +8,21 @@ export type  ClassPropsType = {
     addUser: (id: number) => void
     deleteUser: (id: number) => void
     setUsers: (users: Array<UsersType>) => void
-    users: Array<UsersType>  
+    users: Array<UsersType> 
+    totalUsersCount: number 
+    pageSize: number
 }
 
 export class Users extends React.Component<{
-    
     addUser: (id: number) => void, 
     deleteUser: (id: number) => void,
-    setUsers: (users: Array<UsersType>) => void,
-    users: Array<UsersType>}, {}> {
-
+    setUsers: (users: Array<UsersType>,) => void,
+    users: Array<UsersType>,
+    totalUsersCount: number,
+    pageSize: number
+    }, {}> 
+    
+    {
     componentDidMount() {
         if (this.props.users.length ===  0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
@@ -26,8 +31,18 @@ export class Users extends React.Component<{
         }
     }
     render () {
+
+        let pagesCount = this.props.totalUsersCount / this.props.pageSize
+
         return (
             <div>
+                <div>
+                    <span>1</span>
+                    <span>2</span>
+                    <span className={style.selectedPage}>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                </div>
                 {
                 this.props.users.map(u => <div key={u.id}>
                         <span>

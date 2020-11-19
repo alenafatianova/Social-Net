@@ -4,18 +4,11 @@ import {addUserAC, deleteUserAC, setUsersAC, UsersActionType} from '../../redux/
 import { StateType } from '../../redux/reduxStore'
 import {UsersType} from '../../redux/UsersReducer'
 
-type mapStatePropsType = {
-    users: Array<UsersType>
-}
-type mapDispatchPropsType = {
-    addUser: (id: number) => void
-    deleteUser: (id: number) => void
-    setUsers: (users: Array<UsersType>) => void
-}
-
 let mapStateToProps = (state: StateType) => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount
     }
 }
 let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
