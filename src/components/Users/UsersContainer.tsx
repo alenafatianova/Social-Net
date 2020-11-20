@@ -1,6 +1,8 @@
 import  {Users} from './UsersClassComponent'
 import {connect} from 'react-redux'
-import {addUserAC, deleteUserAC, setUsersAC, UsersActionType, setCurrentPageAC} from '../../redux/UsersReducer'
+import {addUserAC, deleteUserAC, 
+        setUsersAC, UsersActionType, 
+        setCurrentPageAC, setTotalUsersCountAC } from '../../redux/UsersReducer'
 import { StateType } from '../../redux/reduxStore'
 import {UsersType} from '../../redux/UsersReducer'
 
@@ -8,7 +10,7 @@ let mapStateToProps = (state: StateType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
+        totalUsersCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage
     }
 }
@@ -25,7 +27,10 @@ let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
         },
         setCurrentPage: (currentPage: number) => {
             dispatch(setCurrentPageAC(currentPage))
-        }
+        },
+         setTotalUsersCount: (totalCount: number) => {
+            dispatch(setTotalUsersCountAC(totalCount))
+         }
     }
 }
 export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)
