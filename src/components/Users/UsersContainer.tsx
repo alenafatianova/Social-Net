@@ -1,4 +1,4 @@
-import  {Users} from './UsersClassComponent'
+import  {UsersAPIComponent} from './UsersAPIComponent'
 import {connect} from 'react-redux'
 import {addUserAC, deleteUserAC, 
         setUsersAC, UsersActionType, 
@@ -33,4 +33,4 @@ let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
          }
     }
 }
-export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersAPIComponent)
