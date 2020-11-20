@@ -88,17 +88,17 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
     }
 }
 
-export const deleteUserAC = (id: number) => ({type: DELETE_USER, userID: id} as const) 
-export const addUserAC = (id: number) => ({type: ADD_USER, userID: id} as const) 
-export const setUsersAC = (users: Array<UsersType>) => ({type: SET_USERS, users} as const) 
-export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
-export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
-export const setPreloaderAC = (isFetching: boolean) => ({type: SET_PRELOADER, isFetching} as const)
+export const deleteUser = (id: number) => ({type: DELETE_USER, userID: id} as const) 
+export const addUser = (id: number) => ({type: ADD_USER, userID: id} as const) 
+export const setUsers = (users: Array<UsersType>) => ({type: SET_USERS, users} as const) 
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
+export const setPreloader = (isFetching: boolean) => ({type: SET_PRELOADER, isFetching} as const)
 
 export type UsersActionType = 
-            ReturnType <typeof deleteUserAC> | 
-            ReturnType <typeof addUserAC> | 
-            ReturnType <typeof setUsersAC> |
-            ReturnType <typeof setCurrentPageAC> |
-            ReturnType <typeof setTotalUsersCountAC> |
-            ReturnType <typeof setPreloaderAC>
+            ReturnType <typeof deleteUser> | 
+            ReturnType <typeof addUser> | 
+            ReturnType <typeof setUsers> |
+            ReturnType <typeof setCurrentPage> |
+            ReturnType <typeof setTotalUsersCount> |
+            ReturnType <typeof setPreloader>

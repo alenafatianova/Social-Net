@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addUserAC, deleteUserAC, 
-        setUsersAC, UsersActionType, 
-        setCurrentPageAC, setTotalUsersCountAC,
-        setPreloaderAC } from '../../redux/UsersReducer'
+import {addUser, deleteUser, 
+        setUsers, UsersActionType, 
+        setCurrentPage, setTotalUsersCount,
+        setPreloader } from '../../redux/UsersReducer'
 import { StateType } from '../../redux/reduxStore'
 import {UsersType} from '../../redux/UsersReducer'
 import axios from 'axios'
@@ -70,26 +70,7 @@ let mapStateToProps = (state: StateType) => {
         isFetching: state.usersPage.isFetching
     }
 }
-let mapDispatchToProps = (dispatch: (actions: UsersActionType) => void) => {
-    return {
-        addUser: (id: number) => {
-            dispatch(addUserAC(id))
-        },
-        deleteUser: (id: number) => {
-            dispatch(deleteUserAC(id))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-         setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        setPreloader: (isFetching: boolean) => {
-            dispatch(setPreloaderAC(isFetching))
-        }
-    }
-}
-export const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersContainerComponent)
+
+export const UsersContainer = connect(mapStateToProps, 
+        {addUser, deleteUser, setUsers, setCurrentPage, setTotalUsersCount, setPreloader})
+        (UsersContainerComponent)
