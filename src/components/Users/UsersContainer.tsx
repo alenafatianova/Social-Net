@@ -8,7 +8,7 @@ import { StateType } from '../../redux/reduxStore'
 import {UsersType} from '../../redux/UsersReducer'
 import axios from 'axios'
 import {Users} from './Users'
-import style from './Users.module.scss'
+import {Preloader} from '../common/Preloader'
 
 export class UsersContainerComponent extends React.Component<{
     addUser: (id: number) => void, 
@@ -45,10 +45,9 @@ export class UsersContainerComponent extends React.Component<{
             this.props.setUsers(response.data.items)
     })
 }
-    
     render () {
         return <>
-        {this.props.isFetching ? <div className={style.ldsEllipsis}><div></div><div></div><div></div><div></div></div> : null}
+        {this.props.isFetching ? <Preloader/> : null}
         <Users 
             totalUsersCount={this.props.totalUsersCount} 
             pageSize={this.props.pageSize} 
@@ -61,7 +60,6 @@ export class UsersContainerComponent extends React.Component<{
         </>  
     }
 }
-
 
 let mapStateToProps = (state: StateType) => {
     return {
