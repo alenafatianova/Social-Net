@@ -4,6 +4,8 @@ const DELETE_USER = 'DELETE-USER'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const SET_PRELOADER = 'SET-PRELOADER'
+
 
 export type UsersType = {
     id: number
@@ -22,13 +24,15 @@ export type InitialStateType = {
     pageSize: number
     totalCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const InitialUsersState: InitialStateType = {
     users: [] as Array<UsersType>,
     pageSize: 5,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {
@@ -73,6 +77,12 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
                 totalCount: action.totalCount
            }
         }
+        case SET_PRELOADER: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default: 
             return state;
     }
@@ -83,11 +93,12 @@ export const addUserAC = (id: number) => ({type: ADD_USER, userID: id} as const)
 export const setUsersAC = (users: Array<UsersType>) => ({type: SET_USERS, users} as const) 
 export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
-
+export const setPreloaderAC = (isFetching: boolean) => ({type: SET_PRELOADER, isFetching} as const)
 
 export type UsersActionType = 
             ReturnType <typeof deleteUserAC> | 
             ReturnType <typeof addUserAC> | 
             ReturnType <typeof setUsersAC> |
             ReturnType <typeof setCurrentPageAC> |
-            ReturnType <typeof setTotalUsersCountAC>
+            ReturnType <typeof setTotalUsersCountAC> |
+            ReturnType <typeof setPreloaderAC>
