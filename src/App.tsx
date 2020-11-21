@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './App.module.scss';
 import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile'
+import {ProfileContainer} from './components/Profile/ProfileContainer'
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Friends from './components/Friends/Friends';
@@ -19,8 +19,9 @@ const App: React.FC = () => {
       <div className = {classes.Wrapper}>
       <Header/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <DialogsContainer/> }/>
-      <Route exact path='/profile' render={() => <Profile/> }/>
+      <Route exact path='/dialogs/:userId?' 
+        render={() => <DialogsContainer/> }/>
+      <Route exact path='/profile' render={() => <ProfileContainer/> }/>
       <Route exact path='/friends' render={() => <Friends/> }/>
       <Route exact path='/users' render={() => <UsersContainer /> }/>
       <Route exact path='/music' render={() => <Music/>}/>
