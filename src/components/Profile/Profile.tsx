@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Profile.module.scss";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo";
-import {UserProfileType} from '../../redux/ProfileReducer'
+import {UserProfileType} from './ProfileContainer'
 
 export type ProfileTypeProps = {
   profile: UserProfileType

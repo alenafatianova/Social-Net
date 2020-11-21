@@ -1,4 +1,4 @@
-import { profile } from 'console';
+import {UserProfileType} from '../components/Profile/ProfileContainer'
 import {newPostType} from './store'
 
 const ADD_POST = 'ADD-POST';
@@ -15,27 +15,9 @@ export type PostsDataType = {
   post: string
   likes: number
 }
-export type UserProfileType = {
-  aboutMe: string
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string | null
-  fullName: string
-  photos: {
-      small: string 
-      large: string 
-  }
-  contacts: {
-      github: string | null
-      vk: string | null
-      facebook: string | null
-      instagram: string | null
-      twitter: string | null
-      website: string | null
-      youtube: string | null
-      mainLink: string | null
-  }
-}
+
+
+
 let initialProfileState: initialProfileStateType = {
     newPostText: "",
     postsData: [
@@ -50,7 +32,6 @@ export const ProfileReducer = (state = initialProfileState, action:ProfileAction
     switch(action.type) {
     
   case ADD_POST: {
-    
       const newPost: newPostType = {
         id: 5,
         post: state.newPostText,
