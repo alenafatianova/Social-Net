@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <Header/>
       <Navbar/>
       <Route exact path='/dialogs' render={() => <DialogsContainer/> }/>
-      <Route exact path='/profile/:userId?' render={() => <ProfileContainer/> }/>
+      <Route exact path='/profile/:userId?' render={() => <ProfileContainer /> }/>
       <Route exact path='/friends' render={() => <Friends/> }/>
       <Route exact path='/users' render={() => <UsersContainer /> }/>
       <Route exact path='/music' render={() => <Music/>}/>

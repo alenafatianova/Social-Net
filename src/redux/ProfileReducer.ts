@@ -1,4 +1,4 @@
-import {UserProfileType} from '../components/Profile/ProfileContainer'
+
 import {newPostType} from './store'
 
 const ADD_POST = 'ADD-POST';
@@ -16,6 +16,29 @@ export type PostsDataType = {
   likes: number
 }
 
+export type UserProfileType = {
+  aboutMe: string
+  userId: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: string | null
+  fullName: string
+  photos: photosType
+  contacts: contactsType
+}
+type photosType = {
+  small: string
+  large: string
+}
+type contactsType = {
+  github: string | null
+  vk: string | null
+  facebook: string | null
+  instagram: string | null
+  twitter: string | null
+  website: string | null
+  youtube: string | null
+  mainLink: string | null
+}
 
 
 let initialProfileState: initialProfileStateType = {
