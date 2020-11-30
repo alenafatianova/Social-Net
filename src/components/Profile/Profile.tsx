@@ -9,7 +9,7 @@ export type ProfileTypeProps = {
 }
 
 
-export function Profile (props: ProfileTypeProps) {
+export const Profile = React.memo((props: ProfileTypeProps) => {
   
   return (
     
@@ -20,4 +20,4 @@ export function Profile (props: ProfileTypeProps) {
     <MyPostsContainer  />
     </div>
   );
-}
+})
