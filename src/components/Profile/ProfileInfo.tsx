@@ -1,12 +1,10 @@
 import React from 'react'
 import { Preloader } from '../common/Preloader'
-import {UserProfileType} from '../Profile/ProfileContainer'
+import {profileType} from '../../redux/ProfileReducer'
 
-type profileType = {
-    profile: UserProfileType
-}
 
-export default function ProfileInfo (props: profileType) {
+
+export const ProfileInfo = React.memo((props: profileType) => {
     
     if(!props.profile) {
         return <Preloader/>
@@ -20,4 +18,4 @@ export default function ProfileInfo (props: profileType) {
             </div>
         </div>
     )
-}
+})

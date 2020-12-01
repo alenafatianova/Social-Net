@@ -1,15 +1,14 @@
 import React from "react";
 import classes from "./Profile.module.scss";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import ProfileInfo from "./ProfileInfo";
+import {ProfileInfo} from "./ProfileInfo";
 import {UserProfileType} from '../../redux/ProfileReducer'
 
-export type ProfileTypeProps = {
+type ProfilePropsType = {
   profile: UserProfileType
 }
 
-
-export const Profile = React.memo((props: ProfileTypeProps) => {
+export const Profile = React.memo((props: ProfilePropsType) => {
   
   return (
     

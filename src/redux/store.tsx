@@ -12,6 +12,7 @@ export let store: StoreType = {
         { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },
         { id: 3, post: "Found 10 dollars today...anyone lost it?", likes: 12 },
       ],
+      profile: null
     },
     dialogsPage: {
       dialogsData: [
@@ -72,6 +73,7 @@ export type MessageType = {
 export type ProfilePageType = {
   newPostText: string;
   postsData: Array<PostsType>;
+  profile: any
 };
 export type DialogsPageType = {
   dialogsData: Array<DialogsType>
@@ -90,6 +92,7 @@ export type newPostType = {
 };
 export type NavbarType = {};
 export type HeaderType = {}
+
 export type RootStateType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType

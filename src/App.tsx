@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './App.module.scss';
 import Header from './components/Header/Header';
-import {ProfileContainer} from './components/Profile/ProfileContainer'
+import ProfileContainer from './components/Profile/ProfileContainer'
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Friends from './components/Friends/Friends';

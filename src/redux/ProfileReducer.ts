@@ -1,5 +1,5 @@
 
-import {newPostType} from './store'
+import {newPostType, ProfilePageType} from './store'
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_TEXT = 'UPDATE-TEXT';
@@ -8,7 +8,7 @@ const SET_USER_PROFILE = 'SET-USER-PROFILE'
 export type initialProfileStateType = {
   newPostText: string
   postsData: Array<PostsDataType>
-  profile: UserProfileType 
+  profile: null
 }
 export type PostsDataType = {
   id: number
@@ -25,11 +25,16 @@ export type UserProfileType = {
   photos: photosType
   contacts: contactsType
 }
-type photosType = {
+
+export type profileType = {
+  profile: UserProfileType
+}
+
+export type photosType = {
   small: string
   large: string
 }
-type contactsType = {
+export type contactsType = {
   github: string | null
   vk: string | null
   facebook: string | null
@@ -48,10 +53,10 @@ let initialProfileState: initialProfileStateType = {
       { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },
       { id: 3, post: "Found 10 dollars today...anyone lost it?", likes: 12 },
     ],
-    profile: {} as UserProfileType
+    profile: null
 }
 
-export const ProfileReducer = (state = initialProfileState, action:ProfileActionsType) => {
+export const ProfileReducer = (state: ProfilePageType = initialProfileState, action:ProfileActionsType) => {
     switch(action.type) {
     
   case ADD_POST: {
