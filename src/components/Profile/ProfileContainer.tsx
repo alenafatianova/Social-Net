@@ -1,10 +1,10 @@
 import React from 'react' 
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {StateType} from '../../redux/reduxStore'
-import {setUserProfile, UserProfileType, profileType} from '../../redux/ProfileReducer'
+import {StateType} from '../../redux/redux-store'
+import {setUserProfile, UserProfileType, profileType} from '../../redux/profile-reducer'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import {Profile} from './Profile'
+import {Profile} from './Profile/Profile'
 
 
 export type mapStateToPropsType = {
@@ -31,11 +31,9 @@ class  ProfileContainer extends React.Component<ProfileContainerProps> {
     }
     render() {
         return (
-
             <Profile {...this.props} profile={this.props.profile}/>
         )
-    }
-        
+    }   
 }    
 
 let mapStateToProps = (state: StateType): profileType => ({

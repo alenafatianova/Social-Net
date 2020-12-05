@@ -1,6 +1,6 @@
-import {DialogsReducer, DialogsActionsType} from "./DialogsReducer";
-import {ProfileReducer, ProfileActionsType} from "./ProfileReducer";
-import {NavbarReducer} from "./NavbarReducer"
+import {DialogsReducer, DialogsActionsType} from "./dialogs-reducer";
+import {ProfileReducer, ProfileActionsType} from "./profile-reducer";
+import {NavbarReducer} from "./navbar-reducer"
 
 
 export let store: StoreType = {

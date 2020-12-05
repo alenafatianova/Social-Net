@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {ChangeEvent} from "react";
-import {sendMessageCreator, messageBodyCreator, DialogsActionsType} from '../../redux/DialogsReducer'
+import {sendMessageCreator, messageBodyCreator, DialogsActionsType} from '../../redux/dialogs-reducer'
 import { RootStateType} from '../../redux/store'
 import Dialogs from "./Dialogs";
 

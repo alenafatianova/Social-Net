@@ -1,5 +1,5 @@
-import {addPostActionCreator, ProfileActionsType} from '../../../redux/ProfileReducer'
-import {changeNewPostCreator} from '../../../redux/ProfileReducer'
+import {addPostActionCreator, ProfileActionsType} from '../../../redux/profile-reducer'
+import {changeNewPostCreator} from '../../../redux/profile-reducer'
 import {  RootStateType } from '../../../redux/store'
 import MyPosts from './MyPosts'
 import {connect} from 'react-redux'

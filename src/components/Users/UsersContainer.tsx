@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addUser, deleteUser, 
         setUsers, setCurrentPage, 
-        setTotalUsersCount, setPreloader } from '../../redux/UsersReducer'
-import {StateType} from '../../redux/reduxStore'
-import {UsersType} from '../../redux/UsersReducer'
+        setTotalUsersCount, setPreloader } from '../../redux/users-reducer'
+import {StateType} from '../../redux/redux-store'
+import {UsersType} from '../../redux/users-reducer'
 import axios from 'axios'
 import {Users} from './Users'
 import {Preloader} from '../common/Preloader'
