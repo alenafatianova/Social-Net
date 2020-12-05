@@ -15,8 +15,7 @@ type dataType = {
     id: number | null
     email: string | null
     login: string | null
-    isFetching: boolean
-
+    isAuth: boolean
 }
 
 class HeaderContainer extends React.Component<HeaderContainerProps> {
@@ -32,14 +31,20 @@ class HeaderContainer extends React.Component<HeaderContainerProps> {
     }
     render() {
         return (
-            <Header {...this.props} data={this.props.data}/>
+            <Header 
+                id={this.props.data.id} 
+                email={this.props.data.email}
+                login={this.props.data.login}
+                isAuth={this.props.data.isAuth}
+                data={this.props.data}
+            />
         )
     } 
 }
 let mapStateToProps = (state: StateType) => {
     return {
         isAuth: state.auth.isAuth,
-        login: state.auth.login
+        login: state.auth.login,
 }}
 
 export default connect(mapStateToProps, {setAuthDataAC})(HeaderContainer)

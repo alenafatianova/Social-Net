@@ -1,14 +1,14 @@
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-export let dataType = {
+export let initialDataState: initialDataStateType = {
     id: null,
     email: null,
     login: null,
     isFetching: true,
     isAuth: false
 }
-export type initialStateType = {
+export type initialDataStateType = {
     id: number | null
     email: string | null
     login: string | null
@@ -16,7 +16,7 @@ export type initialStateType = {
     isFetching: boolean
 }
 
-export const authReducer = (state = dataType, action: authReducerActionType): initialStateType => {
+export const authReducer = (state = initialDataState, action: authReducerActionType): initialDataStateType => {
     switch(action.type) {
         case SET_USER_DATA: 
            return {
