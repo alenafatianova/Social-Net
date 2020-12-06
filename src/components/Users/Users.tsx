@@ -62,7 +62,10 @@ export function Users(props: UsersPropsType) {
                                 
                                 :<button onClick={() => {
                                     axios.post(`https://social-network.samuraijs.com/api/1.0/follow${u.id}`, {}, {
-                                        withCredentials: true
+                                        withCredentials: true,
+                                        headers: {
+                                            'API-KEY': 'e45692c0-8fe1-4a25-82fb-ca2a0e2c3af4'
+                                        }
                                     })
                                     .then(response => {
                                        if (response.data.resultCode === 0) {
