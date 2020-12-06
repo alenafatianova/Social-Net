@@ -28,7 +28,9 @@ export class UsersContainerComponent extends React.Component<{
         this.props.setPreloader(true)
         if (this.props.users.length ===  0) {
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}
-                &count=${this.props.pageSize}`).then(response => {
+                &count=${this.props.pageSize}`, {
+                    withCredentials: true
+                }).then(response => {
              this.props.setPreloader(false)
              this.props.setUsers(response.data.items)
              this.props.setTotalUsersCount(response.data.totalCount)
@@ -39,7 +41,9 @@ export class UsersContainerComponent extends React.Component<{
         this.props.setPreloader(true)
         this.props.setCurrentPage(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}
-        &count=${this.props.pageSize}`).then(response => {
+        &count=${this.props.pageSize}`, {
+            withCredentials: true
+        }).then(response => {
             this.props.setPreloader(false)
             this.props.setUsers(response.data.items)
     })

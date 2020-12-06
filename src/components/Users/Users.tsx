@@ -47,24 +47,24 @@ export function Users(props: UsersPropsType) {
                             <div>
                                 {u.followed 
                                 ? <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow${u.id}`, {
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                         withCredentials: true,
                                         headers: {
-                                            'API-KEY': 'e45692c0-8fe1-4a25-82fb-ca2a0e2c3af4'
+                                            'API-KEY': 'd6da0b4d-b16d-42bc-a142-317d3b9eca82'
                                         }
                                     })
-                                            .then(response => {
+                                        .then(response => {
                                             if (response.data.resultCode === 0) {
                                                 props.deleteUser(u.id)
-                                            }
+                                        }
                                     })
                                 }}>Delete</button>
                                 
                                 :<button onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow${u.id}`, {}, {
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                         withCredentials: true,
                                         headers: {
-                                            'API-KEY': 'e45692c0-8fe1-4a25-82fb-ca2a0e2c3af4'
+                                            'API-KEY': 'd6da0b4d-b16d-42bc-a142-317d3b9eca82'
                                         }
                                     })
                                     .then(response => {
