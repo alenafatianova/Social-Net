@@ -6,14 +6,14 @@ import classes from './Header.module.scss'
 export type mapStateToPropsType = {
     login: string | null
     isAuth: boolean
-    setAuthDataAC: (id: number, email: string, login: string) => void
-}  
+}
+  
 export type mapDispatchToPropsType = {
-    setAuthDataAC: (id: number, email: string, login: string) => void
+    setAuthData: (id: number, email: string, login: string, isAuth: boolean) => void
 }
 
 
-export function Header(props: mapStateToPropsType&mapDispatchToPropsType) {
+export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
     return (
         <div className={classes.header}>
            <div className={classes.links}>
