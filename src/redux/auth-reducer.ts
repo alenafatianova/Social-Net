@@ -15,23 +15,35 @@ export type initialDataStateType = {
     isAuth: boolean
     isFetching: boolean
 }
+export type setAuthDataACPayloadType = {
+    id: number
+    email: string
+    login: string
+    isAuth: boolean
+}
 
-export const authReducer = (state = initialDataState, action: authReducerActionType): initialDataStateType => {
+export type  setAuthDataACType = {
+    type: typeof SET_USER_DATA,
+    payload: setAuthDataACPayloadType
+}
+
+
+export const authReducer = (state = initialDataState, action: setAuthDataACType): initialDataStateType => {
     switch(action.type) {
         case SET_USER_DATA: 
            return {
                ...state, 
-               ...action.data,
+               ...action.payload,
                isAuth: true,
            }
            default: {
                return {
                     ...state
                 }
-           }
+            }
     }
 }
 
-export const setAuthDataAC = (id: number, email: string, login: string) => ({type: 'SET_USER_DATA', data: {id, email, login}} as const)
+export const setAuthDataAC = (id: number, email: string, login: string, isAuth: boolean): setAuthDataACType => ({
+    type: 'SET_USER_DATA', payload: {id, email, login, isAuth}} as const)
 
-export type authReducerActionType = ReturnType<typeof setAuthDataAC> 
