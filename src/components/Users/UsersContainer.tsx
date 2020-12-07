@@ -5,7 +5,6 @@ import {addUser, deleteUser,
         setTotalUsersCount, setPreloader } from '../../redux/users-reducer'
 import {StateType} from '../../redux/redux-store'
 import {UsersType} from '../../redux/users-reducer'
-import axios from 'axios'
 import {Users} from './Users'
 import {Preloader} from '../common/Preloader'
 import { getUsers } from '../../api/api'
