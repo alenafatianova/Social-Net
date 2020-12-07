@@ -28,7 +28,7 @@ export class UsersContainerComponent extends React.Component<{
     componentDidMount() {
         this.props.setPreloader(true)
         if (this.props.users.length ===  0) {
-            getUsers().then(response => {
+            getUsers(this.props.currentPage, this.props.pageSize).then(response => {
              this.props.setPreloader(false)
              this.props.setUsers(response.data.items)
              this.props.setTotalUsersCount(response.data.totalCount)
