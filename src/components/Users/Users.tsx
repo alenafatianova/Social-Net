@@ -3,8 +3,7 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 import style from './Users.module.scss'
 import {UsersType} from '../../redux/users-reducer'
 import {NavLink} from 'react-router-dom'
-import axios from 'axios'
-import { followUser } from '../../api/api'
+import { followUser, deleteUser} from '../../api/api'
 
 
 type UsersPropsType = {
@@ -47,22 +46,18 @@ export function Users(props: UsersPropsType) {
                                 
                             </div>
                             <div>
-                                {u.followed 
-                                ? <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            'API-KEY': 'd6da0b4d-b16d-42bc-a142-317d3b9eca82'
-                                        }
-                                    })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.deleteUser(u.id)
-                                        }
-                                    })
+                                {
+                                    u.followed ?
+                                        < button onClick = {
+                                            () => {
+                                                deleteUser(u.id).then(data => {
+                                                    if (data.resultCode === 0) {
+                                                        props.deleteUser(u.id)
+                                                    }
+                                                })
                                 }}>Delete</button>
                                 
-                                :<button onClick={() => {
+                                : <button onClick={() => {
                                     followUser(u.id).then(data => {
                                        if (data.resultCode === 0) {
                                         props.addUser(u.id)
