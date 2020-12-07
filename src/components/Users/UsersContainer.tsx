@@ -7,7 +7,7 @@ import {StateType} from '../../redux/redux-store'
 import {UsersType} from '../../redux/users-reducer'
 import {Users} from './Users'
 import {Preloader} from '../common/Preloader'
-import { getUsers } from '../../api/api'
+import { usersAPI } from '../../api/api'
 
 export class UsersContainerComponent extends React.Component<{
     addUser: (id: number) => void, 
@@ -27,7 +27,7 @@ export class UsersContainerComponent extends React.Component<{
     componentDidMount() {
         this.props.setPreloader(true)
         if (this.props.users.length ===  0) {
-            getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
              this.props.setPreloader(false)
              this.props.setUsers(data.items)
              this.props.setTotalUsersCount(data.totalCount)
@@ -37,7 +37,7 @@ export class UsersContainerComponent extends React.Component<{
      onPageChanged = (pageNumber: number) => {
         this.props.setPreloader(true)
         this.props.setCurrentPage(pageNumber)
-            getUsers(pageNumber, this.props.pageSize).then(data => {
+            usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.setPreloader(false)
             this.props.setUsers(data.items)
     })
