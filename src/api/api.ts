@@ -7,4 +7,5 @@ export const getUsers = (currentPage: number, pageSize: number) => {
     &count=${pageSize}`, {
         withCredentials: true
     })
+    .then(response => response.data)
 }
