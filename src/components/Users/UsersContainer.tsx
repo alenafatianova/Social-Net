@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addUser, deleteUser, 
         setUsers, setCurrentPage, 
-        setTotalUsersCount, setPreloader } from '../../redux/users-reducer'
+        setTotalUsersCount, setPreloader, setFollowingInProgress } from '../../redux/users-reducer'
 import {StateType} from '../../redux/redux-store'
 import {UsersType} from '../../redux/users-reducer'
 import {Users} from './Users'
@@ -21,6 +21,8 @@ export class UsersContainerComponent extends React.Component<{
     setTotalUsersCount: (totalCount: number) => void
     setPreloader: (isFetching: boolean) => void
     isFetching: boolean
+    setFollowingInProgress: (isFetching: boolean, id: number) => void
+    followingInProgress: number[]
     }, {}> 
     
     {
@@ -46,6 +48,8 @@ export class UsersContainerComponent extends React.Component<{
         return <>
         {this.props.isFetching ? <Preloader/> : null}
         <Users 
+            followingInProgress={this.props.followingInProgress}
+            setFollowingInProgress={this.props.setFollowingInProgress}
             totalUsersCount={this.props.totalUsersCount} 
             pageSize={this.props.pageSize} 
             currentPage={this.props.currentPage}
@@ -64,10 +68,11 @@ let mapStateToProps = (state: StateType) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
 export const UsersContainer = connect(mapStateToProps, 
-        {addUser, deleteUser, setUsers, setCurrentPage, setTotalUsersCount, setPreloader})
+        {addUser, deleteUser, setUsers, setCurrentPage, setTotalUsersCount, setPreloader, setFollowingInProgress})
         (UsersContainerComponent)

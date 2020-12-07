@@ -19,13 +19,14 @@ export type UsersType = {
         large: string
     }
 }
+
 export type InitialStateType = {
     users: Array<UsersType>
     pageSize: number
     totalCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingInProgress: Array<number>
 }
 
 const InitialUsersState: InitialStateType = {
@@ -34,8 +35,9 @@ const InitialUsersState: InitialStateType = {
     totalCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: false
+    followingInProgress: [] 
 }
+
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {
     switch(action.type) {
@@ -88,7 +90,9 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
         case FOLLOWING_IN_PROGRESS: {
             return {
                 ...state, 
-                followingInProgress: action.followingInProgress
+                followingInProgress: action.isFetching 
+                ? [...state.followingInProgress, action.id]
+                : state.followingInProgress.filter(id => id !== action.id)
             }
         }
         default: 
@@ -102,7 +106,8 @@ export const setUsers = (users: Array<UsersType>) => ({type: SET_USERS, users} a
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
 export const setPreloader = (isFetching: boolean) => ({type: SET_PRELOADER, isFetching} as const)
-export const setFollowingInProgress = (followingInProgress: boolean) => ({type: FOLLOWING_IN_PROGRESS, followingInProgress} as const)
+export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
+    type: FOLLOWING_IN_PROGRESS, id, isFetching} as const)
 
 
 export type UsersActionType = 

@@ -1,9 +1,9 @@
 import React from 'react'
 import userAvatar from '../../assets/images/userAvatar.jpg'
 import style from './Users.module.scss'
-import {UsersType} from '../../redux/users-reducer'
-import {NavLink} from 'react-router-dom'
-import { followUser, deleteUser} from '../../API/API'
+import { UsersType } from '../../redux/users-reducer'
+import { NavLink } from 'react-router-dom'
+import { followUser, deleteUser } from '../../API/API'
 
 
 type UsersPropsType = {
@@ -14,12 +14,15 @@ type UsersPropsType = {
     deleteUser: (id: number) => void
     addUser: (id: number) => void
     onPageChanged: (pageNumber: number) => void
+    setFollowingInProgress: (isFetching: boolean, id: number) => void
+    followingInProgress: number[]
 }
 
 
 export function Users(props: UsersPropsType) {
     
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+   
 
     let pages = []
     for (let i = 1; i <= pagesCount; i ++ ) {
@@ -48,20 +51,24 @@ export function Users(props: UsersPropsType) {
                             <div>
                                 {
                                     u.followed ?
-                                        < button onClick = {
+                                        <button disabled={props.followingInProgress.some(id => id === u.id)} onClick = {
                                             () => {
+                                                props.setFollowingInProgress(true, u.id)
                                                 deleteUser(u.id).then(data => {
                                                     if (data.resultCode === 0) {
                                                         props.deleteUser(u.id)
                                                     }
+                                                    props.setFollowingInProgress(false, u.id)
                                                 })
                                 }}>Delete</button>
                                 
-                                : <button onClick={() => {
+                                : <button  disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.setFollowingInProgress(true, u.id)
                                     followUser(u.id).then(data => {
                                        if (data.resultCode === 0) {
                                         props.addUser(u.id)
-                                    }   
+                                    }
+                                    props.setFollowingInProgress(false, u.id)   
                                 })
                                 }}>Add</button> 
                                 }
