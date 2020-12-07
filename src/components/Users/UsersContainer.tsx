@@ -28,19 +28,19 @@ export class UsersContainerComponent extends React.Component<{
     componentDidMount() {
         this.props.setPreloader(true)
         if (this.props.users.length ===  0) {
-            getUsers(this.props.currentPage, this.props.pageSize).then(response => {
+            getUsers(this.props.currentPage, this.props.pageSize).then(data => {
              this.props.setPreloader(false)
-             this.props.setUsers(response.data.items)
-             this.props.setTotalUsersCount(response.data.totalCount)
+             this.props.setUsers(data.items)
+             this.props.setTotalUsersCount(data.totalCount)
             })
         }
     }
      onPageChanged = (pageNumber: number) => {
         this.props.setPreloader(true)
         this.props.setCurrentPage(pageNumber)
-            getUsers(pageNumber, this.props.pageSize).then(response => {
+            getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.setPreloader(false)
-            this.props.setUsers(response.data.items)
+            this.props.setUsers(data.items)
     })
 }
     render () {
