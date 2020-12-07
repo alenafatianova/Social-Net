@@ -5,7 +5,7 @@ const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const SET_PRELOADER = 'SET-PRELOADER'
-
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS'
 
 export type UsersType = {
     id: number
@@ -25,6 +25,7 @@ export type InitialStateType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 const InitialUsersState: InitialStateType = {
@@ -32,7 +33,8 @@ const InitialUsersState: InitialStateType = {
     pageSize: 5,
     totalCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: false
 }
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {
@@ -83,6 +85,12 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
                 isFetching: action.isFetching
             }
         }
+        case FOLLOWING_IN_PROGRESS: {
+            return {
+                ...state, 
+                followingInProgress: action.followingInProgress
+            }
+        }
         default: 
             return state;
     }
@@ -94,6 +102,8 @@ export const setUsers = (users: Array<UsersType>) => ({type: SET_USERS, users} a
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
 export const setPreloader = (isFetching: boolean) => ({type: SET_PRELOADER, isFetching} as const)
+export const setFollowingInProgress = (followingInProgress: boolean) => ({type: FOLLOWING_IN_PROGRESS, followingInProgress} as const)
+
 
 export type UsersActionType = 
             ReturnType <typeof deleteUser> | 
@@ -101,4 +111,5 @@ export type UsersActionType =
             ReturnType <typeof setUsers> |
             ReturnType <typeof setCurrentPage> |
             ReturnType <typeof setTotalUsersCount> |
-            ReturnType <typeof setPreloader>
+            ReturnType <typeof setPreloader> |
+            ReturnType <typeof setFollowingInProgress>

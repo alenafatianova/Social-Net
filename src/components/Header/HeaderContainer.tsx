@@ -1,4 +1,4 @@
-import { headerLinks } from '../../api/api'
+import { headerLinks } from '../../API/API'
 import React from 'react'
 import { connect } from 'react-redux'
 import { StateType } from '../../redux/redux-store'

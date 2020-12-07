@@ -3,7 +3,7 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 import style from './Users.module.scss'
 import {UsersType} from '../../redux/users-reducer'
 import {NavLink} from 'react-router-dom'
-import { followUser, deleteUser} from '../../api/api'
+import { followUser, deleteUser} from '../../API/API'
 
 
 type UsersPropsType = {

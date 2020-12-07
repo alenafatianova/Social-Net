@@ -7,7 +7,7 @@ import {StateType} from '../../redux/redux-store'
 import {UsersType} from '../../redux/users-reducer'
 import {Users} from './Users'
 import {Preloader} from '../common/Preloader'
-import { usersAPI } from '../../api/api'
+import { usersAPI } from '../../API/API'
 
 export class UsersContainerComponent extends React.Component<{
     addUser: (id: number) => void, 
