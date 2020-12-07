@@ -38,10 +38,7 @@ export class UsersContainerComponent extends React.Component<{
      onPageChanged = (pageNumber: number) => {
         this.props.setPreloader(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}
-        &count=${this.props.pageSize}`, {
-            withCredentials: true
-        }).then(response => {
+            getUsers(pageNumber, this.props.pageSize).then(response => {
             this.props.setPreloader(false)
             this.props.setUsers(response.data.items)
     })
