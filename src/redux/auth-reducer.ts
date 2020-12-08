@@ -1,3 +1,5 @@
+import { usersAPI } from '../API/API'
+
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -35,12 +37,12 @@ export const authReducer = (state = initialDataState, action: authTypeActionType
                ...state, 
                ...action.payload,
                isAuth: true,
-           }
+            }
            default: {
                return {
                     ...state
                 }
-            }
+            }   
     }
 }
 
@@ -48,3 +50,15 @@ export const setAuthData = (id: number, email: string, login: string, isAuth: bo
     type: 'SET_USER_DATA',  payload: {id, email, login, isAuth}} as const)
 
 export type authTypeActionType = ReturnType <typeof setAuthData>
+
+export const authData = () => {
+    return (dispatch: any) => {
+        usersAPI.headerLinks().then(response => { 
+            if(response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data;
+                    dispatch(setAuthData(id, email, login, true))
+            }
+        }
+     )
+    }
+}

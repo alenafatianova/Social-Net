@@ -19,7 +19,6 @@ export const usersAPI = {
     deleteUser(id: number) {
         return instance.delete(`follow/${id}`)
     },
-     
     headerLinks()  {
         return instance.get(`auth/me`)
     }

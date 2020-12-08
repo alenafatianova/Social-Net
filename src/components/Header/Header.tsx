@@ -9,7 +9,7 @@ export type mapStateToPropsType = {
 }
   
 export type mapDispatchToPropsType = {
-    setAuthData: (id: number, email: string, login: string, isAuth: boolean) => void
+    authData: () => void
 }
 
 
