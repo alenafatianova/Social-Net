@@ -1,3 +1,5 @@
+import { usersAPI } from '../API/API'
+
 
 const ADD_USER = 'ADD-USER-IN-FRIENDS'
 const DELETE_USER = 'DELETE-USER'
@@ -107,14 +109,23 @@ export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE,
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
 export const setPreloader = (isFetching: boolean) => ({type: SET_PRELOADER, isFetching} as const)
 export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
-    type: FOLLOWING_IN_PROGRESS, id, isFetching} as const)
+    type: FOLLOWING_IN_PROGRESS, id, isFetching} as const
+)
+
+export const getUsersThunkcreator = (currentPage: number, pageSize: number ) => {
+    return (dispatch) => {
+        dispatch(setPreloader(true))
+    if (props.users.length ===  0) {
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+         dispatch(setPreloader(false))
+         dispatch(setUsers(data.items))
+         dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+}
 
 
-export type UsersActionType = 
-            ReturnType <typeof deleteUser> | 
-            ReturnType <typeof addUser> | 
-            ReturnType <typeof setUsers> |
-            ReturnType <typeof setCurrentPage> |
-            ReturnType <typeof setTotalUsersCount> |
-            ReturnType <typeof setPreloader> |
-            ReturnType <typeof setFollowingInProgress>
+export type UsersActionType = ReturnType <typeof deleteUser> | ReturnType <typeof addUser> | ReturnType <typeof setUsers> |
+    ReturnType <typeof setCurrentPage> | ReturnType <typeof setTotalUsersCount> | ReturnType <typeof setPreloader> |
+    ReturnType <typeof setFollowingInProgress>

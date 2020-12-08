@@ -1,12 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {addUser, deleteUser, 
+import { connect } from 'react-redux'
+import { addUser, deleteUser, 
         setUsers, setCurrentPage, 
-        setTotalUsersCount, setPreloader, setFollowingInProgress } from '../../redux/users-reducer'
-import {StateType} from '../../redux/redux-store'
-import {UsersType} from '../../redux/users-reducer'
-import {Users} from './Users'
-import {Preloader} from '../common/Preloader'
+        setTotalUsersCount, setPreloader, setFollowingInProgress, getUsersThunkcreator } from '../../redux/users-reducer'
+import { StateType } from '../../redux/redux-store'
+import { UsersType } from '../../redux/users-reducer'
+import { Users } from './Users'
+import { Preloader } from '../common/Preloader'
 import { usersAPI } from '../../API/API'
 
 export class UsersContainerComponent extends React.Component<{
@@ -27,14 +27,7 @@ export class UsersContainerComponent extends React.Component<{
     
     {
     componentDidMount() {
-        this.props.setPreloader(true)
-        if (this.props.users.length ===  0) {
-            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-             this.props.setPreloader(false)
-             this.props.setUsers(data.items)
-             this.props.setTotalUsersCount(data.totalCount)
-            })
-        }
+        this.props.getUsersThunkcreator();
     }
      onPageChanged = (pageNumber: number) => {
         this.props.setPreloader(true)
@@ -74,5 +67,7 @@ let mapStateToProps = (state: StateType) => {
 }
 
 export const UsersContainer = connect(mapStateToProps, 
-        {addUser, deleteUser, setUsers, setCurrentPage, setTotalUsersCount, setPreloader, setFollowingInProgress})
+        {addUser, deleteUser, setUsers, 
+        setCurrentPage, setTotalUsersCount, setPreloader, 
+        setFollowingInProgress, getUsersThunkcreator})
         (UsersContainerComponent)
