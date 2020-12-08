@@ -113,7 +113,7 @@ export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
 )
 
 
-//----------getUsers  это санка-------------------------
+//----------getUsers, followUser, unfollowUser  это санка-------------------------
 export const getUsers = (currentPage: number, pageSize: number ) => {     
     return (dispatch: any) => {                                               //----------исправить any-------------
         dispatch(setPreloader(true))
@@ -124,8 +124,28 @@ export const getUsers = (currentPage: number, pageSize: number ) => {
         })
     }
 }
-
-
+export const unfollowUser = (id: number) => {
+    return (dispatch: any) => {                   //----------исправить any-------------
+      dispatch(setFollowingInProgress(true, id))
+      usersAPI.deleteUser(id).then(response => {
+                if (response.data.resultCode === 0) {
+                   dispatch(deleteUser(id))
+                }
+        dispatch(setFollowingInProgress(false, id))
+    })
+    }
+} 
+export const followUser = (id: number) => {
+    return (dispatch: any) => {                //----------исправить any-------------
+        dispatch(setFollowingInProgress(true, id))
+            usersAPI.followUser(id).then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(addUser(id))
+                }
+                dispatch(setFollowingInProgress(false, id))
+        })
+    }
+}
 
 export type UsersActionType = ReturnType <typeof deleteUser> | ReturnType <typeof addUser> | ReturnType <typeof setUsers> |
     ReturnType <typeof setCurrentPage> | ReturnType <typeof setTotalUsersCount> | ReturnType <typeof setPreloader> |

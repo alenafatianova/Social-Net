@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addUser, deleteUser, 
-        setCurrentPage,
-        setFollowingInProgress, getUsers } from '../../redux/users-reducer'
+import { followUser, unfollowUser, setCurrentPage, setFollowingInProgress, getUsers } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
 import { UsersType } from '../../redux/users-reducer'
 import { Users } from './Users'
@@ -10,8 +8,6 @@ import { Preloader } from '../common/Preloader'
 
 
 export class UsersContainerComponent extends React.Component<{
-    addUser: (id: number) => void, 
-    deleteUser: (id: number) => void,
     setCurrentPage: (currentPage: number) => void,
     setFollowingInProgress: (isFetching: boolean, id: number) => void,
     getUsers: (currentPage: number, pageSize: number) => void,  
@@ -21,6 +17,8 @@ export class UsersContainerComponent extends React.Component<{
     currentPage: number,
     isFetching: boolean,
     followingInProgress: number[],
+    unfollowUser: (id: number) => void,
+    followUser: (id: number) => void,
     }, {}> 
     
     {
@@ -37,14 +35,14 @@ export class UsersContainerComponent extends React.Component<{
         return <>
         {this.props.isFetching ? <Preloader/> : null}
         <Users 
+            followUser={this.props.followUser}
+            unfollowUser={this.props.unfollowUser}
             followingInProgress={this.props.followingInProgress}
             setFollowingInProgress={this.props.setFollowingInProgress}
             totalUsersCount={this.props.totalUsersCount} 
             pageSize={this.props.pageSize} 
             currentPage={this.props.currentPage}
             users={this.props.users}
-            deleteUser={this.props.deleteUser}
-            addUser={this.props.addUser}
             onPageChanged={this.onPageChanged}
             />   
         </>  
@@ -63,6 +61,6 @@ let mapStateToProps = (state: StateType) => {
 }
 
 export const UsersContainer = connect(mapStateToProps, 
-        {addUser, deleteUser, setCurrentPage, 
+        {followUser, unfollowUser, setCurrentPage, 
         setFollowingInProgress, getUsers})
         (UsersContainerComponent)

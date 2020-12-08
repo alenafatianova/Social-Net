@@ -3,7 +3,7 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 import style from './Users.module.scss'
 import { UsersType } from '../../redux/users-reducer'
 import { NavLink } from 'react-router-dom'
-import { followUser, deleteUser } from '../../API/API'
+
 
 
 type UsersPropsType = {
@@ -11,11 +11,11 @@ type UsersPropsType = {
     pageSize: number
     currentPage: number
     users: Array<UsersType>
-    deleteUser: (id: number) => void
-    addUser: (id: number) => void
     onPageChanged: (pageNumber: number) => void
     setFollowingInProgress: (isFetching: boolean, id: number) => void
     followingInProgress: number[]
+    unfollowUser: (id: number) => void
+    followUser: (id: number) => void
 }
 
 
@@ -45,31 +45,14 @@ export const Users = React.memo((props: UsersPropsType) => {
                                 <NavLink to={'/profile/' + u.id}>
                                 <img alt="user-avatar" className={style.img} src={u.photos.small != null ? u.photos.small : userAvatar}/>
                                 </NavLink>
-                                
                             </div>
                             <div>
                                 {
-                                    u.followed ?
-                                        <button disabled={props.followingInProgress.some(id => id === u.id)} onClick = {
-                                            () => {
-                                                props.setFollowingInProgress(true, u.id)
-                                                deleteUser(u.id).then(data => {
-                                                    if (data.resultCode === 0) {
-                                                        props.deleteUser(u.id)
-                                                    }
-                                                    props.setFollowingInProgress(false, u.id)
-                                                })
-                                }}>Delete</button>
-                                
-                                : <button  disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.setFollowingInProgress(true, u.id)
-                                    followUser(u.id).then(data => {
-                                       if (data.resultCode === 0) {
-                                        props.addUser(u.id)
-                                    }
-                                    props.setFollowingInProgress(false, u.id)   
-                                })
-                                }}>Add</button> 
+                                    u.followed 
+                                    ? <button disabled={props.followingInProgress.some(id => id === u.id)} 
+                                        onClick = {() => {props.unfollowUser(u.id)}}>Delete</button>
+                                    : <button disabled={props.followingInProgress.some(id => id === u.id)} 
+                                        onClick={() => {props.followUser(u.id)}}>Add</button> 
                                 }
                             </div>
                         </span>
