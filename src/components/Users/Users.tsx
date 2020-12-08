@@ -19,7 +19,7 @@ type UsersPropsType = {
 }
 
 
-export function Users(props: UsersPropsType) {
+export const Users = React.memo((props: UsersPropsType) => {
     
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
    
@@ -87,4 +87,4 @@ export function Users(props: UsersPropsType) {
                 }
             </div>
     )
-}
+})
