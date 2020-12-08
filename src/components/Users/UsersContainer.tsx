@@ -38,7 +38,6 @@ export class UsersContainerComponent extends React.Component<{
             followUser={this.props.followUser}
             unfollowUser={this.props.unfollowUser}
             followingInProgress={this.props.followingInProgress}
-            setFollowingInProgress={this.props.setFollowingInProgress}
             totalUsersCount={this.props.totalUsersCount} 
             pageSize={this.props.pageSize} 
             currentPage={this.props.currentPage}
