@@ -112,10 +112,11 @@ export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
     type: FOLLOWING_IN_PROGRESS, id, isFetching} as const
 )
 
-export const getUsersThunkcreator = (currentPage: number, pageSize: number ) => {
-    return (dispatch) => {
+
+//----------getUsers  это санка-------------------------
+export const getUsers = (currentPage: number, pageSize: number ) => {     
+    return (dispatch: any) => {                                               //----------исправить any-------------
         dispatch(setPreloader(true))
-    if (props.users.length ===  0) {
         usersAPI.getUsers(currentPage, pageSize).then(data => {
          dispatch(setPreloader(false))
          dispatch(setUsers(data.items))
@@ -123,7 +124,7 @@ export const getUsersThunkcreator = (currentPage: number, pageSize: number ) => 
         })
     }
 }
-}
+
 
 
 export type UsersActionType = ReturnType <typeof deleteUser> | ReturnType <typeof addUser> | ReturnType <typeof setUsers> |

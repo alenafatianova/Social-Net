@@ -1,41 +1,37 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addUser, deleteUser, 
-        setUsers, setCurrentPage, 
-        setTotalUsersCount, setPreloader, setFollowingInProgress, getUsersThunkcreator } from '../../redux/users-reducer'
+        setCurrentPage,
+        setFollowingInProgress, getUsers } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
 import { UsersType } from '../../redux/users-reducer'
 import { Users } from './Users'
 import { Preloader } from '../common/Preloader'
-import { usersAPI } from '../../API/API'
+
 
 export class UsersContainerComponent extends React.Component<{
     addUser: (id: number) => void, 
     deleteUser: (id: number) => void,
-    setUsers: (users: Array<UsersType>,) => void,
+    setCurrentPage: (currentPage: number) => void,
+    setFollowingInProgress: (isFetching: boolean, id: number) => void,
+    getUsers: (currentPage: number, pageSize: number) => void,  
     users: Array<UsersType>,
     totalUsersCount: number,
     pageSize: number,
     currentPage: number,
-    setCurrentPage: (currentPage: number) => void,
-    setTotalUsersCount: (totalCount: number) => void
-    setPreloader: (isFetching: boolean) => void
-    isFetching: boolean
-    setFollowingInProgress: (isFetching: boolean, id: number) => void
-    followingInProgress: number[]
+    isFetching: boolean,
+    followingInProgress: number[],
     }, {}> 
     
     {
     componentDidMount() {
-        this.props.getUsersThunkcreator();
+        if (this.props.users.length ===  0) {
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        }
     }
      onPageChanged = (pageNumber: number) => {
-        this.props.setPreloader(true)
-        this.props.setCurrentPage(pageNumber)
-            usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.setPreloader(false)
-            this.props.setUsers(data.items)
-    })
+         this.props.setCurrentPage(pageNumber)
+        this.props.getUsers(pageNumber, this.props.pageSize)
 }
     render () {
         return <>
@@ -67,7 +63,6 @@ let mapStateToProps = (state: StateType) => {
 }
 
 export const UsersContainer = connect(mapStateToProps, 
-        {addUser, deleteUser, setUsers, 
-        setCurrentPage, setTotalUsersCount, setPreloader, 
-        setFollowingInProgress, getUsersThunkcreator})
+        {addUser, deleteUser, setCurrentPage, 
+        setFollowingInProgress, getUsers})
         (UsersContainerComponent)
