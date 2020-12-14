@@ -1,7 +1,8 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent}from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem"
 import { DialogsType, MessageType,} from './../../redux/store'
+import { Redirect } from "react-router-dom";
 
 export type dialogDataType = {
   dialogsData: Array<DialogsType>
@@ -9,6 +10,7 @@ export type dialogDataType = {
   messageBody: (e: ChangeEvent<HTMLTextAreaElement>) => void
   sendMessage: () => void
   newMessageText: string
+  isAuth: boolean
 }
 type UserMessagePropsType = {
   message: string
@@ -16,6 +18,7 @@ type UserMessagePropsType = {
 }
 let newMessage = React.createRef<HTMLTextAreaElement>()
  
+
 export default function Dialogs (props: dialogDataType) {
 
   let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} avatar={`https://api.adorable.io/avatars/96/${dialog.name}.png`} /> ); 
@@ -26,6 +29,12 @@ export default function Dialogs (props: dialogDataType) {
   let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.messageBody(e) 
   }
+
+  if (props.isAuth === false) {
+    return <Redirect to={'/login'}/>
+  }
+  
+  
   return (
     <div className={classes.users_dialogs}>
       <div className={classes.users}>

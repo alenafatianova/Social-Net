@@ -52,7 +52,7 @@ export const setAuthData = (id: number, email: string, login: string, isAuth: bo
 export type authTypeActionType = ReturnType <typeof setAuthData>
 
 export const authData = () => {
-    return (dispatch: any) => {
+    return (dispatch: any) => {                                             //---------any------------------------
         authAPI.me().then(response => { 
             if(response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;

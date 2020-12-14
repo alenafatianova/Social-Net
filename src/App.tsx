@@ -10,6 +10,7 @@ import Settings from './components/Settings/Settings';
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {UsersContainer} from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer';
+import {LoginPage} from './components/Login/Login'
 
 
 const App: React.FC = () => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
       <Route exact path='/music' render={() => <Music/>}/>
       <Route exact path='/photos' render={() => <Photos/>}/>
       <Route exact path='/settings' render={() => <Settings/>}/>
+      <Route exact path='/loginPage' render={() => <LoginPage/>}/>
   </div>
   </div>
   </BrowserRouter>
