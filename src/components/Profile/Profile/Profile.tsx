@@ -4,12 +4,14 @@ import {MyPostsContainer} from "../MyPosts/MyPostsContainer";
 import {ProfileInfo} from "../ProfileInfo/ProfileInfo";
 import {UserProfileType} from '../../../redux/profile-reducer'
 
+
 type ProfilePropsType = {
   profile: UserProfileType
+  isAuth: boolean
 }
 
 export const Profile = React.memo((props: ProfilePropsType) => {
-  
+
   return (
     
     <div className={classes.mainContent}>
