@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './App.module.scss';
+import classes from './App.module.css';
 import ProfileContainer from './components/Profile/ProfileContainer'
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter, Route } from 'react-router-dom';

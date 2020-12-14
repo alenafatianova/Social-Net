@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Settings.module.scss'
+import classes from './Settings.module.css'
 
 export default function Settings() {
     return (
