@@ -1,4 +1,4 @@
-
+import {usersAPI} from '../API/API'
 import {newPostType, ProfilePageType} from './store'
 
 const ADD_POST = 'ADD-POST';
@@ -93,6 +93,11 @@ export const addPostActionCreator = () => ({type: ADD_POST} as const)
 export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
 export const setUserProfile = (profile: UserProfileType ) => ({type: SET_USER_PROFILE, profile: profile} as const)
 
+export const getProfile = (userId: string) => (dispatch: any) => {                       //--------any убрать-------
+  usersAPI.getProfile(userId).then(response => {
+    dispatch(setUserProfile(response.data))
+})
+}
 export type ProfileActionsType = 
             ReturnType <typeof addPostActionCreator> | 
             ReturnType <typeof changeNewPostCreator> |

@@ -1,4 +1,4 @@
-import { usersAPI } from '../API/API'
+import { authAPI } from '../API/API'
 
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -53,7 +53,7 @@ export type authTypeActionType = ReturnType <typeof setAuthData>
 
 export const authData = () => {
     return (dispatch: any) => {
-        usersAPI.headerLinks().then(response => { 
+        authAPI.me().then(response => { 
             if(response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;
                     dispatch(setAuthData(id, email, login, true))
