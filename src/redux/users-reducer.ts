@@ -120,9 +120,11 @@ export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
 
 
 //----------getUsers, followUser, unfollowUser  это санка-------------------------
+type UsersThunksType = ThunkAction<void, StateType, unknown, UsersActionType>
 
-export const getUsers = (currentPage: number, pageSize: number ): ThunkAction<void, StateType, unknown, UsersActionType> => {     
-    return (dispatch, getState) => {                                               
+
+export const getUsers = (currentPage: number, pageSize: number ): UsersThunksType => {     
+    return (dispatch) => {                                               
         dispatch(setPreloader(true))
         usersAPI.getUsers(currentPage, pageSize).then(data => {
          dispatch(setPreloader(false))
@@ -131,8 +133,8 @@ export const getUsers = (currentPage: number, pageSize: number ): ThunkAction<vo
         })
     }
 }
-export const unfollowUser = (id: number) => {
-    return (dispatch: any) => {                   //----------исправить any-------------
+export const unfollowUser = (id: number): UsersThunksType => {
+    return (dispatch) => {                   
       dispatch(setFollowingInProgress(true, id))
       usersAPI.deleteUser(id).then(response => {
                 if (response.data.resultCode === 0) {
@@ -142,8 +144,8 @@ export const unfollowUser = (id: number) => {
     })
     }
 } 
-export const followUser = (id: number) => {
-    return (dispatch: any) => {                //----------исправить any-------------
+export const followUser = (id: number): UsersThunksType => {
+    return (dispatch) => {               
         dispatch(setFollowingInProgress(true, id))
             usersAPI.followUser(id).then(response => {
                 if (response.data.resultCode === 0) {
