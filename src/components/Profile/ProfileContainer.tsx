@@ -1,7 +1,7 @@
 import React from 'react' 
 import {connect} from 'react-redux'
 import {StateType} from '../../redux/redux-store'
-import {getProfile, UserProfileType, profileType} from '../../redux/profile-reducer'
+import {getProfile, UserProfileType} from '../../redux/profile-reducer'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import {Profile} from './Profile/Profile'
 import { Redirect } from "react-router";

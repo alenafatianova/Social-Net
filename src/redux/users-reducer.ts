@@ -1,4 +1,6 @@
+import { StateType } from './redux-store';
 import { usersAPI } from '../API/API'
+import { Dispatch } from 'redux';
 
 
 const ADD_USER = 'ADD-USER-IN-FRIENDS'
@@ -40,6 +42,9 @@ const InitialUsersState: InitialStateType = {
     followingInProgress: [] 
 }
 
+export type UsersActionType = ReturnType <typeof deleteUser> | ReturnType <typeof addUser> | ReturnType <typeof setUsers> |
+    ReturnType <typeof setCurrentPage> | ReturnType <typeof setTotalUsersCount> | ReturnType <typeof setPreloader> |
+    ReturnType <typeof setFollowingInProgress>
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {
     switch(action.type) {
@@ -115,7 +120,7 @@ export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
 
 //----------getUsers, followUser, unfollowUser  это санка-------------------------
 export const getUsers = (currentPage: number, pageSize: number ) => {     
-    return (dispatch: any) => {                                               //----------исправить any-------------
+    return (dispatch: Dispatch<UsersActionType>, getState: () => StateType) => {                                               //----------исправить any-------------
         dispatch(setPreloader(true))
         usersAPI.getUsers(currentPage, pageSize).then(data => {
          dispatch(setPreloader(false))
@@ -147,6 +152,3 @@ export const followUser = (id: number) => {
     }
 }
 
-export type UsersActionType = ReturnType <typeof deleteUser> | ReturnType <typeof addUser> | ReturnType <typeof setUsers> |
-    ReturnType <typeof setCurrentPage> | ReturnType <typeof setTotalUsersCount> | ReturnType <typeof setPreloader> |
-    ReturnType <typeof setFollowingInProgress>
