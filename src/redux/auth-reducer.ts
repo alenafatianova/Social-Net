@@ -56,7 +56,7 @@ export type authTypeActionType = ReturnType <typeof setAuthData>
 type authThunkType = ThunkAction<void, StateType, unknown, authTypeActionType >
 
 export const authData = (): authThunkType => {
-    return (dispatch) => {                                             //---------any------------------------
+    return (dispatch) => {                                            
         authAPI.me().then(response => { 
             if(response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;
