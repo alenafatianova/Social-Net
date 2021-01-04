@@ -1,3 +1,5 @@
+import { StateType } from './redux-store';
+import { ThunkAction } from 'redux-thunk';
 import { authAPI } from '../API/API'
 
 
@@ -51,8 +53,10 @@ export const setAuthData = (id: number, email: string, login: string, isAuth: bo
 
 export type authTypeActionType = ReturnType <typeof setAuthData>
 
-export const authData = () => {
-    return (dispatch: any) => {                                             //---------any------------------------
+type authThunkType = ThunkAction<void, StateType, unknown, authTypeActionType >
+
+export const authData = (): authThunkType => {
+    return (dispatch) => {                                             //---------any------------------------
         authAPI.me().then(response => { 
             if(response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;
