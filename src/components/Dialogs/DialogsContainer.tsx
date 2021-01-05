@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
-import {ChangeEvent} from "react";
+import React, {ChangeEvent} from "react";
 import {sendMessageCreator, messageBodyCreator, DialogsActionsType} from '../../redux/dialogs-reducer'
-import Dialogs from "./Dialogs";
+import Dialogs, { dialogDataType } from "./Dialogs";
 import { StateType } from '../../redux/redux-store';
+import { Redirect } from 'react-router-dom';
+import { withAuthRedirect } from '../../hoc/AuthRedirect';
+
 
 
 let mapStateToProps = (state: StateType) => {
@@ -13,7 +16,6 @@ let mapStateToProps = (state: StateType) => {
     isAuth: state.auth.isAuth
   }
 }
-
 
 let mapDispatchToProps = (dispatch: (actions: DialogsActionsType)=> void) => {
   return {
@@ -26,4 +28,8 @@ let mapDispatchToProps = (dispatch: (actions: DialogsActionsType)=> void) => {
     }
   }
 }
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+//------------AuthRedirectComponent is a HOC, created as wrapping component for checking if user is logged in-----
+let AuthRedirectComponent = withAuthRedirect(Dialogs);
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)

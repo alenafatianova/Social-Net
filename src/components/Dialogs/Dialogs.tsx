@@ -31,7 +31,7 @@ export default function Dialogs (props: dialogDataType) {
   }
 
   if (props.isAuth === false) {
-    return <Redirect to={'/login'}/>
+    return <Redirect to='/login'/>
   }
   
   
