@@ -1,4 +1,6 @@
+import { ThunkAction } from 'redux-thunk';
 import {usersAPI} from '../API/API'
+import { StateType } from './redux-store';
 import {newPostType, ProfilePageType} from './store'
 
 const ADD_POST = 'ADD-POST';
@@ -93,10 +95,14 @@ export const addPostActionCreator = () => ({type: ADD_POST} as const)
 export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
 export const setUserProfile = (profile: UserProfileType ) => ({type: SET_USER_PROFILE, profile: profile} as const)
 
-export const getProfile = (userId: string) => (dispatch: any) => {                       //--------any убрать-------
+type profileThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
+
+export const getProfile = (userId: string): profileThunksType => {
+  return (dispatch) => {                       
   usersAPI.getProfile(userId).then(response => {
     dispatch(setUserProfile(response.data))
 })
+}
 }
 export type ProfileActionsType = 
             ReturnType <typeof addPostActionCreator> | 

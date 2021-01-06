@@ -29,11 +29,6 @@ export default function Dialogs (props: dialogDataType) {
   let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.messageBody(e) 
   }
-
-  if (props.isAuth === false) {
-    return <Redirect to='/login'/>
-  }
-  
   
   return (
     <div className={classes.users_dialogs}>

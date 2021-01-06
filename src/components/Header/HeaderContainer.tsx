@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { StateType } from '../../redux/redux-store'
 import { authData } from '../../redux/auth-reducer'
 import {mapStateToPropsType, mapDispatchToPropsType, Header} from './Header'
+import { compose } from 'redux'
 
 
 export class HeaderContainer extends React.Component<mapStateToPropsType&mapDispatchToPropsType> {
@@ -22,6 +23,7 @@ const mapStateToProps = (state: StateType) => ({
         login: state.auth.login,
 } as mapStateToPropsType)
 
-export default connect<mapStateToPropsType, mapDispatchToPropsType, {}, StateType>(
-    mapStateToProps, {authData})(HeaderContainer)
+
+export default compose(connect<mapStateToPropsType, mapDispatchToPropsType, {}, StateType>(
+    mapStateToProps, {authData}))(HeaderContainer)
 

@@ -3,6 +3,7 @@ import {changeNewPostCreator} from '../../../redux/profile-reducer'
 import {  RootStateType } from '../../../redux/store'
 import MyPosts from './MyPosts'
 import {connect} from 'react-redux'
+import { compose } from 'redux'
 
  
 let mapStateToProps = (state: RootStateType) => {
@@ -21,4 +22,5 @@ let mapDispatchToProps = (dispatch: (actions: ProfileActionsType) => void) => {
 }
   } 
 }
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(MyPosts)

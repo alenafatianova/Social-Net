@@ -7,8 +7,8 @@ import Friends from './components/Friends/Friends';
 import Music from './components/Music/Music';
 import Photos from './components/Photos/Photos'
 import Settings from './components/Settings/Settings';
-import {DialogsContainer} from './components/Dialogs/DialogsContainer';
-import {UsersContainer} from './components/Users/UsersContainer'
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import UsersContainer  from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer';
 import {LoginPage} from './components/Login/Login'
 

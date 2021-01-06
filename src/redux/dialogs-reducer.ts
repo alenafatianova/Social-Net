@@ -38,8 +38,8 @@ export const DialogsReducer = (state = initialDialogsStore, action: DialogsActio
         return state;
     }
 }
-export const messageBodyCreator = (messageBody: string) => ({type: 'MESSAGE_REPLY', messageBody: messageBody}) as const
-export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'}) as const
+export const messageBodyAC = (messageBody: string) => ({type: 'MESSAGE_REPLY', messageBody: messageBody}) as const
+export const sendMessageAC = () => ({type: 'SEND_MESSAGE'}) as const
 
-export type DialogsActionsType = ReturnType <typeof messageBodyCreator> | ReturnType <typeof sendMessageCreator>
+export type DialogsActionsType = ReturnType <typeof messageBodyAC> | ReturnType <typeof sendMessageAC>
 export type InitialStateType = typeof initialDialogsStore

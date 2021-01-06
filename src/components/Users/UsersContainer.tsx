@@ -5,9 +5,11 @@ import { StateType } from '../../redux/redux-store'
 import { UsersType } from '../../redux/users-reducer'
 import { Users } from './Users'
 import { Preloader } from '../common/Preloader'
+import { withAuthRedirect } from '../../hoc/AuthRedirect'
+import { compose } from 'redux'
 
 
-export class UsersContainerComponent extends React.Component<{
+export class UsersContainer extends React.Component<{
     setCurrentPage: (currentPage: number) => void,
     setFollowingInProgress: (isFetching: boolean, id: number) => void,
     getUsers: (currentPage: number, pageSize: number) => void,  
@@ -59,7 +61,8 @@ let mapStateToProps = (state: StateType) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, 
-        {followUser, unfollowUser, setCurrentPage, 
-        setFollowingInProgress, getUsers})
-        (UsersContainerComponent)
+
+export default compose(connect(mapStateToProps, 
+    {followUser, unfollowUser, setCurrentPage, setFollowingInProgress, getUsers}), 
+    withAuthRedirect)(UsersContainer) 
+       
