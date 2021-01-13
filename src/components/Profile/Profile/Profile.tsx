@@ -8,6 +8,8 @@ import {UserProfileType} from '../../../redux/profile-reducer'
 type ProfilePropsType = {
   profile: UserProfileType
   isAuth: boolean
+  status: string
+  updateStatus: string
 }
 
 export const Profile = React.memo((props: ProfilePropsType) => {

@@ -1,16 +1,19 @@
+
 import { ThunkAction } from 'redux-thunk';
-import {usersAPI} from '../API/API'
+import {profileAPI, usersAPI} from '../API/API'
 import { StateType } from './redux-store';
 import {newPostType, ProfilePageType} from './store'
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_TEXT = 'UPDATE-TEXT';
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 export type initialProfileStateType = {
   newPostText: string
   postsData: Array<PostsDataType>
   profile: null
+  status: string
 }
 export type PostsDataType = {
   id: number
@@ -26,12 +29,11 @@ export type UserProfileType = {
   fullName: string
   photos: photosType
   contacts: contactsType
-  
+  status: string
 }
 
 export type profileType = {
   profile: UserProfileType
- 
 }
 
 export type photosType = {
@@ -57,7 +59,8 @@ let initialProfileState: initialProfileStateType = {
       { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },
       { id: 3, post: "Found 10 dollars today...anyone lost it?", likes: 12 },
     ],
-    profile: null
+    profile: null,
+    status: '',
 }
 
 export const ProfileReducer = (state: ProfilePageType = initialProfileState, action:ProfileActionsType) => {
@@ -87,6 +90,12 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
           profile: action.profile
         }
       }
+      case SET_STATUS: {
+        return {
+          ...state,
+          status: action.status
+        }
+      }
       default:
         return state;  
   }
@@ -95,17 +104,38 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
 export const addPostActionCreator = () => ({type: ADD_POST} as const) 
 export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
 export const setUserProfile = (profile: UserProfileType ) => ({type: SET_USER_PROFILE, profile: profile} as const)
+export const setStatus = (status: string) => ({type: SET_STATUS, status}as const) 
 
-type profileThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
 
-export const getProfile = (userId: string): profileThunksType => {
+type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
+
+export const getProfile = (userId: number): ThunksType => {
   return (dispatch) => {                       
   usersAPI.getProfile(userId).then(response => {
     dispatch(setUserProfile(response.data))
 })
+}}
+
+export const getStatus = (userId: number): ThunksType => {
+  return (dispatch) => {
+    profileAPI.getStatus(userId).then(response => {
+      dispatch(setStatus(response.data))
+    })
+  }
 }
+export const updateStatus = (status: string): ThunksType => {
+  return (dispatch) => {
+    profileAPI.updateStatus(status)
+      .then(response => {
+        if(response.data.resultCode === 0) {
+          dispatch(setStatus(status))
+        }
+    })
+  }
 }
+
 export type ProfileActionsType = 
             ReturnType <typeof addPostActionCreator> | 
             ReturnType <typeof changeNewPostCreator> |
-            ReturnType <typeof setUserProfile>
+            ReturnType <typeof setUserProfile> |
+            ReturnType <typeof setStatus> 
