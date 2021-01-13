@@ -1,4 +1,6 @@
+import { getProfile } from './../redux/profile-reducer';
 import axios from 'axios'
+import { UsersType } from '../redux/users-reducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -8,9 +10,15 @@ const instance = axios.create({
     }
 })
 
+type getUsersResponseType = {
+    items: UsersType[]
+    totalCount: number
+    error: string
+}
+
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage} &count=${pageSize}`)
+        return instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`)
             .then(response => response.data)
     },
     followUser(userId: number) {
@@ -19,13 +27,23 @@ export const usersAPI = {
     deleteUser(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
-   
+   getProfile(userId: number) {
+       console.warn('Obsolete method. Please use profileAPI object instead.')
+    return profileAPI.getProfile(userId)
+   }
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get(`profile/${userId}`)
-    } 
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status${userId}`)
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status/`, status)
+    }
+    
 }
 
 export const authAPI = {
@@ -34,11 +52,7 @@ export const authAPI = {
     }
 }
 
-export const statusAPI = {
-    updateStatus(status: string) {
-        return instance.put(`profile/status`, status)
-    }
-}
+
 
 
 
