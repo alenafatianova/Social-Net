@@ -13,6 +13,8 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import {LoginPage} from './components/Login/Login'
 
 
+
+
 const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -20,10 +22,10 @@ const App: React.FC = () => {
       <div className = {classes.Wrapper}>
       <HeaderContainer/>
       <Navbar/>
-      <Route exact path='/dialogs' render={() => <DialogsContainer/> }/>
+      <Route exact path='/dialogs' render={() => <DialogsContainer/>}/>
       <Route exact path='/profile/:userId?' render={() => <ProfileContainer /> }/>
       <Route exact path='/friends' render={() => <Friends/> }/>
-      <Route exact path='/users' render={() => <UsersContainer /> }/>
+      <Route exact path='/users' render={() => (<UsersContainer />) }/>
       <Route exact path='/music' render={() => <Music/>}/>
       <Route exact path='/photos' render={() => <Photos/>}/>
       <Route exact path='/settings' render={() => <Settings/>}/>

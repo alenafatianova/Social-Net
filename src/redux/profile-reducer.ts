@@ -31,6 +31,7 @@ export type UserProfileType = {
 
 export type profileType = {
   profile: UserProfileType
+ 
 }
 
 export type photosType = {
