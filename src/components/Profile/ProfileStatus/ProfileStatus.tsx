@@ -1,24 +1,32 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import style from './ProfileStatus.module.css'
 
 export type statusProps = {
-status: string
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export class ProfileStatus extends React.Component<statusProps> {
 
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status,
     }
     
-    activateEditMode()  {
+    activateEditMode = () => {
         this.setState({
             editMode: true
         })
     }
-    deactivateEditMode()  {
+    deactivateEditMode = () => {
         this.setState({
             editMode: false
+        })
+        this.props.updateStatus(this.state.status);
+    }
+    onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status: e.currentTarget.value
         })
     }
      render() { 
@@ -26,15 +34,16 @@ export class ProfileStatus extends React.Component<statusProps> {
         <div className={style.profileStatusWrapper}>
             {!this.state.editMode &&
              <div>
-                <span onDoubleClick={this.activateEditMode.bind(this)}>{this.props.status}</span>
+                <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
             </div>}
            
             {this.state.editMode &&
             <div>
                 <input 
+                    onChange={this.onChangeStatus}
                     autoFocus={true}
                     onBlur={this.deactivateEditMode.bind(this)} 
-                    value={this.props.status} 
+                    value={this.state.status} 
                     placeholder="what are you thinking about?"/>
             </div>}
         </div>

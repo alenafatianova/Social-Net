@@ -9,7 +9,7 @@ type ProfilePropsType = {
   profile: UserProfileType
   isAuth: boolean
   status: string
-  updateStatus: string
+  updateStatus: (status: string) => void
 }
 
 export const Profile = React.memo((props: ProfilePropsType) => {
@@ -18,7 +18,7 @@ export const Profile = React.memo((props: ProfilePropsType) => {
     
     <div className={classes.mainContent}>
       
-    <ProfileInfo profile={props.profile}/>
+    <ProfileInfo profile={props.profile} status={props.status}  updateStatus={props.updateStatus} />
     
     <MyPostsContainer  />
     </div>

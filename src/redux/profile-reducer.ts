@@ -34,6 +34,8 @@ export type UserProfileType = {
 
 export type profileType = {
   profile: UserProfileType
+  status: string
+  updateStatus: (status: string) => void
 }
 
 export type photosType = {

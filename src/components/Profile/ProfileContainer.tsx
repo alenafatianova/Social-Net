@@ -12,15 +12,15 @@ export type mapStateToPropsType = {
     profile: UserProfileType
     isAuth: boolean
     status: string
-    updateStatus: string
+    updateStatus:  (status: string) => void
 }
 export type OwnPropsType = {
-    getProfile: (userId: string) => void
-    getStatus: (userId: string) => void
+    getProfile: (userId: number) => void
+    getStatus: (userId: number) => void
 }
 
 export type PathProps = {
-    userId: string 
+    userId: number 
 }
 
 export type ProfileContainerProps = RouteComponentProps<PathProps> & OwnPropsType & mapStateToPropsType
