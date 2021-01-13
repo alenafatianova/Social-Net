@@ -15,14 +15,18 @@ type getUsersResponseType = {
     totalCount: number
     error: string
 }
-
+type followUserResponseType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
+}
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`)
             .then(response => response.data)
     },
     followUser(userId: number) {
-        return instance.post(`follow/${userId}`, {})
+        return instance.post<followUserResponseType>(`follow/${userId}`, {})
     },
     deleteUser(userId: number) {
         return instance.delete(`follow/${userId}`)
