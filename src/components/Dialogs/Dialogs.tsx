@@ -2,7 +2,7 @@ import React, {ChangeEvent}from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem"
 import { DialogsType, MessageType,} from './../../redux/store'
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 
 export type dialogDataType = {
   dialogsData: Array<DialogsType>

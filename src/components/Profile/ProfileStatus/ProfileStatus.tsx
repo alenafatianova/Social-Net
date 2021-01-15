@@ -29,6 +29,15 @@ export class ProfileStatus extends React.Component<statusProps> {
             status: e.currentTarget.value
         })
     }
+ //--------------      FIX PREV STATE       ------------------------------
+    componentDidUpdate(prevState: {}, prevProps: statusProps) {
+          if(prevProps.status !== this.props.status) {
+              this.setState({
+                  status: this.props.status
+              })
+          }
+    }
+
      render() { 
         return (
         <div className={style.profileStatusWrapper}>

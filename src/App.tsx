@@ -25,11 +25,11 @@ const App: React.FC = () => {
       <Route exact path='/dialogs' render={() => <DialogsContainer/>}/>
       <Route exact path='/profile/:userId?' render={() => <ProfileContainer /> }/>
       <Route exact path='/friends' render={() => <Friends/> }/>
-      <Route exact path='/users' render={() => (<UsersContainer />) }/>
+      <Route exact path='/users' render={() => <UsersContainer />}/>
       <Route exact path='/music' render={() => <Music/>}/>
       <Route exact path='/photos' render={() => <Photos/>}/>
       <Route exact path='/settings' render={() => <Settings/>}/>
-      <Route exact path='/loginPage' render={() => <LoginPage/>}/>
+      <Route exact path='/login' render={() => <LoginPage/>}/>
   </div>
   </div>
   </BrowserRouter>

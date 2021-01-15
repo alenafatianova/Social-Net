@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import { connect } from 'react-redux'
 import { followUser, unfollowUser, setCurrentPage, setFollowingInProgress, getUsers } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
@@ -62,7 +62,7 @@ let mapStateToProps = (state: StateType) => {
 }
 
 
-export default compose(connect(mapStateToProps, 
+export default compose<ComponentType>(connect(mapStateToProps, 
     {followUser, unfollowUser, setCurrentPage, setFollowingInProgress, getUsers}), 
     withAuthRedirect)(UsersContainer) 
        
