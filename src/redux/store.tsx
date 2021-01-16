@@ -25,7 +25,7 @@ export let store: StoreType = {
         { id: 6, name: "Jennisse" },
         { id: 7, name: "Phoebe" },
       ],
-      newMessageTextBody: "",
+      //newMessageTextBody: "",
       messageData: [
         { id: 1, message: "Hi, whatsapp?" },
         { id: 2, message: "Go to the cinema tonight?" },
@@ -80,7 +80,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
   dialogsData: Array<DialogsType>
   messageData: Array<MessageType>
-  newMessageTextBody: string
+  //newMessageTextBody: string
 };
 export type postMessageType = {
   // new post is here
