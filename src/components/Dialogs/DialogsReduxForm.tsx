@@ -1,10 +1,15 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
+import { maxLengthCreator, required } from '../../redux/handlers/validators/validators'
+import { Textarea } from '../common/FormControl/FormControls'
 
 
 export type messageFormType = {
     messageTextarea: string
 }
+
+const maxLength100 = maxLengthCreator(100);
+
 
 export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = ({handleSubmit}) => {
    
@@ -12,10 +17,11 @@ export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = ({ha
         <form onSubmit={handleSubmit}>
             <div>
             <Field 
-                type='textarea' 
+                type='textarea'
+                validate={[required, maxLength100]}
                 placeholder='Type your message' 
                 name='messageTextarea' 
-                component='textarea'/>
+                component={Textarea} />
             </div>
             <div>
                 <button>send</button>

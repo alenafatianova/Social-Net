@@ -15,11 +15,11 @@ export const AddPostForm: React.FC<InjectedFormProps<postFormType>> = ({handleSu
        <form onSubmit={handleSubmit}>
             <div>
             <Field 
-                type='textarea'
-                name='newPostText'
                 component={Textarea}
                 validate={[required, maxLength10, minLength2]}
-                />
+                type='textarea'
+                name='newPostText'
+            />
             </div>
             <div>
                 <button>Post</button>

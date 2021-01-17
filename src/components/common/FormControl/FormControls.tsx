@@ -1,23 +1,43 @@
 import React from 'react'
 import style from './formControls.module.scss'
 
-type textAreaType = {
+type validationProps = {
     input: any
     meta: {
         touched: boolean
         error: boolean
         warning: string
     }
+    element: string
 }
 
-export const Textarea = (props: textAreaType) => {
+const FormControl = (props: validationProps) => {
     const hasError = props.meta.touched && props.meta.error
+    const child =  React.createElement
     return (
         <div className={ hasError ? style.error : style.formControl}>
-            <textarea {...props.input} {...props}  />
             <div>
-               { hasError && <span>{'Error has occuried'}</span>}
+              {React.createElement(props.element, {...props.input, ...props})}
+            </div>
+            <div>
+               { hasError && <span>{props.meta.error}</span>}
             </div>
         </div>
+    )
+}
+
+
+export const Textarea = (props: validationProps) => {
+  return <FormControl {...props}>
+         {props.element='textarea'} 
+        </FormControl>
+   
+}
+
+export const Input = (props: validationProps) => {
+    return (
+      <FormControl {...props}>
+          <input {...props.input} {...props}  />
+      </FormControl>
     )
 }

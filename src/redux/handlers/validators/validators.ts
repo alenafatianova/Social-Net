@@ -6,10 +6,10 @@ export const required = (value: string) => {
 }
 
 export const maxLengthCreator = (maxLength: number) => (value: string) => {
-    if(value.length > maxLength ) return `Form can be ${maxLength} symbols only`
+    if(value.length > maxLength ) return `Text can be ${maxLength} symbols only`
     return undefined
 }
 
 export const minLengthCreator = (minLength: number) => (value: string) => {
-    if (value.length < minLength) return `Form should be more than ${minLength} symbols`
+    if (value.length < minLength) return `Text should be more than ${minLength} symbols`
 }
