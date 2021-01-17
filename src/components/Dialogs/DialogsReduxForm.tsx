@@ -6,13 +6,13 @@ export type messageFormType = {
     messageTextarea: string
 }
 
-export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = (props: any) => {
+export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = ({handleSubmit}) => {
    
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
             <Field 
-                type='texarea' 
+                type='textarea' 
                 placeholder='Type your message' 
                 name='messageTextarea' 
                 component='textarea'/>

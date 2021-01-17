@@ -42,16 +42,7 @@ export function Dialogs (props: dialogDataType) {
       <div>
       <div>
         <DialogsReduxForm onSubmit={addNewMessage}/>
-        {/* <textarea 
-          ref={newMessage} 
-          placeholder='Enter your message here'
-          value={props.newMessageText}
-          onChange={onNewMessageChange}>
-          </textarea> */}
         </div>
-        {/* <div>
-          <button onClick={sendMessageOnClick}>send</button>
-        </div>  */}
         </div>
       </div>
      <div>  

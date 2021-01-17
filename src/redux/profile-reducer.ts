@@ -5,12 +5,12 @@ import { StateType } from './redux-store';
 import {newPostType, ProfilePageType} from './store'
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_TEXT = 'UPDATE-TEXT';
+//const UPDATE_TEXT = 'UPDATE-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
 export type initialProfileStateType = {
-  newPostText: string
+  
   postsData: Array<PostsDataType>
   profile: null
   status: string
@@ -55,7 +55,7 @@ export type contactsType = {
 
 
 let initialProfileState: initialProfileStateType = {
-    newPostText: "",
+   
     postsData: [
       { id: 1, post: "Heeeelloooo, guys!", likes: 33 },
       { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },
@@ -71,21 +71,21 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
   case ADD_POST: {
       const newPost: newPostType = {
         id: 5,
-        post: state.newPostText,
+        post: action.newPostText,
         likes: 0,
     }
     return {
       ...state,
-      newPostText: "",
+      newPostText: '',
       postsData: [...state.postsData, newPost]
     }
   }
-  case UPDATE_TEXT: {
-      return {
-        ...state,
-        newPostText: action.newText
-      }
-    }
+  // case UPDATE_TEXT: {
+  //     return {
+  //       ...state,
+  //       newPostText: action.newText
+  //     }
+  //   }
   case SET_USER_PROFILE: {
     return {
           ...state,
@@ -103,8 +103,8 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
   }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST} as const) 
-export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const) 
+//export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
 export const setUserProfile = (profile: UserProfileType ) => ({type: SET_USER_PROFILE, profile: profile} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status}as const) 
 
@@ -138,6 +138,5 @@ export const updateStatus = (status: string): ThunksType => {
 
 export type ProfileActionsType = 
             ReturnType <typeof addPostActionCreator> | 
-            ReturnType <typeof changeNewPostCreator> |
             ReturnType <typeof setUserProfile> |
             ReturnType <typeof setStatus> 
