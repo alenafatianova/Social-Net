@@ -1,9 +1,14 @@
 import React from 'react'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import { required, minLengthCreator, maxLengthCreator } from '../../../redux/handlers/validators/validators'
+import { Textarea } from '../../common/FormControl/FormControls';
 
 type postFormType = {
     newPostText: string
 }
+
+const maxLength10 = maxLengthCreator(10);
+const minLength2 = minLengthCreator(2);
 
 export const AddPostForm: React.FC<InjectedFormProps<postFormType>> = ({handleSubmit}) => {
     return (
@@ -12,7 +17,8 @@ export const AddPostForm: React.FC<InjectedFormProps<postFormType>> = ({handleSu
             <Field 
                 type='textarea'
                 name='newPostText'
-                component='textarea'
+                component={Textarea}
+                validate={[required, maxLength10, minLength2]}
                 />
             </div>
             <div>
