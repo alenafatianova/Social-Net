@@ -8,18 +8,17 @@ type validationProps = {
         error: boolean
         warning: string
     }
-    element: string
+    element: any
 }
+
+const element = <div><textarea/></div>
 
 const FormControl = (props: validationProps) => {
     const hasError = props.meta.touched && props.meta.error
-    const child =  React.createElement
     return (
         <div className={ hasError ? style.error : style.formControl}>
             <div>
-              {React.createElement(props.element, {...props.input, ...props})}
-            </div>
-            <div>
+                <div>{props.element}</div>
                { hasError && <span>{props.meta.error}</span>}
             </div>
         </div>
@@ -28,16 +27,9 @@ const FormControl = (props: validationProps) => {
 
 
 export const Textarea = (props: validationProps) => {
-  return <FormControl {...props}>
-         {props.element='textarea'} 
-        </FormControl>
-   
+   return <FormControl {...props} element={React.createElement('textarea', {...props.input, ...props.meta, ...props})}></FormControl>   
 }
 
 export const Input = (props: validationProps) => {
-    return (
-      <FormControl {...props}>
-          <input {...props.input} {...props}  />
-      </FormControl>
-    )
+    return <FormControl {...props} element={React.createElement('input', {...props.input, ...props.meta, ...props})}></FormControl>
 }
