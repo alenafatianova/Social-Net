@@ -6,10 +6,12 @@ import classes from './Header.module.css'
 export type mapStateToPropsType = {
     login: string | null
     isAuth: boolean
+
 }
   
 export type mapDispatchToPropsType = {
     authData: () => void
+    logout: () => void
 }
 
 
@@ -19,8 +21,9 @@ export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (p
            <div className={classes.links}>
            <div className={classes.login}>
                {
-               props.isAuth ? props.login : 
-                <NavLink to={'/login'} activeClassName={classes.active}>Login</NavLink>}
+                props.isAuth 
+                ? <div>{props.login } <button onClick={props.logout}>Log Out</button></div>
+                : <NavLink to={'/login'} activeClassName={classes.active}>Login</NavLink>}
             </div>
             <div className={classes.registrate}>
             <NavLink to={'/registration'} activeClassName={classes.active}>Registrate</NavLink>

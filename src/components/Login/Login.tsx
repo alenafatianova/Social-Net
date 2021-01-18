@@ -4,14 +4,21 @@ import {reduxForm, Field, InjectedFormProps} from 'redux-form'
 import { required } from '../../redux/handlers/validators/validators'
 import { Input } from '../common/FormControl/FormControls'
 import { login, logout } from '../../redux/auth-reducer'
+import { Redirect } from 'react-router'
+import { StateType } from '../../redux/redux-store'
+import style from '../common/FormControl/formControls.module.scss'
 
 type FormDataType = {
     email: string
     password: string
-    rememberMe: boolean
+    rememberMe: boolean 
+    error: string
 }
-
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+type formPageProps = {
+    login: (email: string, password: string, rememberMe: boolean ) => void
+    isAuth: boolean
+}
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
    return (
     <form onSubmit={handleSubmit}>
     <div>
@@ -23,6 +30,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) =>
     <div>
         <Field type='checkbox'  name='rememberMe' component='input' /> remember me
      </div>
+     {error && <div className={style.formErrorEmail}>
+            {error}
+        </div>
+    }
     <div>
         <button>login</button>
     </div>
@@ -34,9 +45,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) =>
 const LoginReduxForm  = reduxForm<FormDataType>({form: 'login'})(LoginForm)
   
 
-function LoginPage(props: any) {
+function LoginPage(props: formPageProps) {
     const onSubmit = (formData: FormDataType) => {
        props.login(formData.email, formData.password, formData.rememberMe)
+    }
+    if(props.isAuth) {
+        return <Redirect to='/profile'/>
     }
     return (
         <div>
@@ -47,5 +61,7 @@ function LoginPage(props: any) {
         </div>
     )
 }
-
-export default connect(null, {login, logout})(LoginPage)
+const mapStateToProps = (state: StateType) => ({
+    isAuth: state.auth.isAuth
+})
+export default connect(mapStateToProps, {login, logout})(LoginPage)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { StateType } from '../../redux/redux-store'
-import { authData } from '../../redux/auth-reducer'
+import { authData, logout } from '../../redux/auth-reducer'
 import {mapStateToPropsType, mapDispatchToPropsType, Header} from './Header'
 import { compose } from 'redux'
 
@@ -25,5 +25,5 @@ const mapStateToProps = (state: StateType) => ({
 
 
 export default compose(connect<mapStateToPropsType, mapDispatchToPropsType, {}, StateType>(
-    mapStateToProps, {authData}))(HeaderContainer)
+    mapStateToProps, {authData, logout}))(HeaderContainer)
 
