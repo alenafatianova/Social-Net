@@ -51,18 +51,15 @@ export const profileAPI = {
     
 }
 
-export const loginAPI = {
-    postLogin(email: string) {
-        return instance.post<ResponseType>('auth/login', email)
-    },
-    deleteLogin() {
-        return instance.delete<ResponseType>('auth/login')
-    }
-}
-
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+    },
+    login(email: string, password: string, remembreMe: boolean) {
+        return instance.post<ResponseType>('auth/login', {email, password, remembreMe})
+    },
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
     }
 }
 

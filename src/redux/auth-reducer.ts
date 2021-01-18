@@ -20,9 +20,9 @@ export type initialDataStateType = {
     isFetching: boolean
 }
 export type setAuthDataACPayloadType = {
-    id: number
-    email: string
-    login: string
+    id: number | null
+    email: string | null
+    login: string | null
     isAuth: boolean
 }
 
@@ -48,7 +48,7 @@ export const authReducer = (state = initialDataState, action: authTypeActionType
     }
 }
 
-export const setAuthData = (id: number, email: string, login: string, isAuth: boolean): setAuthDataACType => ({
+export const setAuthData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthDataACType => ({
     type: 'SET_USER_DATA',  payload: {id, email, login, isAuth}} as const)
 
 export type authTypeActionType = ReturnType <typeof setAuthData>
@@ -61,6 +61,28 @@ export const authData = (): authThunkType => {
             if(response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;
                     dispatch(setAuthData(id, email, login, true))
+            }
+        }
+     )
+    }
+}
+
+export const login = (email: string, password: string, rememberMe: boolean): authThunkType => {
+    return (dispatch) => {                                            
+        authAPI.login(email, password, rememberMe).then(response => { 
+            if(response.data.resultCode === 0) {
+            dispatch(authData())
+            }
+        }
+     )
+    }
+}
+
+export const logout = (): authThunkType => {
+    return (dispatch) => {                                            
+        authAPI.logout().then(response => { 
+            if(response.data.resultCode === 0) {
+                dispatch(setAuthData(null, null, null, false))
             }
         }
      )
