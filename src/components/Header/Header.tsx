@@ -10,7 +10,6 @@ export type mapStateToPropsType = {
 }
   
 export type mapDispatchToPropsType = {
-    authData: () => void
     logout: () => void
 }
 
@@ -26,7 +25,7 @@ export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (p
                 : <NavLink to={'/login'} activeClassName={classes.active}>Login</NavLink>}
             </div>
             <div className={classes.registrate}>
-            <NavLink to={'/registration'} activeClassName={classes.active}>Registrate</NavLink>
+            <NavLink to={'/registration'} activeClassName={classes.active}>Sign In</NavLink>
             </div>
            </div>
         </div>

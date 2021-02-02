@@ -1,3 +1,4 @@
+import { appReducer } from './app-reducer';
 import { UsersReducer } from './users-reducer';
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import {ProfileReducer} from './profile-reducer'
@@ -15,6 +16,7 @@ let reducers = combineReducers({
     usersPage:  UsersReducer,
     auth: authReducer,
     form: formReducer,
+    app: appReducer,
 })
 
 export type StateType = ReturnType<typeof reducers>

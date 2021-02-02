@@ -13,7 +13,7 @@ export type mapStateToPropsType = {
     isAuth: boolean
     status: string
     updateStatus:  (status: string) => void
-    authorizedUserId: number
+    authorizedUserId: number 
 }
 export type OwnPropsType = {
     getProfile: (userId: number) => void
@@ -21,7 +21,7 @@ export type OwnPropsType = {
 }
 
 export type PathProps = {
-    userId: number 
+    userId:  any 
 }
 
 export type ProfileContainerProps = RouteComponentProps<PathProps> & OwnPropsType & mapStateToPropsType
@@ -32,6 +32,9 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
         let userId = this.props.match.params.userId
         if(!userId) {
             userId = this.props.authorizedUserId
+            if (!userId) {
+                this.props.history.push('/login')
+            }
         }
         this.props.getProfile(userId)
         this.props.getStatus(userId)
