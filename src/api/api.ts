@@ -22,9 +22,9 @@ type ResponseType = {
 }
 
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`)
-            .then(response => response.data)
+    async requestUsers(currentPage: number, pageSize: number) {
+        const response = await instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`);
+        return response.data;
     },
     followUser(userId: number) {
         return instance.post<ResponseType>(`follow/${userId}`, {})

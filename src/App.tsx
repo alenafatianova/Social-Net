@@ -14,7 +14,6 @@ import LoginPage from './components/Login/Login'
 import {initilizedAppThunk} from '../src/redux/app-reducer'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { StateType } from './redux/redux-store';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { useEffect } from 'react';
 
@@ -32,10 +31,10 @@ export const App = (props: appProps) => {
     }
   }, [props])
     
-    if (props.initialized) {
-      return <Preloader/>
-    }
-
+    // if (!props.initialized) {
+    //   return <Preloader/>
+    // }
+    
     return (
         <div>
           <div className={classes.Wrapper}>

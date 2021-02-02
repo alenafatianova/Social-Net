@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react'
 import { connect } from 'react-redux'
-import { followUser, unfollowUser, setCurrentPage, setFollowingInProgress, getUsers } from '../../redux/users-reducer'
+import { followUser, unfollowUser, setCurrentPage, setFollowingInProgress, requestUsers } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
 import { UsersType } from '../../redux/users-reducer'
 import { Users } from './Users'
@@ -13,7 +13,7 @@ import { getAllUsers, getCurrentPage, getFetching, getFollowingProgress, getPage
 export class UsersContainer extends React.Component<{
     setCurrentPage: (currentPage: number) => void,
     setFollowingInProgress: (isFetching: boolean, id: number) => void,
-    getUsers: (currentPage: number, pageSize: number) => void,  
+    requestUsers: (currentPage: number, pageSize: number) => void,  
     users: Array<UsersType>,
     totalUsersCount: number,
     pageSize: number,
@@ -27,12 +27,12 @@ export class UsersContainer extends React.Component<{
     {
     componentDidMount() {
         if (this.props.users.length ===  0) {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
         }
     }
      onPageChanged = (pageNumber: number) => {
-         this.props.setCurrentPage(pageNumber)
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.setCurrentPage(pageNumber)
+        this.props.requestUsers(pageNumber, this.props.pageSize)
 }
     render () {
         return <>
@@ -64,6 +64,6 @@ let mapStateToProps = (state: StateType) => {
 
 
 export default compose<ComponentType>(connect(mapStateToProps, 
-    {followUser, unfollowUser, setCurrentPage, setFollowingInProgress, getUsers}), 
+    {followUser, unfollowUser, setCurrentPage, setFollowingInProgress, requestUsers}), 
     withAuthRedirect)(UsersContainer) 
        

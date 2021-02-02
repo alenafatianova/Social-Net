@@ -42,10 +42,14 @@ const InitialUsersState: InitialStateType = {
     followingInProgress: [] 
 }
 
-export type UsersActionType = ReturnType <typeof deleteUser> | ReturnType <typeof addUser> | 
-        ReturnType <typeof setUsers> | ReturnType <typeof setCurrentPage> | 
-        ReturnType <typeof setTotalUsersCount> | ReturnType <typeof setPreloader> |
-        ReturnType <typeof setFollowingInProgress>
+export type UsersActionType = 
+    | ReturnType <typeof deleteUser> 
+    | ReturnType <typeof addUser> 
+    | ReturnType <typeof setUsers> 
+    | ReturnType <typeof setCurrentPage> 
+    | ReturnType <typeof setTotalUsersCount> 
+    | ReturnType <typeof setPreloader> 
+    | ReturnType <typeof setFollowingInProgress>
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {
     switch(action.type) {
@@ -123,10 +127,11 @@ export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
 type UsersThunksType = ThunkAction<void, StateType, unknown, UsersActionType>
 
 
-export const getUsers = (currentPage: number, pageSize: number ): UsersThunksType => {     
+export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => {     
     return (dispatch) => {                                               
         dispatch(setPreloader(true))
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setCurrentPage(currentPage))
+        usersAPI.requestUsers(currentPage, pageSize).then(data => {
          dispatch(setPreloader(false))
          dispatch(setUsers(data.items))
          dispatch(setTotalUsersCount(data.totalCount))
