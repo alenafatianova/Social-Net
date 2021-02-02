@@ -32,7 +32,7 @@ export const App = (props: appProps) => {
     }
   }, [props])
     
-    if (!props.initialized) {
+    if (props.initialized) {
       return <Preloader/>
     }
 

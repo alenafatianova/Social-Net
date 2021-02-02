@@ -140,8 +140,8 @@ export const unfollowUser = (id: number): UsersThunksType => {
                 if (response.data.resultCode === 0) {
                    dispatch(deleteUser(id))
                 }
-        dispatch(setFollowingInProgress(false, id))
-    })
+            dispatch(setFollowingInProgress(false, id))
+        })
     }
 } 
 export const followUser = (id: number): UsersThunksType => {
