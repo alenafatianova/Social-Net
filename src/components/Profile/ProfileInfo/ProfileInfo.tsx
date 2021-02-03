@@ -1,9 +1,9 @@
 import React from 'react'
 import { Preloader } from '../../common/Preloader/Preloader'
 import {profileType} from '../../../redux/profile-reducer'
-import {ProfileStatus} from '../ProfileStatus/ProfileStatus'
-
-
+import { ProfileStatusWithHooks } from '../ProfileStatus/ProfileStatusWithHooks'
+import style from './ProfileInfo.module.css'
+import myAvatar from '../../../assets/images/myAvatar.webp'
 
 export const ProfileInfo = React.memo((props: profileType) => {
     
@@ -13,16 +13,18 @@ export const ProfileInfo = React.memo((props: profileType) => {
     
     return (
         <div>
+            <img src={props.profile.photos.small} alt=""/>
+             <div className={style.statusContainer }>
              <div>
-               
-                <div><img src={props.profile.photos.small} alt="some-user-avatar"/></div>
-                <img 
-                src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR5W2tli7-nT4GT1zqSkZziPAeOoHuZUwljrQ&usqp=CAU' 
-                alt="user-avatar"/>
-                <ProfileStatus status={''} updateStatus={props.updateStatus}/>
+                
+            </div>
+                <div className={style.userAvatar}>
+                    <img src={myAvatar} alt="some-user-avatar" className={style.myAvatarStyle} />
+                </div>
+
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
             <div>
-                
             </div>
         </div>
     )

@@ -120,7 +120,8 @@ export const getProfile = (userId: number): ThunksType => {
 
 export const getStatus = (userId: number): ThunksType => {
   return (dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
+    profileAPI.getStatus(userId)
+      .then(response => {
       dispatch(setStatus(response.data))
     })
   }

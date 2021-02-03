@@ -46,7 +46,7 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
                     profile={this.props.profile}
                     status={this.props.status}
                     updateStatus={this.props.updateStatus}
-                    />
+            />
         )
     }   
 }    
