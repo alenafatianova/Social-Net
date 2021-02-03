@@ -131,7 +131,7 @@ export const requestUsers = (currentPage: number, pageSize: number ): UsersThunk
     return (dispatch) => {                                               
         dispatch(setPreloader(true))
         dispatch(setCurrentPage(currentPage))
-        usersAPI.requestUsers(currentPage, pageSize).then(data => {
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
          dispatch(setPreloader(false))
          dispatch(setUsers(data.items))
          dispatch(setTotalUsersCount(data.totalCount))

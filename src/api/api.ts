@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 import { UsersType } from '../redux/users-reducer';
 
@@ -6,7 +5,7 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
-        'API-KEY': 'd6da0b4d-b16d-42bc-a142-317d3b9eca82'
+        'API-KEY': '56544b76-88d2-4f75-9d49-5180561089a7'
     }
 })
 
@@ -22,7 +21,7 @@ type ResponseType = {
 }
 
 export const usersAPI = {
-    async requestUsers(currentPage: number, pageSize: number) {
+    async getUsers(currentPage: number, pageSize: number) {
         const response = await instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`);
         return response.data;
     },
