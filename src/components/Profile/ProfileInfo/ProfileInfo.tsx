@@ -18,9 +18,9 @@ export const ProfileInfo = React.memo((props: profileType) => {
              <div>
                 
             </div>
-                <div className={style.userAvatar}>
+                {/* <div className={style.userAvatar}>
                     <img src={myAvatar} alt="some-user-avatar" className={style.myAvatarStyle} />
-                </div>
+                </div> */}
 
                 <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>

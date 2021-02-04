@@ -29,7 +29,7 @@ export const App = (props: appProps) => {
     props.initilizedAppThunk()
       return () => {
     }
-  }, [props])
+  }, [props.initilizedAppThunk])
     
     // if (!props.initialized) {
     //   return <Preloader/>

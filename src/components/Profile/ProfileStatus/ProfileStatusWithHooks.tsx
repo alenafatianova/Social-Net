@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 import style from './ProfileStatus.module.css'
 
 export type statusProps = {
@@ -18,7 +18,9 @@ export const ProfileStatusWithHooks = (props: statusProps) => {
     setEditMode(false)
     props.updateStatus(status)
 }
-  
+ useEffect(() => {
+     setStatus(props.status)
+ }, [props.status]) 
    
         return (
         <div className={style.profileStatusWrapper}>
