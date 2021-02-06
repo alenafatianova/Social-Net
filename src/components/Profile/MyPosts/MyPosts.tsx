@@ -9,15 +9,17 @@ export type MyPostsType = {
     //updateText: (newText: string) => void
     addPost: (newPostText: string) => void
 }
-export default function MyPosts (props: MyPostsType) {
+export const MyPosts = React.memo((props: MyPostsType) => {
     
-  let postElement = props.postsData.map(posts => <Post key={posts.id} id={posts.id} post={posts.post} likes={posts.likes}/> )
+let postElement = props.postsData.map(posts =>
+  <Post key={posts.id} id={posts.id} post={posts.post} likes={posts.likes}/> 
+)
     
-    const addNewPost = (values: any) => {
-      props.addPost(values.newPostText)
-    }
+const addNewPost = (values: any) => {
+  props.addPost(values.newPostText)
+}
     
- return (
+  return (
     <div>
         <h5>Previous Posts</h5>
         {postElement} 
@@ -34,4 +36,5 @@ export default function MyPosts (props: MyPostsType) {
       </div>
     </div>
     )
-}
+  }
+)
