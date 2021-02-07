@@ -3,7 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../API/API";
 import { stopSubmit } from "redux-form";
 
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = "social-net/auth/SET_USER_DATA";
 
 export let initialDataState: initialDataStateType = {
     id: null,
@@ -26,7 +26,7 @@ export type setAuthDataACPayloadType = {
   isAuth: boolean;
 };
 
-export type setAuthDataACType = {
+export type setAuthDataType = {
   type: typeof SET_USER_DATA;
   payload: setAuthDataACPayloadType;
 };
@@ -46,44 +46,34 @@ export const authReducer = ( state = initialDataState, action: authTypeActionTyp
   }
 };
 
-export const setAuthData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthDataACType => 
-({type: "SET_USER_DATA",payload: { id, email, login, isAuth }, } as const);
+export const setAuthData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => 
+({type: SET_USER_DATA,payload: { id, email, login, isAuth }, } as const);
 
 export type authTypeActionType = ReturnType<typeof setAuthData>;
 
 type authThunkType = ThunkAction<void, StateType, unknown, authTypeActionType>;
 
-export const authData = (): authThunkType => {
-  return (dispatch) => {
-    authAPI.me().then((response) => {
-      if (response.data.resultCode === 0) {
-        let { id, email, login } = response.data.data;
-        dispatch(setAuthData(id, email, login, true));
-      }
-    });
-  };
+export const authData = (): authThunkType => async(dispatch) => {
+    let response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+      let { id, email, login } = response.data.data;
+      dispatch(setAuthData(id, email, login, true));
+    }
 };
 
-export const login = (email: string, password: string, rememberMe: boolean): authThunkType => (dispatch: any) => {
-  authAPI.login(email, password, rememberMe).then((response) => {
+export const login = (email: string, password: string, rememberMe: boolean): authThunkType => async(dispatch) => {
+  let response = await authAPI.login(email, password, rememberMe);
     if (response.data.resultCode === 0) {
       dispatch(authData());
     } else {
-      let message =
-        response.data.messages.length > 0
-          ? response.data.messages[0]
-          : "Some error occured";
+      let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error occured";
       dispatch(stopSubmit("login", { _error: message }));
     }
-  });
 };
 
-export const logout = (): authThunkType => {
-  return (dispatch) => {
-    authAPI.logout().then((response) => {
+export const logout = (): authThunkType => async(dispatch) => {
+   let response = await authAPI.logout()
       if (response.data.resultCode === 0) {
         dispatch(setAuthData(null, null, null, false));
-      }
-    });
-  };
-};
+    }
+}

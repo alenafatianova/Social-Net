@@ -1,9 +1,10 @@
 import { StateType } from './redux-store';
 import { usersAPI } from '../API/API'
 import { ThunkAction } from 'redux-thunk';
+import { Dispatch } from 'redux';
 
 
-const ADD_USER = 'ADD-USER-IN-FRIENDS'
+const FOLLOW_USER = 'FOLLOW-USER'
 const DELETE_USER = 'DELETE-USER'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
@@ -44,7 +45,7 @@ const InitialUsersState: InitialStateType = {
 
 export type UsersActionType = 
     | ReturnType <typeof deleteUser> 
-    | ReturnType <typeof addUser> 
+    | ReturnType <typeof followUser> 
     | ReturnType <typeof setUsers> 
     | ReturnType <typeof setCurrentPage> 
     | ReturnType <typeof setTotalUsersCount> 
@@ -53,7 +54,7 @@ export type UsersActionType =
 
 export const UsersReducer = (state = InitialUsersState , action: UsersActionType): InitialStateType => {
     switch(action.type) {
-        case ADD_USER: {
+        case FOLLOW_USER: {
             return  {
                 ...state, 
                 users: state.users.map(u => {
@@ -113,7 +114,7 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
 }
 
 export const deleteUser = (id: number) => ({type: DELETE_USER, userID: id} as const) 
-export const addUser = (id: number) => ({type: ADD_USER, userID: id} as const) 
+export const followUser = (id: number) => ({type: FOLLOW_USER, userID: id} as const) 
 export const setUsers = (users: Array<UsersType>) => ({type: SET_USERS, users} as const) 
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT,  totalCount} as const)
@@ -127,37 +128,34 @@ export const setFollowingInProgress = (isFetching: boolean, id: number, ) => ({
 type UsersThunksType = ThunkAction<void, StateType, unknown, UsersActionType>
 
 
-export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => {     
-    return (dispatch) => {                                               
+export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => async(dispatch) => {                                               
         dispatch(setPreloader(true))
         dispatch(setCurrentPage(currentPage))
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-         dispatch(setPreloader(false))
-         dispatch(setUsers(data.items))
-         dispatch(setTotalUsersCount(data.totalCount))
-        })
+        const data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setPreloader(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
+}
+
+const followUnfollowUser =  async(dispatch: Dispatch, id: number, apiMethod: any, actionCreator: any) => {
+    dispatch(setFollowingInProgress(true, id))
+    const response = await apiMethod(id)
+        
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(id))
+    }
+    dispatch(setFollowingInProgress(false, id))
+}
+
+export const unfollowUser = (id: number): UsersThunksType => {
+    return async(dispatch) => { 
+        followUnfollowUser(dispatch, id, usersAPI.deleteUser.bind(usersAPI), deleteUser)             
     }
 }
-export const unfollowUser = (id: number): UsersThunksType => {
-    return (dispatch) => {                   
-      dispatch(setFollowingInProgress(true, id))
-      usersAPI.deleteUser(id).then(response => {
-                if (response.data.resultCode === 0) {
-                   dispatch(deleteUser(id))
-                }
-            dispatch(setFollowingInProgress(false, id))
-        })
-    }
-} 
-export const followUser = (id: number): UsersThunksType => {
-    return (dispatch) => {               
-        dispatch(setFollowingInProgress(true, id))
-            usersAPI.followUser(id).then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(addUser(id))
-                }
-                dispatch(setFollowingInProgress(false, id))
-        })
+ 
+export const follow = (id: number): UsersThunksType => {
+    return async(dispatch) => {    
+        followUnfollowUser(dispatch, id, usersAPI.followUser.bind(usersAPI), followUser)
     }
 }
 
