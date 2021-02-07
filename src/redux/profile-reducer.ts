@@ -7,7 +7,8 @@ import {newPostType, ProfilePageType} from './store'
 const ADD_POST = 'ADD-POST';
 //const UPDATE_TEXT = 'UPDATE-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
-const SET_STATUS = 'SET_STATUS';
+const SET_STATUS = 'SET-STATUS';
+const DELETE_POST = 'DELETE-POST'
 
 export type initialProfileStateType = {
   
@@ -92,10 +93,17 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
           profile: action.profile
         }
       }
+
       case SET_STATUS: {
         return {
           ...state,
           status: action.status
+        }
+      }
+      case DELETE_POST: {
+        return {
+          ...state,
+          postsData: state.postsData.filter(p => p.id != action.postId)
         }
       }
       default:
@@ -107,7 +115,7 @@ export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, n
 //export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
 export const setUserProfile = (profile: UserProfileType ) => ({type: SET_USER_PROFILE, profile: profile} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status}as const) 
-
+export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as const)
 
 type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
 
@@ -138,6 +146,8 @@ export const updateStatus = (status: string): ThunksType => {
 }
 
 export type ProfileActionsType = 
-            ReturnType <typeof addPostActionCreator> | 
-            ReturnType <typeof setUserProfile> |
-            ReturnType <typeof setStatus> 
+            | ReturnType <typeof addPostActionCreator> 
+            | ReturnType <typeof setUserProfile> 
+            | ReturnType <typeof setStatus> 
+            | ReturnType <typeof deletePost>
+            

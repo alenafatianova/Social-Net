@@ -1,10 +1,5 @@
-import { ProfileReducer, addPostActionCreator } from './../redux/profile-reducer';
+import { ProfileReducer, addPostActionCreator, deletePost } from './../redux/profile-reducer';
 
-
-
-it('new post should be added', () => {
-    // 1. test data
-let action = addPostActionCreator("newPostText")
 let initialProfileState = {
     postsData: [
       { id: 1, post: "Heeeelloooo, guys!", likes: 33 },
@@ -14,9 +9,38 @@ let initialProfileState = {
     profile: null,
     status: '',
 }
+
+it('new post should be added', () => {
+    // 1. test data
+    let action = addPostActionCreator("newPostText")
+
     // 2. new action
     let newState = ProfileReducer(initialProfileState, action)
 
     // 3. expectation 
-    expect(newState.postsData.length).toBe(4);
+    expect(newState.postsData.length).toBe(4);  
+});
+
+it('new post text should be "newPostText"', () => {
+    let action = addPostActionCreator("newPostText")
+
+    let newState = ProfileReducer(initialProfileState, action)
+
+    expect(newState.postsData[3].post).toBe("newPostText")
+});
+
+it('after deleting amount of posts should be decremented', () => {
+    let action = deletePost(1)
+    
+    let newState = ProfileReducer(initialProfileState, action)
+    
+    expect(newState.postsData.length).toBe(2)
+});
+
+it('after deleting length should not be decremented', () => {
+    let action = deletePost(1000)
+    
+    let newState = ProfileReducer(initialProfileState, action)
+    
+    expect(newState.postsData.length).toBe(3) 
 })
