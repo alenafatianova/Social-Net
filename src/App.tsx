@@ -31,9 +31,9 @@ export const App = (props: appProps) => {
     }
   }, [props.initilizedAppThunk])
     
-    // if (!props.initialized) {
-    //   return <Preloader/>
-    // }
+    if (!props.initialized) {
+      return <Preloader/>
+    }
     
     return (
         <div>

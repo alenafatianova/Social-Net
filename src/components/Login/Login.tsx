@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {reduxForm, Field, InjectedFormProps} from 'redux-form'
 import { required } from '../../redux/handlers/validators/validators'
-import { Input } from '../common/FormControl/FormControls'
+import { createField, Input } from '../common/FormControl/FormControls'
 import { login, logout } from '../../redux/auth-reducer'
 import { Redirect } from 'react-router'
 import { StateType } from '../../redux/redux-store'
@@ -21,15 +21,9 @@ type formPageProps = {
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
    return (
     <form onSubmit={handleSubmit}>
-    <div>
-        <Field placeholder='login' name='email' component={Input} validate={[required]}  />
-    </div>
-    <div>
-        <Field type='password' placeholder='password'  name='password' component={Input} validate={[required]} />
-    </div>
-    <div>
-        <Field type='checkbox'  name='rememberMe' component='input' /> remember me
-     </div>
+        {createField("Email", "email", {Input}, [required], {})}
+        {createField('Password', 'password', {Input}, [required], {type: 'password'})}
+        {createField({{}, 'rememberMe', {Input}, null, {type: 'checkbox'}, 'Remember Me' )}
      {error && <div className={style.formErrorEmail}>
             {error}
         </div>

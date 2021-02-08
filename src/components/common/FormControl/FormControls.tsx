@@ -1,4 +1,5 @@
 import React from 'react'
+import { Field } from 'redux-form'
 import style from './formControls.module.scss'
 
 type validationProps = {
@@ -10,16 +11,26 @@ type validationProps = {
     }
     element: any
 }
-
+export const createField = ( placeholder: string, name: string, component: {}, validate: string, props = {}, text = "") => {
+    <div>
+        <Field 
+            placeholder={placeholder} 
+            name={name} 
+            component={component} 
+            validate={validate}
+            {...props}  
+            /> {text}
+    </div>
+}
 const element = <div><textarea/></div>
 
-const FormControl = (props: validationProps) => {
-    const hasError = props.meta.touched && props.meta.error
+const FormControl = ({input, meta: {touched, error}, child, element}) => {
+    const hasError = touched && error
     return (
         <div className={ hasError ? style.error : style.formControl}>
             <div>
-                <div>{props.element}</div>
-               { hasError && <span>{props.meta.error}</span>}
+                <div>{element}</div>
+               { hasError && <span>{error}</span>}
             </div>
         </div>
     )
