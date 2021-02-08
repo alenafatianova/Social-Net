@@ -2,6 +2,7 @@ import { StateType } from './redux-store';
 import { usersAPI } from '../API/API'
 import { ThunkAction } from 'redux-thunk';
 import { Dispatch } from 'redux';
+import { updateObjectInArray } from './handlers/validators/objects-helpers';
 
 
 const FOLLOW_USER = 'FOLLOW-USER'
@@ -57,23 +58,25 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
         case FOLLOW_USER: {
             return  {
                 ...state, 
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {...u, followed: true }
-                    }
-                    return u;
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: true})
+                // users: state.users.map(u => {
+                //     if (u.id === action.userID) {
+                //         return {...u, followed: true }
+                //     }
+                //     return u;
+                // })
             }
         }
         case DELETE_USER: {
            return  {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userID) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
+                // users: state.users.map(u => {
+                //     if (u.id === action.userID) {
+                //         return {...u, followed: false}
+                //     }
+                //     return u
+                // })
             } 
         }
         case SET_USERS: {
