@@ -1,10 +1,33 @@
 import React from 'react'
-import classes from './Header.module.scss' 
+import { NavLink } from 'react-router-dom'
+import classes from './Header.module.css' 
 
-export default function Header() {
+
+export type mapStateToPropsType = {
+    login: string | null
+    isAuth: boolean
+
+}
+  
+export type mapDispatchToPropsType = {
+    logout: () => void
+}
+
+
+export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
     return (
-        <div className={classes.Header}>
-            
+        <div className={classes.header}>
+           <div className={classes.links}>
+           <div className={classes.login}>
+               {
+                props.isAuth 
+                ? <div>{props.login } <button onClick={props.logout}>Log Out</button></div>
+                : <NavLink to={'/login'} activeClassName={classes.active}>Login</NavLink>}
+            </div>
+            <div className={classes.registrate}>
+            <NavLink to={'/registration'} activeClassName={classes.active}>Sign In</NavLink>
+            </div>
+           </div>
         </div>
     )
 }

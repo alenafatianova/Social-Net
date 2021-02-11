@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Photos.module.scss';
+import classes from './Photos.module.css';
 
 export default function Photos() {
     return (

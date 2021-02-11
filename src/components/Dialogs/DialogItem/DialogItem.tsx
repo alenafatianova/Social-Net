@@ -1,10 +1,11 @@
 import React from "react";
-import classes from "./DialogItem.module.scss";
+import classes from "./DialogItem.module.css";
 import { NavLink } from "react-router-dom";
 
 type namePropsType = {
     name: string
     id: number
+    avatar: string
   }
 
 export default function DialogItem(props: namePropsType) {
