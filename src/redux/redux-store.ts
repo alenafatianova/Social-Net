@@ -23,6 +23,4 @@ export type StateType = ReturnType<typeof reducers>
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
-
-
 export default store;

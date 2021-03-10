@@ -1,30 +1,35 @@
+import { FieldValidator } from 'final-form'
 import React from 'react'
-import { Field } from 'redux-form'
+import { Field, WrappedFieldMetaProps, WrappedFieldProps } from 'redux-form'
+import { FieldValidatorType } from '../../../redux/handlers/validators/validators'
 import style from './formControls.module.scss'
 
 type validationProps = {
-    input: any
-    meta: {
-        touched: boolean
-        error: boolean
-        warning: string
-    }
+    meta: WrappedFieldMetaProps
     element: any
 }
-export const createField = ( placeholder: string, name: string, component: {}, validate: string, props = {}, text = "") => {
+
+export const createField = ( 
+        placeholder: string | undefined, 
+        name: string, 
+        component: React.FC<WrappedFieldProps>, 
+        validators: Array<FieldValidatorType>, 
+        props = {}, text = "") => {
     <div>
         <Field 
             placeholder={placeholder} 
             name={name} 
             component={component} 
-            validate={validate}
+            validate={validators}
             {...props}  
             /> {text}
     </div>
 }
+
+
 const element = <div><textarea/></div>
 
-const FormControl = ({input, meta: {touched, error}, child, element}) => {
+const FormControl: React.FC<validationProps> = ({meta: {touched, error}, element}) => {
     const hasError = touched && error
     return (
         <div className={ hasError ? style.error : style.formControl}>
@@ -37,10 +42,12 @@ const FormControl = ({input, meta: {touched, error}, child, element}) => {
 }
 
 
-export const Textarea = (props: validationProps) => {
-   return <FormControl {...props} element={React.createElement('textarea', {...props.input, ...props.meta, ...props})}></FormControl>   
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
+    const {input, meta, ...restProps} = props
+   return <FormControl {...props} element={React.createElement('textarea', {...input, ...meta, ...restProps})}></FormControl>   
 }
 
-export const Input = (props: validationProps) => {
-    return <FormControl {...props} element={React.createElement('input', {...props.input, ...props.meta, ...props})}></FormControl>
+export const Input: React.FC<WrappedFieldProps> = (props) => {
+    const {input, meta, ...restProps} = props
+    return <FormControl {...props} element={React.createElement('input', {...input, ...meta, ...restProps})}></FormControl>
 }

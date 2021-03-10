@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import {reduxForm, Field, InjectedFormProps} from 'redux-form'
+import { connect, useDispatch } from 'react-redux'
+import {reduxForm, InjectedFormProps} from 'redux-form'
 import { required } from '../../redux/handlers/validators/validators'
 import { createField, Input } from '../common/FormControl/FormControls'
 import { login, logout } from '../../redux/auth-reducer'
@@ -12,24 +12,24 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean 
-    error: string
 }
 type formPageProps = {
     login: (email: string, password: string, rememberMe: boolean ) => void
     isAuth: boolean
 }
+
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
    return (
     <form onSubmit={handleSubmit}>
-        {createField("Email", "email", {Input}, [required], {})}
-        {createField('Password', 'password', {Input}, [required], {type: 'password'})}
-        {createField({{}, 'rememberMe', {Input}, null, {type: 'checkbox'}, 'Remember Me' )}
+        {createField('Email', 'email', Input, [required])}
+        {createField('Password', 'password', Input, [required], {type: 'password'})}
+        {createField(undefined, 'rememberMe', Input, [], {type: 'checkbox'}, 'remember me' )}
      {error && <div className={style.formErrorEmail}>
             {error}
         </div>
     }
     <div>
-        <button>login</button>
+        <button>Login</button>
     </div>
 </form>
    )
@@ -39,12 +39,13 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
 const LoginReduxForm  = reduxForm<FormDataType>({form: 'login'})(LoginForm)
   
 
-function LoginPage(props: formPageProps) {
+const LoginPage = (props: formPageProps) => {
+    const dispatch = useDispatch()
     const onSubmit = (formData: FormDataType) => {
-       props.login(formData.email, formData.password, formData.rememberMe)
+       dispatch(login(formData.email, formData.password, formData.rememberMe))
     }
     if(props.isAuth) {
-        return <Redirect to='/profile'/>
+        return <Redirect to='/profile'/> 
     }
     return (
         <div>
