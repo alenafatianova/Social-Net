@@ -9,12 +9,16 @@ type validationProps = {
     element: any
 }
 
-export const createField = ( 
+
+
+
+export function createField<FormKeysType extends string>( 
         placeholder: string | undefined, 
-        name: string, 
+        name: FormKeysType, 
         component: React.FC<WrappedFieldProps>, 
         validators: Array<FieldValidatorType>, 
-        props = {}, text = "") => {
+        props = {}, text = "") {
+    return (
     <div>
         <Field 
             placeholder={placeholder} 
@@ -24,6 +28,7 @@ export const createField = (
             {...props}  
             /> {text}
     </div>
+    )
 }
 
 

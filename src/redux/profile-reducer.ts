@@ -5,7 +5,6 @@ import { StateType } from './redux-store';
 import {newPostType, ProfilePageType} from './store'
 
 const ADD_POST = 'ADD-POST';
-//const UPDATE_TEXT = 'UPDATE-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 const DELETE_POST = 'DELETE-POST'

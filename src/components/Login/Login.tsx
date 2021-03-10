@@ -21,9 +21,9 @@ type formPageProps = {
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
    return (
     <form onSubmit={handleSubmit}>
-        {createField('Email', 'email', Input, [required])}
-        {createField('Password', 'password', Input, [required], {type: 'password'})}
-        {createField(undefined, 'rememberMe', Input, [], {type: 'checkbox'}, 'remember me' )}
+        {createField<LoginFormValuesTypeKeys>('Email', 'email', Input, [required])}
+        {createField<LoginFormValuesTypeKeys>('Password', 'password', Input, [required], {type: 'password'})}
+        {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', Input, [], {type: 'checkbox'}, 'remember me' )}
      {error && <div className={style.formErrorEmail}>
             {error}
         </div>
@@ -37,7 +37,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
 
 //---------- This is "HOC" for form -------------------------
 const LoginReduxForm  = reduxForm<FormDataType>({form: 'login'})(LoginForm)
-  
+
+type LoginFormValuesTypeKeys = keyof FormDataType
 
 const LoginPage = (props: formPageProps) => {
     const dispatch = useDispatch()
