@@ -2,7 +2,7 @@ import React, { ComponentType } from 'react';
 import classes from './App.module.css';
 import ProfileContainer from './components/Profile/ProfileContainer'
 import Navbar from './components/Navbar/Navbar';
-import {Route, withRouter} from 'react-router-dom';
+import {BrowserRouter, Route, withRouter} from 'react-router-dom';
 import Friends from './components/Friends/Friends';
 import Music from './components/Music/Music';
 import Photos from './components/Photos/Photos'
@@ -12,10 +12,11 @@ import UsersContainer  from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login'
 import {initilizedAppThunk} from '../src/redux/app-reducer'
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { useEffect } from 'react';
+import store from './redux/redux-store';
 
 
 export type appProps = {
@@ -55,4 +56,14 @@ export const App = (props: appProps) => {
 
 
 
-export default compose<ComponentType>(connect(null, {initilizedAppThunk}), withRouter)(App);
+export const AppContainer = compose<ComponentType>(connect(null, {initilizedAppThunk}), withRouter)(App);
+
+export const SamuraiJSApp = () => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+      <AppContainer /> 
+      </Provider>
+      </BrowserRouter>
+  )
+}
