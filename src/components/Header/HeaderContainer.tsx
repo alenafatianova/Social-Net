@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { StateType } from '../../redux/redux-store'
-import {  logout } from '../../redux/auth-reducer'
+import { logout } from '../../redux/auth-reducer'
 import {mapStateToPropsType, mapDispatchToPropsType, Header} from './Header'
 import { compose } from 'redux'
 

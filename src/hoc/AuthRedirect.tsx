@@ -1,4 +1,3 @@
-//import { mapDispatchToPropsType } from '../components/Header/Header';
 import { StateType } from '../redux/redux-store';
 import { Redirect } from "react-router-dom"
 import React from 'react'

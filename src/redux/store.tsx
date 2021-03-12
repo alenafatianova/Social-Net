@@ -6,7 +6,6 @@ import {NavbarReducer} from "./navbar-reducer"
 export let store: StoreType = {
   _state: {
     profilePage: {
-      //newPostText: "",
       postsData: [
         { id: 1, post: "Heeeelloooo, guys!", likes: 33 },
         { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },

@@ -1,4 +1,3 @@
-import { FieldValidator } from 'final-form'
 import React from 'react'
 import { Field, WrappedFieldMetaProps, WrappedFieldProps } from 'redux-form'
 import { FieldValidatorType } from '../../../redux/handlers/validators/validators'
@@ -8,9 +7,6 @@ type validationProps = {
     meta: WrappedFieldMetaProps
     element: any
 }
-
-
-
 
 export function createField<FormKeysType extends string>( 
         placeholder: string | undefined, 

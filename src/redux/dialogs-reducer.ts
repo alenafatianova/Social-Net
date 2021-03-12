@@ -1,5 +1,3 @@
-
-//const UPDATE_MESSAGE_BODY = 'UPDATE_MESSAGE_BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE'; 
 
 let initialDialogsStore = {
@@ -17,20 +15,13 @@ let initialDialogsStore = {
       { id: 2, message: "Go to the cinema tonight?" },
       { id: 3, message: "By the way, did you go to your aunt?" },
     ],
-    //newMessageTextBody: ''
   }
 export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType): InitialStateType => {
   switch(action.type) {  
-      // case UPDATE_MESSAGE_BODY: 
-      // return  {
-      //   ...state,
-      //   //newMessageTextBody: action.messageBody
-      // } 
       case SEND_MESSAGE: {
         let messageBody = action.newMessageTextBody;
         return {
           ...state,
-          //newMessageTextBody: '',
           messageData: [...state.messageData, {id: 6, message: messageBody}]
         }
       }
@@ -38,7 +29,7 @@ export const DialogsReducer = (state = initialDialogsStore, action: DialogsActio
         return state;
     }
 }
-//export const updateMessageBodyAC = (messageBody: string) => ({type: 'UPDATE_MESSAGE_BODY', messageBody: messageBody} as const) 
+
 export const sendMessageAC = (newMessageTextBody: string) => ({type: 'SEND_MESSAGE', newMessageTextBody} as const ) 
 
 export type DialogsActionsType =  ReturnType <typeof sendMessageAC>

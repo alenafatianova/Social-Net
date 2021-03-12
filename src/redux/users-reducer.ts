@@ -70,13 +70,13 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionType
         case DELETE_USER: {
            return  {
                 ...state,
-                users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
-                // users: state.users.map(u => {
-                //     if (u.id === action.userID) {
-                //         return {...u, followed: false}
-                //     }
-                //     return u
-                // })
+                // users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
+                users: state.users.map(u => {
+                    if (u.id === action.userID) {
+                        return {...u, followed: false}
+                    }
+                    return u
+                })
             } 
         }
         case SET_USERS: {
@@ -142,8 +142,7 @@ export const requestUsers = (currentPage: number, pageSize: number ): UsersThunk
 
 const followUnfollowUser =  async(dispatch: Dispatch, id: number, apiMethod: any, actionCreator: any) => {
     dispatch(setFollowingInProgress(true, id))
-    const response = await apiMethod(id)
-        
+    const response = await apiMethod(id) 
     if (response.data.resultCode === 0) {
         dispatch(actionCreator(id))
     }

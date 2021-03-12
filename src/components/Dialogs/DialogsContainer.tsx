@@ -19,11 +19,7 @@ let mapStateToProps = (state: StateType) => {
    return {
      sendMessage: (newMessageTextBody: string) => {
        dispatch(sendMessageAC(newMessageTextBody))
-     },
-    //  messageBody: (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //    let body = e.currentTarget.value
-    //    dispatch(messageBodyAC(body))
-    //  }
+     }
    }
  }
 

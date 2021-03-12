@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {Post} from './Post/Post'
 import {PostsType} from '../../../redux/store'
 import { AddPostReduxForm } from './PostsReduxForm';
@@ -6,7 +6,6 @@ import { AddPostReduxForm } from './PostsReduxForm';
 
 export type MyPostsType = {
     postsData: Array<PostsType>
-    //updateText: (newText: string) => void
     addPost: (newPostText: string) => void
 }
 export const MyPosts = React.memo((props: MyPostsType) => {
@@ -26,13 +25,6 @@ const addNewPost = (values: any) => {
         <div>
         <h5>New Post</h5>
         <AddPostReduxForm onSubmit={addNewPost}/>
-        {/* <textarea 
-        value={props.newPostText} 
-        onChange={newPostChange} 
-        placeholder='Whats new?' />
-        <div>
-          <button onClick={addNewPost}>send</button>{" "}
-        </div> */}
       </div>
     </div>
     )

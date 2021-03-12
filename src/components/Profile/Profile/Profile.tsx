@@ -17,10 +17,8 @@ export const Profile = React.memo((props: ProfilePropsType) => {
   return (
     
     <div className={classes.mainContent}>
-      
-    <ProfileInfo profile={props.profile} status={props.status}  updateStatus={props.updateStatus} />
-    
-    <MyPostsContainer  />
+      <ProfileInfo profile={props.profile} status={props.status}  updateStatus={props.updateStatus} />
+      <MyPostsContainer  />
     </div>
   );
 })

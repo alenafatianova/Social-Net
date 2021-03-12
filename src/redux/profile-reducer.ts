@@ -1,4 +1,3 @@
-
 import { ThunkAction } from 'redux-thunk';
 import {profileAPI, usersAPI} from '../API/API'
 import { StateType } from './redux-store';
@@ -80,12 +79,6 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
       postsData: [...state.postsData, newPost]
     }
   }
-  // case UPDATE_TEXT: {
-  //     return {
-  //       ...state,
-  //       newPostText: action.newText
-  //     }
-  //   }
   case SET_USER_PROFILE: {
     return {
           ...state,
@@ -111,11 +104,9 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
 }
 
 export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const) 
-//export const changeNewPostCreator = (newText: string)  => ({type: UPDATE_TEXT, newText: newText}  as const)
 export const setUserProfile = (profile: UserProfileType ) => ({type: SET_USER_PROFILE, profile: profile} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status}as const) 
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as const)
-
 
 type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
 

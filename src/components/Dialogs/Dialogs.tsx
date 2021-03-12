@@ -1,16 +1,14 @@
-import React, {ChangeEvent}from "react";
+import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem"
 import { DialogsType, MessageType,} from './../../redux/store'
-import { DialogsReduxForm, messageFormType } from "./DialogsReduxForm";
+import { DialogsReduxForm } from "./DialogsReduxForm";
 import { Redirect } from "react-router-dom";
-//import { Redirect } from "react-router-dom";
 
 export type dialogDataType = {
   dialogsData: Array<DialogsType>
   messageData: Array<MessageType>
   isAuth: boolean
-  //sendNewMessage: () => void
   sendMessage: (values: any) => void
 }
 type UserMessagePropsType = {
@@ -18,14 +16,10 @@ type UserMessagePropsType = {
   id: number
 }
 
- 
 export function Dialogs (props: dialogDataType) {
 
   let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} avatar={`https://api.adorable.io/avatars/96/${dialog.name}.png`} /> ); 
-  let messagesElements = props.messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> )
-
-   //let sendMessageOnClick = props.sendNewMessage
-    
+  let messagesElements = props.messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> ) 
 
   const addNewMessage = (values: any) => {
     props.sendMessage(values.newMessageTextBody)

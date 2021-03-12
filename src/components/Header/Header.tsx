@@ -6,7 +6,6 @@ import classes from './Header.module.css'
 export type mapStateToPropsType = {
     login: string | null
     isAuth: boolean
-
 }
   
 export type mapDispatchToPropsType = {
@@ -14,7 +13,7 @@ export type mapDispatchToPropsType = {
 }
 
 
-export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
+export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = React.memo((props) => {
     return (
         <div className={classes.header}>
            <div className={classes.links}>
@@ -30,4 +29,4 @@ export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (p
            </div>
         </div>
     )
-}
+})

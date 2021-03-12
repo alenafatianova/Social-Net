@@ -2,7 +2,6 @@ import { StateType } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../API/API";
 import { FormAction, stopSubmit } from "redux-form";
-import { Dispatch } from "redux";
 
 const SET_USER_DATA = "social-net/auth/SET_USER_DATA";
 

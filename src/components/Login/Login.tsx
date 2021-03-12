@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { connect} from 'react-redux'
 import {reduxForm, InjectedFormProps} from 'redux-form'
 import { required } from '../../redux/handlers/validators/validators'
 import { createField, Input } from '../common/FormControl/FormControls'
@@ -45,9 +45,9 @@ const LoginPage = (props: formPageProps) => {
     const onSubmit = (formData: FormDataType) => {
       login(formData.email, formData.password, formData.rememberMe)
     }
-    // if(props.isAuth) {
-    //     return <Redirect to='/profile'/> 
-    // }
+    if(props.isAuth) {
+        return <Redirect to='/profile'/> 
+    }
     return (
         <div>
            <div>
