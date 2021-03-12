@@ -1,7 +1,8 @@
 import { StateType } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../API/API";
-import { stopSubmit } from "redux-form";
+import { FormAction, stopSubmit } from "redux-form";
+import { Dispatch } from "redux";
 
 const SET_USER_DATA = "social-net/auth/SET_USER_DATA";
 
@@ -51,9 +52,9 @@ export const setAuthData = (id: number | null, email: string | null, login: stri
 
 export type authTypeActionType = ReturnType<typeof setAuthData>;
 
-type authThunkType = ThunkAction<void, StateType, unknown, authTypeActionType>;
+type ThunkType = ThunkAction<void, StateType, unknown, authTypeActionType | FormAction>;
 
-export const authData = (): authThunkType => async(dispatch) => {
+export const authData = (): ThunkType => async(dispatch) => {
     let response = await authAPI.me()
     if (response.data.resultCode === 0) {
       let { id, email, login } = response.data.data;
@@ -61,7 +62,7 @@ export const authData = (): authThunkType => async(dispatch) => {
     }
 };
 
-export const login = (email: string, password: string, rememberMe: boolean): authThunkType => async(dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async(dispatch) => {
   let response = await authAPI.login(email, password, rememberMe);
     if (response.data.resultCode === 0) {
       dispatch(authData());
@@ -71,7 +72,7 @@ export const login = (email: string, password: string, rememberMe: boolean): aut
     }
 };
 
-export const logout = (): authThunkType => async(dispatch) => {
+export const logout = (): ThunkType => async(dispatch) => {
    let response = await authAPI.logout()
       if (response.data.resultCode === 0) {
         dispatch(setAuthData(null, null, null, false));
