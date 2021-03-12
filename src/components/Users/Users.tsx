@@ -3,6 +3,7 @@ import userAvatar from '../../assets/images/userAvatar.jpg'
 import style from './Users.module.css'
 import { UsersType } from '../../redux/users-reducer'
 import { NavLink } from 'react-router-dom'
+import { Paginator } from '../common/Paginator/Paginator'
 
 
 
@@ -29,14 +30,12 @@ export const Users = React.memo((props: UsersPropsType) => {
 
     return (
         <div>
-               <div>
-                    {pages.map(p => {
-                       return  <span key={p} className={props.currentPage === p ? style.selectedPage : ''}
-                       onClick={(e) => {props.onPageChanged(p)}}
-                       >{p}</span>
-                    })}
-                    
-                </div>
+            <Paginator 
+                onPageChanged={props.onPageChanged} 
+                currentPage={props.currentPage} 
+                pageSize={props.pageSize} 
+                totalUsersCount={props.totalUsersCount}
+                />
                 {
                 props.users.map(u => <div key={u.id}>
                         <span>

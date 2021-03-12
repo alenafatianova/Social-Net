@@ -38,16 +38,16 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
 //---------- This is "HOC" for form -------------------------
 const LoginReduxForm  = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
-type LoginFormValuesTypeKeys = keyof FormDataType
+type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
 
 const LoginPage = (props: formPageProps) => {
-    const dispatch = useDispatch()
+  
     const onSubmit = (formData: FormDataType) => {
-       dispatch(login(formData.email, formData.password, formData.rememberMe))
+      login(formData.email, formData.password, formData.rememberMe)
     }
-    if(props.isAuth) {
-        return <Redirect to='/profile'/> 
-    }
+    // if(props.isAuth) {
+    //     return <Redirect to='/profile'/> 
+    // }
     return (
         <div>
            <div>
