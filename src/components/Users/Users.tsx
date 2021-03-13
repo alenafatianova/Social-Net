@@ -17,7 +17,7 @@ type UsersPropsType = {
 }
 
 
-export const Users = React.memo((props: UsersPropsType) => {
+export const Users = (props: UsersPropsType) => {
     
     let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize)
    
@@ -28,26 +28,23 @@ export const Users = React.memo((props: UsersPropsType) => {
 
     return (
         <div>
-        
             <Paginator 
                 onPageChanged={props.onPageChanged} 
                 currentPage={props.currentPage} 
                 pageSize={props.pageSize} 
                 totalItemsCount={props.totalItemsCount}
                 portionSize={props.portionSize}/> 
-                <div>
+            <div>
                 {
-                props.users.map(u => <User 
+                    props.users.map(u => <User 
                         key={u.id}  
                         followingInProgress={props.followingInProgress} 
                         unfollowUser={props.unfollowUser}
                         followUser={props.followUser}
                         user={u}
-                        />
-                       
-                    )
+                        />)
                 }
                 </div>
              </div>
     )
-})
+}

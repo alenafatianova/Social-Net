@@ -9,35 +9,34 @@ type paginatorProps = {
     pageSize: number
     portionSize: number
 }
-export const Paginator: React.FC<paginatorProps> = React.memo((
+export const Paginator: React.FC<paginatorProps> = (
     {onPageChanged, currentPage, totalItemsCount, pageSize, portionSize = 10}) => {
     
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
    
-    let pages = []
+    let pages: number[] = []
     for (let i = 1; i <= pagesCount; i ++ ) {
         pages.push(i);
     }
     const portionCount = Math.ceil(pagesCount / portionSize);
     const [portionNumber, setPortionNumber] = useState(1);
     const leftPortionSizeNumber = (portionNumber - 1) * portionSize + 1;
-    const rigthPortionSizeNumber = (portionNumber * portionSize)
+    const rightPortionSizeNumber = (portionNumber * portionSize)
     
     return (
-        <div className={style.paginatorStyle}>
+        <div className={cn(style.paginatorStyle)}>
             {portionNumber > 1 && <button onClick={() => {setPortionNumber(portionNumber - 1)}}>Previous</button>}
-             <div>
-                    {
-                        pages.filter(p => p >= leftPortionSizeNumber && p <= rigthPortionSizeNumber)
-                        .map(p => {
+                    {pages
+                        .filter(p => p >= leftPortionSizeNumber && p <= rightPortionSizeNumber)
+                        .map((p) => {
                             return  <span key={p} className={cn({
                                 [style.selectedPage] : currentPage === p 
                             },  style.pageNumber)}
-                            onClick={() => {onPageChanged(p)}}
-                        >{p}</span>})
+                            onClick={(e) => {onPageChanged(p)}}>
+                                {p}
+                            </span>})
                     }
                     {portionCount > portionNumber && <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>}
-                </div>
         </div>
     )
-})
+}
