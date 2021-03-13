@@ -26,5 +26,13 @@ describe ('ProfileStatus component', () => {
         const root = component.root;
         const span = root.findByType('span')
         expect(span.children[0]).toBe('hello') 
+    }),
+    test('<input> should be displayed in editMode instead of <span>', () => {
+        const component = create(<ProfileStatus status={'hello'} updateStatus={() => {}}/>)
+        const root = component.root;
+        const span = root.findByType('span')
+        span.props.onDoubleClick()
+        const input = root.findByType('input')
+        expect(input.props.value).toBe('hello') 
     })
 })
