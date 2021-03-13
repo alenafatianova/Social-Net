@@ -34,5 +34,13 @@ describe ('ProfileStatus component', () => {
         span.props.onDoubleClick()
         const input = root.findByType('input')
         expect(input.props.value).toBe('hello') 
+    }),
+    test('updateStatus callback is clicked', () => {
+        const mockCallback = jest.fn()
+        const component = create(<ProfileStatus status={'hello'} updateStatus={mockCallback}/>)
+        const instance = component.getInstance();
+        //@ts-ignore
+        instance.deactivateEditMode()
+        expect(mockCallback.mock.calls.length).toBe(1) 
     })
 })
