@@ -28,8 +28,6 @@ export function createField<FormKeysType extends string>(
 }
 
 
-const element = <div><textarea/></div>
-
 const FormControl: React.FC<validationProps> = ({meta: {touched, error}, element}) => {
     const hasError = touched && error
     return (

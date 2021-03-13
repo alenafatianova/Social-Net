@@ -1,6 +1,6 @@
 import { appReducer } from './app-reducer';
 import { UsersReducer } from './users-reducer';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 import {ProfileReducer} from './profile-reducer'
 import {DialogsReducer} from './dialogs-reducer'
 import {NavbarReducer} from './navbar-reducer'
