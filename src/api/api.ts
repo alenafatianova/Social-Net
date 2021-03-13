@@ -31,10 +31,10 @@ export const usersAPI = {
     deleteUser(userId: number) {
         return instance.delete<ResponseType>(`follow/${userId}`)
     },
-   getProfile(userId: number) {
-       console.warn('Obsolete method. Please use profileAPI object instead.')
-    return profileAPI.getProfile(userId)
-   }
+//    getProfile(userId: number) {
+//        console.warn('Obsolete method. Please use profileAPI object instead.')
+//     return profileAPI.getProfile(userId)
+//    }
 }
 
 export const profileAPI = {

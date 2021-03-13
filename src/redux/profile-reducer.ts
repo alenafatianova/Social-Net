@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import {profileAPI, usersAPI} from '../API/API'
+import {profileAPI} from '../API/API'
 import { StateType } from './redux-store';
 import {newPostType, ProfilePageType} from './store'
 
@@ -111,7 +111,7 @@ export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as co
 type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
 
 export const getProfile = (userId: number): ThunksType => async(dispatch) => {                       
-  let response = await usersAPI.getProfile(userId)
+  let response = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
 

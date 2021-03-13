@@ -17,7 +17,8 @@ export class UsersContainer extends React.Component<{
     setFollowingInProgress: (isFetching: boolean, id: number) => void,
     requestUsers: (currentPage: number, pageSize: number) => void,  
     users: Array<UsersType>,
-    totalUsersCount: number,
+    totalItemsCount: number,
+    portionSize: number,
     pageSize: number,
     currentPage: number,
     isFetching: boolean,
@@ -43,11 +44,12 @@ export class UsersContainer extends React.Component<{
             followUser={this.props.followUser}
             unfollowUser={this.props.unfollowUser}
             followingInProgress={this.props.followingInProgress}
-            totalUsersCount={this.props.totalUsersCount} 
+            totalItemsCount={this.props.totalItemsCount} 
             pageSize={this.props.pageSize} 
             currentPage={this.props.currentPage}
             users={this.props.users}
             onPageChanged={this.onPageChanged}
+            portionSize={this.props.portionSize}
             />   
         </>  
     }
