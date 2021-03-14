@@ -14,7 +14,7 @@ export const Paginator: React.FC<paginatorProps> = (
     
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
    
-    let pages: number[] = []
+    let pages = []
     for (let i = 1; i <= pagesCount; i ++ ) {
         pages.push(i);
     }
