@@ -1,13 +1,11 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, Suspense } from 'react';
 import classes from './App.module.css';
-import ProfileContainer from './components/Profile/ProfileContainer'
-import Navbar from './components/Navbar/Navbar';
-import {BrowserRouter, Route, withRouter} from 'react-router-dom';
-import Friends from './components/Friends/Friends';
-import Music from './components/Music/Music';
-import Photos from './components/Photos/Photos'
-import Settings from './components/Settings/Settings';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+import { Navbar } from './components/Navbar/Navbar';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { Friends } from './components/Friends/Friends';
+import { Music } from './components/Music/Music';
+import { Photos } from './components/Photos/Photos'
+import { Settings } from './components/Settings/Settings';
 import UsersContainer  from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login'
@@ -17,8 +15,10 @@ import { compose } from 'redux';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { useEffect } from 'react';
 import store from './redux/redux-store';
-
-
+import { WithSuspense } from './hoc/WithSuspense';
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+ 
 export type appProps = {
   initialized: boolean
   initilizedAppThunk: () => void
@@ -41,8 +41,12 @@ export const App = (props: appProps) => {
           <div className={classes.Wrapper}>
             <HeaderContainer  />
             <Navbar />
-            <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-            <Route exact path="/profile/:userId?" render={() => <ProfileContainer />} />
+            <Route exact path="/dialogs" render={() => { 
+              return  <Suspense fallback={<div>Loading...</div>}>
+                  <DialogsContainer />
+              </Suspense>
+            }}/>
+            <Route exact path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
             <Route exact path="/friends" render={() => <Friends />} />
             <Route exact path="/users" render={() => <UsersContainer />} />
             <Route exact path="/music" render={() => <Music />} />

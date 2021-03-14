@@ -8,7 +8,7 @@ type namePropsType = {
     avatar: string
   }
 
-export default function DialogItem(props: namePropsType) {
+export const DialogItem = React.memo((props: namePropsType) => {
 let path = "user/" + props.id;
 
   return (
@@ -18,4 +18,4 @@ let path = "user/" + props.id;
       </div>
     </div>
   );
-}
+})

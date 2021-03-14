@@ -17,7 +17,7 @@ type UsersPropsType = {
 }
 
 
-export const Users = (props: UsersPropsType) => {
+export const Users = React.memo((props: UsersPropsType) => {
     
     return (
         <div>
@@ -40,4 +40,4 @@ export const Users = (props: UsersPropsType) => {
                 </div>
              </div>
     )
-}
+})

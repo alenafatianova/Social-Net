@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Friends() {
+export const Friends = React.memo(() => {
     return (
         <div>
             Friends
         </div>
     )
-}
+})

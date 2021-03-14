@@ -18,7 +18,7 @@ type formPageProps = {
     isAuth: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo(({handleSubmit, error}) => {
    return (
     <form onSubmit={handleSubmit}>
         {createField<LoginFormValuesTypeKeys>('Email', 'email', Input, [required])}
@@ -33,14 +33,14 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
     </div>
 </form>
    )
-}
+})
 
 //---------- This is "HOC" for form -------------------------
 const LoginReduxForm  = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
 
-const LoginPage = (props: formPageProps) => {
+const LoginPage = React.memo((props: formPageProps) => {
   
     const onSubmit = (formData: FormDataType) => {
       login(formData.email, formData.password, formData.rememberMe)
@@ -56,7 +56,8 @@ const LoginPage = (props: formPageProps) => {
             </div> 
         </div>
     )
-}
+})
+
 const mapStateToProps = (state: StateType) => ({
     isAuth: state.auth.isAuth
 })

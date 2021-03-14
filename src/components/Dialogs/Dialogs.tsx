@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import classes from "./Dialogs.module.css";
-import DialogItem from "./DialogItem/DialogItem"
+import {DialogItem} from "./DialogItem/DialogItem"
 import { DialogsType, MessageType,} from './../../redux/store'
 import { DialogsReduxForm } from "./DialogsReduxForm";
 import { Redirect } from "react-router-dom";
@@ -16,14 +16,14 @@ type UserMessagePropsType = {
   id: number
 }
 
-export function Dialogs (props: dialogDataType) {
+export const Dialogs = React.memo((props: dialogDataType) => {
 
   let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} avatar={`https://api.adorable.io/avatars/96/${dialog.name}.png`} /> ); 
   let messagesElements = props.messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> ) 
 
-  const addNewMessage = (values: any) => {
+  const addNewMessage = useCallback((values: any) => {
     props.sendMessage(values.newMessageTextBody)
-  }
+  }, [props])
 
   if(props.isAuth) return <Redirect to='/login'/>
 
@@ -43,9 +43,9 @@ export function Dialogs (props: dialogDataType) {
      </div>
     </div>
   );
-}
+})
 
-export  function Message(props: UserMessagePropsType) {
+export const Message = React.memo((props: UserMessagePropsType) => {
   return (
     <div>
       <span className={classes.message}>
@@ -53,4 +53,4 @@ export  function Message(props: UserMessagePropsType) {
         </span>
     </div>
   );
-}
+})

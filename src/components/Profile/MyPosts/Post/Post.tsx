@@ -7,7 +7,7 @@ import classes from './Post.module.css'
     id: number
     likes: number
  }
-export function Post(props: PostPropsType) {
+export const Post = React.memo((props: PostPropsType) => {
     return (
             <div>
                 <div className={classes.avatar}>
@@ -22,4 +22,4 @@ export function Post(props: PostPropsType) {
                 </div>
             </div>
         )
-    }
+    })

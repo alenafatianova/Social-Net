@@ -28,7 +28,7 @@ export function createField<FormKeysType extends string>(
 }
 
 
-const FormControl: React.FC<validationProps> = ({meta: {touched, error}, element}) => {
+const FormControl: React.FC<validationProps> = React.memo(({meta: {touched, error}, element}) => {
     const hasError = touched && error
     return (
         <div className={ hasError ? style.error : style.formControl}>
@@ -38,15 +38,15 @@ const FormControl: React.FC<validationProps> = ({meta: {touched, error}, element
             </div>
         </div>
     )
-}
+})
 
 
-export const Textarea: React.FC<WrappedFieldProps> = (props) => {
+export const Textarea: React.FC<WrappedFieldProps> = React.memo((props) => {
     const {input, meta, ...restProps} = props
    return <FormControl {...props} element={React.createElement('textarea', {...input, ...meta, ...restProps})}></FormControl>   
-}
+})
 
-export const Input: React.FC<WrappedFieldProps> = (props) => {
+export const Input: React.FC<WrappedFieldProps> = React.memo((props) => {
     const {input, meta, ...restProps} = props
     return <FormControl {...props} element={React.createElement('input', {...input, ...meta, ...restProps})}></FormControl>
-}
+})

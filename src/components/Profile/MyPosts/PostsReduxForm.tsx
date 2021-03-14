@@ -10,7 +10,7 @@ type postFormType = {
 const maxLength10 = maxLengthCreator(10);
 const minLength2 = minLengthCreator(2);
 
-export const AddPostForm: React.FC<InjectedFormProps<postFormType>> = ({handleSubmit}) => {
+export const AddPostForm: React.FC<InjectedFormProps<postFormType>> = React.memo(({handleSubmit}) => {
     return (
        <form onSubmit={handleSubmit}>
             <div>
@@ -26,7 +26,7 @@ export const AddPostForm: React.FC<InjectedFormProps<postFormType>> = ({handleSu
             </div>
        </form>
     )
-}
+})
 
 //-----------  HOC for the post redux form  ---------------
 export const AddPostReduxForm = reduxForm<postFormType>({form: 'postTextarea'})(AddPostForm)

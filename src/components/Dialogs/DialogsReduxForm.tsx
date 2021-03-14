@@ -11,7 +11,7 @@ export type messageFormType = {
 const maxLength100 = maxLengthCreator(100);
 
 
-export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = ({handleSubmit}) => {
+export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = React.memo(({handleSubmit}) => {
    
     return (
         <form onSubmit={handleSubmit}>
@@ -28,7 +28,7 @@ export const AddMessageForm: React.FC<InjectedFormProps<messageFormType>> = ({ha
             </div>
         </form>
     )
-}
+})
 
 
 //-------------------- This is HOC for messageReduxForm ----------------------------

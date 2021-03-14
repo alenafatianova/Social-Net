@@ -1,10 +1,10 @@
 import React from 'react'
 import style from './Preloader.module.css'
 
-export function Preloader() {
+export const Preloader = React.memo(() => {
     return (
         <div>
             <div className={style.ldsEllipsis}><div></div><div></div><div></div><div></div></div>
         </div>
     )
-}
+})
