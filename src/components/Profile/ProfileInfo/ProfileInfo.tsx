@@ -12,7 +12,7 @@ export const ProfileInfo = React.memo((props: profileType) => {
     }
     const sendFileHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files?.length) {
-            props.savePhoto(e.target.files[0])
+            props.setNewPhoto(e.target.files[0])
         }
     }
     return (

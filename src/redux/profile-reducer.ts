@@ -38,7 +38,7 @@ export type profileType = {
   status: string
   updateStatus: (status: string) => void
   isOwner: boolean
-  savePhoto: (file: File) => void
+  setNewPhoto: (file: File) => void
 }
 
 export type photosType = {
