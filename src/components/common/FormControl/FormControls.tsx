@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, WrappedFieldMetaProps, WrappedFieldProps } from 'redux-form'
 import { FieldValidatorType } from '../../../redux/handlers/validators/validators'
-import style from './formControls.module.scss'
+import style from '../../../styles/formControls.module.scss'
 
 type validationProps = {
     meta: WrappedFieldMetaProps

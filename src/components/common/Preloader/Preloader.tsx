@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './Preloader.module.css'
+import style from '../../../styles/Preloader.module.css'
 
 export const Preloader = React.memo(() => {
     return (

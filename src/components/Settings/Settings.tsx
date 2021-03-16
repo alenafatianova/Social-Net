@@ -1,9 +1,9 @@
 import React from 'react';
-import classes from './Settings.module.css'
+import style from '../../styles/Settings.module.css'
 
 export const Settings = React.memo(() => {
     return (
-        <div className={classes.Settings}>
+        <div className={style.Settings}>
             settings
         </div>
     )

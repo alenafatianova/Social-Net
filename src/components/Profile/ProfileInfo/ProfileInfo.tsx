@@ -2,8 +2,8 @@ import React from 'react'
 import { Preloader } from '../../common/Preloader/Preloader'
 import {profileType} from '../../../redux/profile-reducer'
 import { ProfileStatusWithHooks } from '../ProfileStatus/ProfileStatusWithHooks'
-import style from './ProfileInfo.module.css'
-
+import style from '../../../styles/ProfileInfo.module.css'
+import userAvatar from '../../../assets/images/userAvatar.jpg'
 
 export const ProfileInfo = React.memo((props: profileType) => {
     
@@ -13,7 +13,7 @@ export const ProfileInfo = React.memo((props: profileType) => {
     
     return (
         <div>
-            <img src={props.profile.photos.small} alt=""/>
+            <img className={style.profilePhoto} src={props.profile.photos.small || userAvatar} alt="profile-photo"/>
              <div className={style.statusContainer }>
              <div>
                 

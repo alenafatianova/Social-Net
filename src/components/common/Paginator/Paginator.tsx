@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import style from './paginator.module.css'
+import style from '../../../styles/paginator.module.css'
 import cn from 'classnames'
 
 type paginatorProps = {
@@ -7,14 +7,15 @@ type paginatorProps = {
     currentPage: number
     totalItemsCount: number 
     pageSize: number
-    portionSize: number
+    portionSize?: number
 }
+
 export const Paginator: React.FC<paginatorProps> = React.memo((
     {onPageChanged, currentPage, totalItemsCount, pageSize, portionSize = 10}) => {
     
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
    
-    let pages = []
+    let pages: Array<number> = []
     for (let i = 1; i <= pagesCount; i ++ ) {
         pages.push(i);
     }
@@ -25,18 +26,21 @@ export const Paginator: React.FC<paginatorProps> = React.memo((
     
     return (
         <div className={cn(style.paginatorStyle)}>
-            {portionNumber > 1 && <button onClick={() => {setPortionNumber(portionNumber - 1)}}>Previous</button>}
+            {portionNumber > 1 && 
+            <button onClick={() => {setPortionNumber(portionNumber - 1)}}>Previous</button>}
                     {pages
                         .filter(p => p >= leftPortionSizeNumber && p <= rightPortionSizeNumber)
                         .map((p) => {
-                            return  <span key={p} className={cn({
+                            return  <span className={cn({
                                 [style.selectedPage] : currentPage === p 
                             },  style.pageNumber)}
-                            onClick={(e) => {onPageChanged(p)}}>
+                                key={p}
+                                onClick={(e) => {onPageChanged(p)}}>
                                 {p}
-                            </span>})
-                    }
-                    {portionCount > portionNumber && <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>}
+                            </span>
+                            })}
+                    {portionCount > portionNumber && 
+                        <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>}
         </div>
     )
 })

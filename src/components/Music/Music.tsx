@@ -1,9 +1,9 @@
 import React from 'react';
-import classes from './Music.module.css'
+import style from '../../styles/Music.module.css'
 
 export const Music = React.memo(() => {
     return (
-        <div className={classes.Music}>
+        <div className={style.Music}>
             Music
         </div>
     )

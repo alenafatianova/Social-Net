@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './Post.module.css'
+import style from '../../../../styles/Post.module.css'
 
 
  export type PostPropsType = {
@@ -10,13 +10,13 @@ import classes from './Post.module.css'
 export const Post = React.memo((props: PostPropsType) => {
     return (
             <div>
-                <div className={classes.avatar}>
+                <div className={style.avatar}>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR5W2tli7-nT4GT1zqSkZziPAeOoHuZUwljrQ&usqp=CAU" alt="user-avatar"/>
                 <div>
                     {props.post} 
-                    <div className={classes.counter}>
-                    <button className={classes.likeCount}>{props.likes}</button>
-                    <button className={classes.likeButton}>Like</button>
+                    <div className={style.counter}>
+                    <button className={style.likeCount}>{props.likes}</button>
+                    <button className={style.likeButton}>Like</button>
                     </div>
                 </div>
                 </div>

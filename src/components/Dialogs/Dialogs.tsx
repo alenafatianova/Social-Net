@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import classes from "./Dialogs.module.css";
+import style from "../../styles/Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem"
 import { DialogsType, MessageType,} from './../../redux/store'
 import { DialogsReduxForm } from "./DialogsReduxForm";
@@ -28,10 +28,10 @@ export const Dialogs = React.memo((props: dialogDataType) => {
   if(props.isAuth) return <Redirect to='/login'/>
 
   return (
-    <div className={classes.users_dialogs}>
-      <div className={classes.users}>
+    <div className={style.users_dialogs}>
+      <div className={style.users}>
         {dialogsElements}</div>
-      <div className={classes.messages}>
+      <div className={style.messages}>
         {messagesElements}
       <div>
       <div>
@@ -48,7 +48,7 @@ export const Dialogs = React.memo((props: dialogDataType) => {
 export const Message = React.memo((props: UserMessagePropsType) => {
   return (
     <div>
-      <span className={classes.message}>
+      <span className={style.message}>
         {props.message}
         </span>
     </div>

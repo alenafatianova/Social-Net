@@ -1,7 +1,7 @@
 import React, { ComponentType, Suspense } from 'react';
 import classes from './App.module.css';
 import { Navbar } from './components/Navbar/Navbar';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import {  HashRouter, Route, withRouter } from 'react-router-dom';
 import { Friends } from './components/Friends/Friends';
 import { Music } from './components/Music/Music';
 import { Photos } from './components/Photos/Photos'
@@ -64,10 +64,10 @@ export const AppContainer = compose<ComponentType>(connect(null, {initilizedAppT
 
 export const SamuraiJSApp = () => {
   return (
-    <BrowserRouter>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <Provider store={store}>
-      <AppContainer /> 
+       <AppContainer /> 
       </Provider>
-      </BrowserRouter>
+      </HashRouter>
   )
 }

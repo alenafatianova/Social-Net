@@ -1,9 +1,9 @@
 import React from 'react';
-import classes from './Photos.module.css';
+import style from '../../styles/Photos.module.css';
 
 export const Photos = React.memo(() => {
     return (
-        <div className={classes.Photos}>
+        <div className={style.Photos}>
           Photos  
         </div>
     )

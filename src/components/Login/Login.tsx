@@ -6,7 +6,7 @@ import { createField, Input } from '../common/FormControl/FormControls'
 import { login, logout } from '../../redux/auth-reducer'
 import { Redirect } from 'react-router'
 import { StateType } from '../../redux/redux-store'
-import style from '../common/FormControl/formControls.module.scss'
+import style from '../../styles/formControls.module.scss'
 
 type FormDataType = {
     email: string

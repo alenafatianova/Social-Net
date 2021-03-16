@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import style from './ProfileStatus.module.css'
+import style from '../../../styles/ProfileStatus.module.css'
 
 export type statusProps = {
     status: string

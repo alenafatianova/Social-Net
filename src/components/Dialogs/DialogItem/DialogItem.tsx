@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./DialogItem.module.css";
+import style from "../../../styles/DialogItem.module.css";
 import { NavLink } from "react-router-dom";
 
 type namePropsType = {
@@ -13,7 +13,7 @@ let path = "user/" + props.id;
 
   return (
     <div>
-      <div className={classes.user}>
+      <div className={style.user}>
         <NavLink to={path}>{props.name}</NavLink>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import classes from './Header.module.css' 
+import style from '../../styles/Header.module.css' 
 
 
 export type mapStateToPropsType = {
@@ -15,16 +15,16 @@ export type mapDispatchToPropsType = {
 
 export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = React.memo((props) => {
     return (
-        <div className={classes.header}>
-           <div className={classes.links}>
-           <div className={classes.login}>
+        <div className={style.header}>
+           <div className={style.links}>
+           <div className={style.login}>
                {
                 props.isAuth 
                 ? <div>{props.login } <button onClick={props.logout}>Log Out</button></div>
-                : <NavLink to={'/login'} activeClassName={classes.active}>Login</NavLink>}
+                : <NavLink to={'/login'} activeClassName={style.active}>Login</NavLink>}
             </div>
-            <div className={classes.registrate}>
-            <NavLink to={'/registration'} activeClassName={classes.active}>Sign In</NavLink>
+            <div className={style.registrate}>
+            <NavLink to={'/registration'} activeClassName={style.active}>Sign In</NavLink>
             </div>
            </div>
         </div>
