@@ -10,14 +10,21 @@ type ProfilePropsType = {
   isAuth: boolean
   status: string
   updateStatus: (status: string) => void
+  isOwner: boolean
+  savePhoto: (file: File) => void
 }
 
 export const Profile = React.memo((props: ProfilePropsType) => {
 
   return (
-    
     <div className={style.mainContent}>
-      <ProfileInfo profile={props.profile} status={props.status}  updateStatus={props.updateStatus} />
+      <ProfileInfo 
+          savePhoto={props.savePhoto} 
+          isOwner={props.isOwner} 
+          profile={props.profile} 
+          status={props.status}  
+          updateStatus={props.updateStatus} 
+          />
       <MyPostsContainer  />
     </div>
   );

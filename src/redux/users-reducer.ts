@@ -1,8 +1,9 @@
 import { StateType } from './redux-store';
-import { usersAPI } from '../API/API'
+
 import { ThunkAction } from 'redux-thunk';
 import { Dispatch } from 'redux';
 import { updateObjectInArray } from './handlers/validators/objects-helpers';
+import { usersAPI } from '../api/api';
 
 
 const FOLLOW_USER = 'FOLLOW-USER'
