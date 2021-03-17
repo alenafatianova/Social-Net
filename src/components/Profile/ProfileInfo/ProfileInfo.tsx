@@ -1,9 +1,10 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { Preloader } from '../../common/Preloader/Preloader'
 import {contactsType, UserProfileType} from '../../../redux/profile-reducer'
 import { ProfileStatusWithHooks } from '../ProfileStatus/ProfileStatusWithHooks'
 import style from '../../../styles/ProfileInfo.module.css'
 import userAvatar from '../../../assets/images/userAvatar.jpg'
+import { ProfileDataReduxForm } from '../ProfileDataForm'
 
 type ContactsType = {
     contactTitle: string, 
@@ -19,8 +20,11 @@ export type profileType = {
 type profileDataProps = {
     profile: UserProfileType
     isOwner: boolean
+    onEditMode: () => void
 }
 export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, updateStatus, isOwner, savePhoto}) => {
+    
+    const [editMode, setEditMode] = useState<boolean>(false)
     
     if(!profile) {
         return <Preloader/>
@@ -30,26 +34,28 @@ export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, 
             savePhoto(e.target.files[0])
         }
     }
+
     return (  
         <div>
             <img className={style.profilePhoto} src={profile.photos.small || userAvatar} alt="profile"/>
             <div className={style.sendFileButton}>
                 {isOwner && <input type="file" onChange={sendFileHandler} />}
             </div>
-            
              <div className={style.statusContainer }> 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-            <ProfileData 
-                profile={profile} 
-                isOwner={isOwner} />
+            {editMode ? <ProfileDataReduxForm  /> 
+                : <ProfileData profile={profile} isOwner={isOwner} onEditMode={() => setEditMode(true)}/>}
         </div>
     )
 })
 
-const ProfileData: React.FC<profileDataProps> = ({profile}) => {
+const ProfileData: React.FC<profileDataProps> = ({profile, isOwner, onEditMode}) => {
     return (
         <>
+        {
+            isOwner && <div><button onClick={onEditMode}>Edit</button></div>
+        }
         <div className={style.fullNameBlock}>
             <b>Full name:</b> {profile.fullName}
         </div>
@@ -69,6 +75,7 @@ const ProfileData: React.FC<profileDataProps> = ({profile}) => {
     )
 }
 
-const Contacts: React.FC<ContactsType> = ({contactTitle, contactValue}) => {
+
+export const Contacts: React.FC<ContactsType> = ({contactTitle, contactValue}) => {
     return <div className={style.contactsBlock}><b>{contactTitle}</b>: {contactValue}</div>
 }
