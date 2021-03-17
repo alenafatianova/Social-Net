@@ -33,13 +33,7 @@ export type UserProfileType = {
   status: string
 }
 
-export type profileType = {
-  profile: UserProfileType
-  status: string
-  updateStatus: (status: string) => void
-  isOwner: boolean
-  savePhoto: (file: File) => void
-}
+
 
 export type photosType = {
   small: string | null
