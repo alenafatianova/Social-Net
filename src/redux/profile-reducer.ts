@@ -1,3 +1,4 @@
+import { FormAction, stopSubmit } from 'redux-form';
 import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from '../api/api';
 import { StateType } from './redux-store';
@@ -9,6 +10,7 @@ const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 const DELETE_POST = 'DELETE-POST'
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
+
 
 export type initialProfileStateType = {
   postsData: Array<PostsDataType>
@@ -112,7 +114,8 @@ export const setStatus = (status: string) => ({type: SET_STATUS, status}as const
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as const)
 export const savePhotoSuccess = (photos: photosType) => ({type: SAVE_PHOTO_SUCCESS, photos} as const)
 
-type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType>
+
+type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType | FormAction>
 
 export const getProfile = (userId: number): ThunksType => async(dispatch) => {                       
   let response = await profileAPI.getProfile(userId)
@@ -134,6 +137,18 @@ export const savePhoto = (file: File): ThunksType => async(dispatch) => {
   let response = await profileAPI.savePhoto(file)
   if(response.data.resultCode === 0) {
     dispatch(savePhotoSuccess(response.data.photos))
+  }
+}
+export const saveProfile = (profile: UserProfileType): ThunksType => async(dispatch, getState) => {
+  const userId = getState().auth.id
+  let response = await profileAPI.saveProfile(profile)
+  if(response.data.resultCode === 0) {
+      if(userId != null) {
+        dispatch(getProfile(userId))
+      }
+  } else {
+    dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
+    return Promise.reject(response.data.messages[0])
   }
 }
 

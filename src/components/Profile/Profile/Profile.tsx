@@ -9,8 +9,9 @@ type ProfilePropsType = {
   profile: UserProfileType
   isAuth: boolean
   status: string
-  updateStatus: (status: string) => void
   isOwner: boolean
+  updateStatus: (status: string) => void
+  saveProfile: (profile: UserProfileType) => Promise<any>
   savePhoto: (file: File) => void
 }
 
@@ -19,6 +20,7 @@ export const Profile = React.memo((props: ProfilePropsType) => {
   return (
     <div className={style.mainContent}>
       <ProfileInfo 
+          saveProfile={props.saveProfile}
           savePhoto={props.savePhoto} 
           isOwner={props.isOwner} 
           profile={props.profile} 

@@ -13,8 +13,9 @@ type ContactsType = {
 export type profileType = {
     profile: UserProfileType
     status: string
-    updateStatus: (status: string) => void
     isOwner: boolean
+    updateStatus: (status: string) => void
+    saveProfile: (profile: UserProfileType) => Promise<any>
     savePhoto: (file: File) => void
 }
 type profileDataProps = {
@@ -22,7 +23,8 @@ type profileDataProps = {
     isOwner: boolean
     onEditMode: () => void
 }
-export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, updateStatus, isOwner, savePhoto}) => {
+
+export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     
     const [editMode, setEditMode] = useState<boolean>(false)
     
@@ -34,6 +36,12 @@ export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, 
             savePhoto(e.target.files[0])
         }
     }
+    const onDataFormSubmit = (formData: UserProfileType) => {
+        saveProfile(formData).then(() => {
+            setEditMode(false)
+        })
+        
+    }
 
     return (  
         <div>
@@ -44,8 +52,11 @@ export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, 
              <div className={style.statusContainer }> 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-            {editMode ? <ProfileDataReduxForm  /> 
-                : <ProfileData profile={profile} isOwner={isOwner} onEditMode={() => setEditMode(true)}/>}
+            {
+            editMode 
+                ? <ProfileDataReduxForm initialValues={profile} onSubmit={() => onDataFormSubmit} profile={profile} /> 
+                : <ProfileData profile={profile} isOwner={isOwner} onEditMode={() => setEditMode(true)}/>
+            }
         </div>
     )
 })

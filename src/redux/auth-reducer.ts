@@ -1,6 +1,5 @@
 import { StateType } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
-
 import { FormAction, stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
