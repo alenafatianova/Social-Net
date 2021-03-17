@@ -26,10 +26,9 @@ export const ProfileStatusWithHooks = React.memo((props: statusProps) => {
         <div className={style.profileStatusWrapper}>
             {!editMode &&
              <div className={style.spanStyle}>
-                <span onDoubleClick={activateEditMode}>{props.status}</span>
+               <b>Status: </b> <span onDoubleClick={activateEditMode}>{props.status}</span>
             </div>
             }
-           
             {editMode &&
             <div>
                 <input 

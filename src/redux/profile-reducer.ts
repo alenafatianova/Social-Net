@@ -38,7 +38,7 @@ export type profileType = {
   status: string
   updateStatus: (status: string) => void
   isOwner: boolean
-  setNewPhoto: (file: File) => void
+  savePhoto: (file: File) => void
 }
 
 export type photosType = {
@@ -46,14 +46,14 @@ export type photosType = {
   large: string | null
 }
 export type contactsType = {
-  github: string | null
-  vk: string | null
-  facebook: string | null
-  instagram: string | null
-  twitter: string | null
-  website: string | null
-  youtube: string | null
-  mainLink: string | null
+  github: string 
+  vk: string 
+  facebook: string 
+  instagram: string 
+  twitter: string 
+  website: string 
+  youtube: string 
+  mainLink: string 
 }
 
 
@@ -136,10 +136,10 @@ export const updateStatus = (status: string): ThunksType => async(dispatch) => {
     dispatch(setStatus(status))
   }
 }
-export const setNewPhoto = (file: File): ThunksType => async(dispatch) => {
-  let data = await profileAPI.savePhoto(file)
-  if(data.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(data.data.photos))
+export const savePhoto = (file: File): ThunksType => async(dispatch) => {
+  let response = await profileAPI.savePhoto(file)
+  if(response.data.resultCode === 0) {
+    dispatch(savePhotoSuccess(response.data.photos))
   }
 }
 

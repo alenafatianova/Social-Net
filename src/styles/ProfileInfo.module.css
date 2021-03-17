@@ -8,3 +8,15 @@
     margin-top: 30px;
     margin-right: 30px;
 }
+.lookingForAJobBlock, .aboutMeBlock, .fullNameBlock  {
+   display: flex;
+   margin-top: 30px;
+}
+.sendFileButton {
+    margin-top: 30px;
+}
+.sendFileInput {
+    width: 70px;
+    height: 50px;
+    color: red;
+}

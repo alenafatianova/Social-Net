@@ -11,7 +11,7 @@ type ProfilePropsType = {
   status: string
   updateStatus: (status: string) => void
   isOwner: boolean
-  setNewPhoto: (file: File) => void
+  savePhoto: (file: File) => void
 }
 
 export const Profile = React.memo((props: ProfilePropsType) => {
@@ -19,7 +19,7 @@ export const Profile = React.memo((props: ProfilePropsType) => {
   return (
     <div className={style.mainContent}>
       <ProfileInfo 
-          setNewPhoto={props.setNewPhoto} 
+          savePhoto={props.savePhoto} 
           isOwner={props.isOwner} 
           profile={props.profile} 
           status={props.status}  
