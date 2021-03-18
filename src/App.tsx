@@ -8,7 +8,7 @@ import { Photos } from './components/Photos/Photos'
 import { Settings } from './components/Settings/Settings';
 import UsersContainer  from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginPage from './components/Login/Login'
+import {LoginPage} from './components/Login/Login'
 import {initilizedAppThunk} from '../src/redux/app-reducer'
 import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';

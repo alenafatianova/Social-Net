@@ -39,10 +39,12 @@ export type setAuthDataType = {
 export const authReducer = ( state = initialDataState, action: authTypeActionType): initialDataStateType => {
   switch (action.type) {
     case SET_USER_DATA:
+      case GET_CAPTCHA_URL: {
       return {
         ...state,
         ...action.payload,
       }
+    }
     default: {
       return {
         ...state,
@@ -67,11 +69,14 @@ export const authData = (): ThunkType => async(dispatch) => {
     }
 };
 
-export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async(dispatch) => {
-  let response = await authAPI.login(email, password, rememberMe);
+export const login = (email: string, password: string, rememberMe: boolean, captcha: null | string): ThunkType => async(dispatch) => {
+  let response = await authAPI.login(email, password, rememberMe, captcha);
     if (response.data.resultCode === 0) {
       dispatch(authData());
     } else {
+      if(response.data.resultCode === 10) {
+        dispatch(getCaptcha())
+      }
       let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error occured";
       dispatch(stopSubmit("login", { _error: message }));
     }
