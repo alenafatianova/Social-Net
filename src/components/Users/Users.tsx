@@ -1,15 +1,13 @@
 import React from 'react'
-import { UsersType } from '../../redux/users-reducer'
 import { Paginator } from '../common/Paginator/Paginator'
 import { User } from './User'
-
+import {getAllUsers, getAllUsersSelector, 
+        getPageSize, getTotalUsersCount, 
+        getCurrentPage, getFetching, getFollowingProgress} 
+from '../../redux/users-selectors'
+import { useSelector } from 'react-redux'
 
 type UsersPropsType = {
-    totalItemsCount: number 
-    pageSize: number
-    currentPage: number
-    users: Array<UsersType>
-    followingInProgress: number[]
     portionSize: number
     onPageChanged: (pageNumber: number) => void
     unfollowUser: (id: number) => void
@@ -18,20 +16,25 @@ type UsersPropsType = {
 
 
 export const Users = (props: UsersPropsType) => {
-    
+    const users = useSelector(getAllUsers)
+    const totalItemsCount = useSelector(getTotalUsersCount)
+    const pageSize = useSelector(getPageSize)
+    const currentPage = useSelector(getCurrentPage)
+    const followingInProgress = useSelector(getFollowingProgress)
+    const filter = useSelector(getAllUsersSelector)
     return (
         <div>
             <Paginator 
                 onPageChanged={props.onPageChanged} 
-                currentPage={props.currentPage} 
-                pageSize={props.pageSize} 
-                totalItemsCount={props.totalItemsCount}
+                currentPage={currentPage} 
+                pageSize={pageSize} 
+                totalItemsCount={totalItemsCount}
                 portionSize={props.portionSize}/> 
             <div>
                 {
-                    props.users.map(u => <User 
+                   users.map(u => <User 
                         key={u.id}  
-                        followingInProgress={props.followingInProgress} 
+                        followingInProgress={followingInProgress} 
                         unfollowUser={props.unfollowUser}
                         followUser={props.followUser}
                         user={u}

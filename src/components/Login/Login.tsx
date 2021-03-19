@@ -12,7 +12,7 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean 
-    captcha: string | null
+    captcha: string 
 }
 
 type captchaProps = {

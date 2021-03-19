@@ -1,3 +1,4 @@
+import { usersAPI } from './../api/api';
 import { FormAction, stopSubmit } from 'redux-form';
 import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from '../api/api';
@@ -14,7 +15,7 @@ const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
 
 export type initialProfileStateType = {
   postsData: Array<PostsDataType>
-  profile: null
+  profile: UserProfileType 
   status: string
 }
 
@@ -35,8 +36,6 @@ export type UserProfileType = {
   status: string
 }
 
-
-
 export type photosType = {
   small: string | null
   large: string | null
@@ -53,17 +52,17 @@ export type contactsType = {
 }
 
 
-let initialProfileState: initialProfileStateType = {
+let initialProfileState = {
     postsData: [
       { id: 1, post: "Heeeelloooo, guys!", likes: 33 },
       { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },
       { id: 3, post: "Found 10 dollars today...anyone lost it?", likes: 12 },
     ],
-    profile: null,
+    profile: null as UserProfileType | null,
     status: '', 
 }
 
-export const ProfileReducer = (state: ProfilePageType = initialProfileState, action: ProfileActionsType) => {
+export const ProfileReducer = (state = initialProfileState, action: ProfileActionsType): ProfilePageType => {
     switch(action.type) {
     
   case ADD_POST: {
@@ -74,7 +73,6 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
     }
     return {
       ...state,
-      newPostText: '',
       postsData: [...state.postsData, newPost]
     }
   }
@@ -97,10 +95,7 @@ export const ProfileReducer = (state: ProfilePageType = initialProfileState, act
         }
       }
       case SAVE_PHOTO_SUCCESS: {
-        return {
-          ...state,
-          profile: {...state.profile, 
-            photos: action.photos} 
+        return {...state, profile: {...state.profile, photos: action.photos} 
         }
       }
       default:
@@ -118,39 +113,41 @@ export const savePhotoSuccess = (photos: photosType) => ({type: SAVE_PHOTO_SUCCE
 type ThunksType =  ThunkAction<void, StateType, unknown, ProfileActionsType | FormAction>
 
 export const getProfile = (userId: number): ThunksType => async(dispatch) => {                       
-  let response = await profileAPI.getProfile(userId)
-    dispatch(setUserProfile(response.data))
+  let data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(data))
 }
 
 export const getStatus = (userId: number): ThunksType => async(dispatch) => {
-  let response = await profileAPI.getStatus(userId)
-  dispatch(setStatus(response.data))
+  let data = await profileAPI.getStatus(userId)
+  dispatch(setStatus(data))
 }
 
 export const updateStatus = (status: string): ThunksType => async(dispatch) => {
-  let response = await profileAPI.updateStatus(status)
-  if(response.data.resultCode === 0) {
+  let data = await profileAPI.updateStatus(status)
+  if(data.resultCode === 0) {
     dispatch(setStatus(status))
   }
 }
 export const savePhoto = (file: File): ThunksType => async(dispatch) => {
-  let response = await profileAPI.savePhoto(file)
-  if(response.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(response.data.photos))
+  let data = await profileAPI.savePhoto(file)
+  if(data.resultCode === 0) {
+    dispatch(savePhotoSuccess(data.data.photos))
   }
 }
 export const saveProfile = (profile: UserProfileType): ThunksType => async(dispatch, getState) => {
-  const userId = getState().auth.id
-  let response = await profileAPI.saveProfile(profile)
-  if(response.data.resultCode === 0) {
+  const userId = getState().auth.userId
+  const response = await profileAPI.saveProfile(profile)
+  if(response.resultCode === 0) {
       if(userId != null) {
         dispatch(getProfile(userId))
-      }
-  } else {
-    dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
-    return Promise.reject(response.data.messages[0])
+      } else {
+        throw new Error ('userID cannot be null')
+      } 
+    } else {
+      dispatch(stopSubmit('edit-profile', {_error: response.messages[0]}))
+    }
   }
-}
+
 
 export type ProfileActionsType = 
             | ReturnType <typeof addPostActionCreator> 

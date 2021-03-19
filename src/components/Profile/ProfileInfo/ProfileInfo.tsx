@@ -24,34 +24,38 @@ type profileDataProps = {
     onEditMode: () => void
 }
 
-export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+export const ProfileInfo: React.FC<profileType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     
     const [editMode, setEditMode] = useState<boolean>(false)
     
     if(!profile) {
         return <Preloader/>
     }
+
     const sendFileHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files?.length) {
             savePhoto(e.target.files[0])
         }
     }
     const onDataFormSubmit = (formData: UserProfileType) => {
-        saveProfile(formData).then(() => {
+        saveProfile(formData).then(
+            () => {
             setEditMode(false)
-        })
-        
+        })  
     }
 
     return (  
-        <div>
-            <img className={style.profilePhoto} src={profile.photos.small || userAvatar} alt="profile"/>
+        <div className={style.profileInfoContainer}>
+            <div className={style.profileInfo}>
+                <img className={style.profilePhoto} src={profile.photos.large || userAvatar} alt="profile"/>
+                <div className={style.statusContainer }> 
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+            </div>
+            </div>
             <div className={style.sendFileButton}>
                 {isOwner && <input type="file" onChange={sendFileHandler} />}
             </div>
-             <div className={style.statusContainer }> 
-                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-            </div>
+            
             {
             editMode 
                 ? <ProfileDataReduxForm initialValues={profile} onSubmit={() => onDataFormSubmit} profile={profile} /> 
@@ -59,13 +63,13 @@ export const ProfileInfo: React.FC<profileType> = React.memo(({profile, status, 
             }
         </div>
     )
-})
+}
 
 const ProfileData: React.FC<profileDataProps> = ({profile, isOwner, onEditMode}) => {
     return (
-        <>
+        <div className={style.profileDataBlock}>
         {
-            isOwner && <div><button onClick={onEditMode}>Edit</button></div>
+            isOwner && <div><button className={style.editProfileInfoBtn} onClick={onEditMode}>Edit</button></div>
         }
         <div className={style.fullNameBlock}>
             <b>Full name:</b> {profile.fullName}
@@ -77,12 +81,12 @@ const ProfileData: React.FC<profileDataProps> = ({profile, isOwner, onEditMode})
                 <b>Looking for a job:</b> {profile.lookingForAJob ? `I'm opened for offers` : "Currently working"} 
                 <div>{profile.lookingForAJob && profile.lookingForAJobDescription}</div>
         </div>
-        <div>
+        <div className={style.contactsBlock}>
             <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
-                return <Contacts key={key} contactTitle={key} contactValue={profile.contacts[key as keyof contactsType]} />
+                return <Contacts  key={key} contactTitle={key} contactValue={profile.contacts[key as keyof contactsType]} />
             })}
         </div>
-    </>
+    </div>
     )
 }
 

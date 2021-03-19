@@ -9,23 +9,23 @@ const GET_CAPTCHA_URL = "social-net/auth/GET_CAPTCHA_URL"
 
 
 export let initialDataState: initialDataStateType = {
-    id: null,
-    email: null,
-    login: null,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isFetching: true,
     isAuth: false,
-    captchaURL: null,
+    captchaURL: null as string | null,
 };
 export type initialDataStateType = {
-    id: number | null
+    userId: number | null
     email: string | null
     login: string | null
     isAuth: boolean
     isFetching: boolean
-    captchaURL: null | string,
+    captchaURL: string | null,
 };
 export type setAuthDataACPayloadType = {
-  id: number | null
+  userId: number | null
   email: string | null
   login: string | null
   isAuth: boolean
@@ -46,19 +46,18 @@ export const authReducer = ( state = initialDataState, action: authTypeActionTyp
       }
     }
     default: {
-      return {
-        ...state,
-      };
+      return state
     }
   }
 };
 
-export const setAuthData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => 
-({type: SET_USER_DATA,payload: { id, email, login, isAuth }, } as const);
+export const setAuthData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => 
+({type: SET_USER_DATA,payload: { userId, email, login, isAuth }, } as const);
+
 export const getCaptchaURL = (url: string) => ({type: GET_CAPTCHA_URL, payload: {url}} as const)
 
-export type authTypeActionType = ReturnType<typeof setAuthData> | ReturnType <typeof getCaptchaURL>
 
+export type authTypeActionType = ReturnType<typeof setAuthData> | ReturnType <typeof getCaptchaURL>
 type ThunkType = ThunkAction<void, StateType, unknown, authTypeActionType | FormAction>;
 
 export const authData = (): ThunkType => async(dispatch) => {
@@ -69,7 +68,7 @@ export const authData = (): ThunkType => async(dispatch) => {
     }
 };
 
-export const login = (email: string, password: string, rememberMe: boolean, captcha: null | string): ThunkType => async(dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async(dispatch) => {
   let response = await authAPI.login(email, password, rememberMe, captcha);
     if (response.data.resultCode === 0) {
       dispatch(authData());

@@ -16,7 +16,7 @@ type UserMessagePropsType = {
   id: number
 }
 
-export const Dialogs = React.memo((props: dialogDataType) => {
+export const Dialogs = (props: dialogDataType) => {
 
   let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} avatar={`https://api.adorable.io/avatars/96/${dialog.name}.png`} /> ); 
   let messagesElements = props.messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> ) 
@@ -43,9 +43,9 @@ export const Dialogs = React.memo((props: dialogDataType) => {
      </div>
     </div>
   );
-})
+}
 
-export const Message = React.memo((props: UserMessagePropsType) => {
+export const Message = (props: UserMessagePropsType) => {
   return (
     <div>
       <span className={style.message}>
@@ -53,4 +53,4 @@ export const Message = React.memo((props: UserMessagePropsType) => {
         </span>
     </div>
   );
-})
+}

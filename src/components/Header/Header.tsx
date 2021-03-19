@@ -12,21 +12,20 @@ export type mapDispatchToPropsType = {
     logout: () => void
 }
 
-
-export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = React.memo((props) => {
+export const Header: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
     return (
         <div className={style.header}>
            <div className={style.links}>
            <div className={style.login}>
                {
                 props.isAuth 
-                ? <div>{props.login } <button onClick={props.logout}>Log Out</button></div>
+                ? <div>{props.login } <button className={style.logoutButton} onClick={props.logout}>Log Out</button></div>
                 : <NavLink to={'/login'} activeClassName={style.active}>Login</NavLink>}
             </div>
-            <div className={style.registrate}>
+            <div className={style.signInLink}>
             <NavLink to={'/registration'} activeClassName={style.active}>Sign In</NavLink>
             </div>
            </div>
         </div>
     )
-})
+}

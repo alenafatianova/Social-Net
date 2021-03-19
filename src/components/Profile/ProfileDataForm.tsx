@@ -13,12 +13,8 @@ type LoginFormValuesTypeKeys = Extract<keyof UserProfileType, string>
 const ProfileDataForm: React.FC<InjectedFormProps<UserProfileType, propsType> & propsType> = ({handleSubmit, error, profile}) => {
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <button>Save</button>
-            </div>
-            {
-                error && <div>{error}</div>
-            }
+        <div><button>Save</button></div>
+            {error && <div>{error}</div>}
         <div className={style.fullNameBlock}>
             <b>Full name:</b> {createField<LoginFormValuesTypeKeys>('Full name', 'fullName', Input, [] )}
         </div>

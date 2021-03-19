@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UserProfileType } from '../redux/profile-reducer';
+import { photosType, UserProfileType } from '../redux/profile-reducer';
 import { UsersType } from '../redux/users-reducer';
 
 const instance = axios.create({
@@ -15,50 +15,57 @@ type getUsersResponseType = {
     totalCount: number
     error: string
 }
-type ResponseType = {
+type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
-    data: {}
+    data: D
 }
-
+type savePhotoResponseType = {
+    photos: photosType
+}
 export const usersAPI = {
-    async getUsers(currentPage: number, pageSize: number) {
-        const response = await instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`);
-        return response.data;
+     async getUsers(currentPage = 1 , pageSize = 10) {
+      const res = await instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`);
+        return res.data;
     },
     followUser(userId: number) {
-        return instance.post<ResponseType>(`follow/${userId}`, {})
+        return instance.post<ResponseType>(`follow/${userId}`)
     },
     deleteUser(userId: number) {
         return instance.delete<ResponseType>(`follow/${userId}`)
     },
-//    getProfile(userId: number) {
-//        console.warn('Obsolete method. Please use profileAPI object instead.')
-//     return profileAPI.getProfile(userId)
-//    }
+    getProfile(userId: number) {
+        console.warn('Obsolete method. Please use profileAPI instead.')
+        return profileAPI.getProfile(userId)
+    }
 }
 
 export const profileAPI = {
-    getProfile(userId: number) {
-        return instance.get(`profile/${userId}`)
+    async getProfile(userId: number) {
+        const res = await instance.get(`profile/${userId}`);
+        return res.data;
     },
-    getStatus(userId: number) {
-        return instance.get(`profile/status/${userId}`)
+    async getStatus(userId: number) {
+        const res = await instance.get(`profile/status/${userId}`);
+        return res.data;
     },
-    updateStatus(status: string) {
-        return instance.put('profile/status/', {status})
+    async updateStatus(status: string) {
+        const res = await instance.put<ResponseType>('profile/status/', { status });
+        return res.data;
     },
-    savePhoto(file: File) {
-        let formData = new FormData()
+    async savePhoto(file: File) {
+        const formData = new FormData()
         formData.append('image', file)
-        return instance.put('profile/photo', formData, {
+        const res = await instance.put<ResponseType<savePhotoResponseType>>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        })
+        });
+        return res.data;
     },
-    saveProfile(profile: UserProfileType) {
-        return instance.put(`profile`, profile)
+    async saveProfile(profile: UserProfileType) {
+       const res = await instance.put<ResponseType>(`profile`, profile);
+        return res.data;
     }
 }
 

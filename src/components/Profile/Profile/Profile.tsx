@@ -15,8 +15,7 @@ type ProfilePropsType = {
   savePhoto: (file: File) => void
 }
 
-export const Profile = React.memo((props: ProfilePropsType) => {
-
+export const Profile = (props: ProfilePropsType) => {
   return (
     <div className={style.mainContent}>
       <ProfileInfo 
@@ -30,4 +29,4 @@ export const Profile = React.memo((props: ProfilePropsType) => {
       <MyPostsContainer  />
     </div>
   );
-})
+}

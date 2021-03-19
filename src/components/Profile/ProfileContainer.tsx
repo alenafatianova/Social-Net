@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react' 
+import React from 'react' 
 import {connect} from 'react-redux'
 import {StateType} from '../../redux/redux-store'
 import {getProfile, UserProfileType, getStatus, updateStatus, savePhoto, saveProfile} from '../../redux/profile-reducer'
@@ -21,11 +21,11 @@ export type DispatchPropsType = {
     saveProfile: (profile: UserProfileType) => Promise<any>
 }
 
-export type PathProps = {
-    userId:  any 
+type PathParamsProps = {
+    userId: any
 }
 
-export type ProfileContainerProps = RouteComponentProps<PathProps> & DispatchPropsType & mapStateToPropsType
+export type ProfileContainerProps = RouteComponentProps<PathParamsProps> & DispatchPropsType & mapStateToPropsType
 
 export class  ProfileContainer extends React.Component<ProfileContainerProps> {
     
@@ -43,7 +43,7 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
     componentDidMount() {
       this.updateProfile();
     }
-    componentDidUpdate(prevProps: ProfileContainerProps, prevState: ProfileContainerProps) {
+    componentDidUpdate(prevProps: ProfileContainerProps) {
         if(this.props.match.params.userId !== prevProps.match.params.userId)
        this.updateProfile();
     }
@@ -66,10 +66,10 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
 let mapStateToProps = (state: StateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    authorizedUserId: state.auth.id,
+    authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth
 })
 
-export default compose<ComponentType>(connect(mapStateToProps, {getProfile, getStatus, updateStatus, savePhoto, saveProfile }), 
+export default compose<React.ComponentType>(connect(mapStateToProps, {getProfile, getStatus, updateStatus, savePhoto, saveProfile }), 
     withRouter
 )(ProfileContainer)

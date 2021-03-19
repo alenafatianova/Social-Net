@@ -42,11 +42,6 @@ export class UsersContainer extends React.Component<{
         <Users 
             followUser={this.props.followUser}
             unfollowUser={this.props.unfollowUser}
-            followingInProgress={this.props.followingInProgress}
-            totalItemsCount={this.props.totalItemsCount} 
-            pageSize={this.props.pageSize} 
-            currentPage={this.props.currentPage}
-            users={this.props.users}
             onPageChanged={this.onPageChanged}
             portionSize={this.props.portionSize}
             />   

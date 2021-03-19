@@ -1,16 +1,32 @@
 .statusContainer {
     display: flex;
+    padding: 30px;
+    
 }
-.userAvatar {
-    width: 300px;
-    height: 300px;
-    border: 1px solid black;
-    margin-top: 30px;
-    margin-right: 30px;
+.profileInfo img {
+    border: none;
+    border-radius: 0px;
+    width: 200px;
+    height: 200px;
+}
+.profileInfo {
+    display: flex;
+    flex-direction: row;
+
 }
 .lookingForAJobBlock, .aboutMeBlock, .fullNameBlock  {
    display: flex;
-   margin-top: 30px;
+   margin-top: 10px;
+}
+.contactsBlock {
+    margin-top: 10px;
+}
+.editProfileInfoBtn {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(185, 190, 255);
 }
 .sendFileButton {
     margin-top: 30px;
@@ -19,4 +35,7 @@
     width: 70px;
     height: 50px;
     color: red;
+}
+.profileDataBlock {
+    padding-top: 50px;
 }
