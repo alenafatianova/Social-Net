@@ -8,22 +8,16 @@ const SET_USER_DATA = "social-net/auth/SET_USER_DATA"
 const GET_CAPTCHA_URL = "social-net/auth/GET_CAPTCHA_URL"
 
 
-export let initialDataState: initialDataStateType = {
+export let initialDataState = {
     userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
     isFetching: true,
     isAuth: false,
     captchaURL: null as string | null,
-};
-export type initialDataStateType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    isFetching: boolean
-    captchaURL: string | null,
-};
+}
+export type initialDataStateType = typeof initialDataState
+
 export type setAuthDataACPayloadType = {
   userId: number | null
   email: string | null
