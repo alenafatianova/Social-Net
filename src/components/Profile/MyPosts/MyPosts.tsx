@@ -1,11 +1,11 @@
 import React from 'react';
+import { PostsDataType } from '../../../types/types';
 import {Post} from './Post/Post'
-import {PostsType} from '../../../redux/store'
 import { AddPostReduxForm } from './PostsReduxForm';
 
 
 export type MyPostsType = {
-    postsData: Array<PostsType>
+    postsData: Array<PostsDataType>
     addPost: (newPostText: string) => void
 }
 export const MyPosts = React.memo((props: MyPostsType) => {

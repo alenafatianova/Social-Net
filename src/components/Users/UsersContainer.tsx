@@ -3,19 +3,19 @@ import { connect } from 'react-redux'
 import { followUser, unfollowUser, setCurrentPage, 
         setFollowingInProgress, requestUsers } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
-import { UsersType } from '../../redux/users-reducer'
 import { Users } from './Users'
 import { Preloader } from '../common/Preloader/Preloader'
 import { withAuthRedirect } from '../../hoc/AuthRedirect'
 import { compose } from 'redux'
 import { getAllUsersSelector, getCurrentPage, getFetching, 
         getFollowingProgress, getPageSize, getTotalUsersCount } from '../../redux/users-selectors'
+import { UserType } from '../../types/types'
 
 export class UsersContainer extends React.Component<{
     setCurrentPage: (currentPage: number) => void,
     setFollowingInProgress: (isFetching: boolean, id: number) => void,
     requestUsers: (currentPage: number, pageSize: number) => void,  
-    users: Array<UsersType>,
+    users: Array<UserType>,
     totalItemsCount: number,
     portionSize: number,
     pageSize: number,

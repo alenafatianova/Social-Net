@@ -7,7 +7,6 @@ import { FormAction, stopSubmit } from "redux-form"
 const SET_USER_DATA = "social-net/auth/SET_USER_DATA"
 const GET_CAPTCHA_URL = "social-net/auth/GET_CAPTCHA_URL"
 
-
 export let initialDataState = {
     userId: null as number | null,
     email: null as string | null,

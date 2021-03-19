@@ -1,13 +1,6 @@
-const SEND_MESSAGE = 'SEND_MESSAGE'; 
+import { dialogsType, messagesType } from "../types/types";
 
-type dialogsType = {
-  id: number,
-  name: string
-}
-type messagesType = {
-  id: number,
-  message: string
-}
+const SEND_MESSAGE = 'SEND_MESSAGE'; 
 
 let initialDialogsStore = {
     dialogsData: [

@@ -1,8 +1,8 @@
 import React from 'react'
-import { UserProfileType } from '../../redux/profile-reducer'
 import style from '../../styles/ProfileInfo.module.css'
 import { createField, Input } from '../common/FormControl/FormControls'
 import { InjectedFormProps, reduxForm } from 'redux-form'
+import { UserProfileType } from '../../types/types'
 
 
 type propsType = {

@@ -1,10 +1,11 @@
 import React from 'react' 
 import {connect} from 'react-redux'
 import {StateType} from '../../redux/redux-store'
-import {getProfile, UserProfileType, getStatus, updateStatus, savePhoto, saveProfile} from '../../redux/profile-reducer'
+import {getProfile, getStatus, updateStatus, savePhoto, saveProfile} from '../../redux/profile-reducer'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import {Profile} from './Profile/Profile'
 import { compose } from 'redux'
+import { UserProfileType } from '../../types/types'
 
 
 export type mapStateToPropsType = {

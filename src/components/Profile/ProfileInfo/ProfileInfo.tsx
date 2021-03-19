@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react'
 import { Preloader } from '../../common/Preloader/Preloader'
-import {contactsType, UserProfileType} from '../../../redux/profile-reducer'
 import { ProfileStatusWithHooks } from '../ProfileStatus/ProfileStatusWithHooks'
 import style from '../../../styles/ProfileInfo.module.css'
 import userAvatar from '../../../assets/images/userAvatar.jpg'
 import { ProfileDataReduxForm } from '../ProfileDataForm'
+import { contactsType, UserProfileType } from '../../../types/types'
 
 type ContactsType = {
     contactTitle: string, 

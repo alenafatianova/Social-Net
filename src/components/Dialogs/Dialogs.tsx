@@ -1,13 +1,16 @@
 import React, { useCallback } from "react";
 import style from "../../styles/Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem"
-import { DialogsType, MessageType,} from './../../redux/store'
 import { DialogsReduxForm } from "./DialogsReduxForm";
 import { Redirect } from "react-router-dom";
+import { dialogsType, messagesType } from "../../types/types";
+
+
+
 
 export type dialogDataType = {
-  dialogsData: Array<DialogsType>
-  messageData: Array<MessageType>
+  dialogsData: Array<dialogsType>
+  messageData: Array<messagesType>
   isAuth: boolean
   sendMessage: (values: any) => void
 }
