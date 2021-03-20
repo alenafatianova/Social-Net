@@ -8,7 +8,7 @@ from '../../redux/users-selectors'
 import { useSelector } from 'react-redux'
 
 type UsersPropsType = {
-    portionSize: number
+ 
     onPageChanged: (pageNumber: number) => void
     unfollowUser: (id: number) => void
     followUser: (id: number) => void
@@ -18,7 +18,7 @@ type UsersPropsType = {
 export const Users = (props: UsersPropsType) => {
     
     const users = useSelector(getAllUsers)
-    const totalItemsCount = useSelector(getTotalUsersCount)
+    const totalUsersCount = useSelector(getTotalUsersCount)
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
     const followingInProgress = useSelector(getFollowingProgress)
@@ -30,8 +30,8 @@ export const Users = (props: UsersPropsType) => {
                 onPageChanged={props.onPageChanged} 
                 currentPage={currentPage} 
                 pageSize={pageSize} 
-                totalItemsCount={totalItemsCount}
-                portionSize={props.portionSize}/> 
+                totalItemsCount={totalUsersCount}
+                /> 
             <div>
                 {
                    users.map(u => <User 

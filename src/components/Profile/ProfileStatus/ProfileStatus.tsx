@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react'
+import { StateType } from '../../../redux/redux-store'
 import style from '../../../styles/ProfileStatus.module.css'
 
 export type statusProps = {
@@ -6,7 +7,11 @@ export type statusProps = {
     updateStatus: (status: string) => void
 }
 
-export class ProfileStatus extends React.Component<statusProps> {
+export type statusStateProps = {
+    editMode: boolean
+    status: string
+}
+export class ProfileStatus extends React.Component<statusProps, statusStateProps> {
 
     state = {
         editMode: false,
@@ -29,8 +34,9 @@ export class ProfileStatus extends React.Component<statusProps> {
             status: e.currentTarget.value
         })
     }
+
  //--------------      FIX PREV STATE       ------------------------------
-    componentDidUpdate(prevState: {}, prevProps: statusProps) {
+    componentDidUpdate(prevProps: statusProps, prevState: statusStateProps) {
           if(prevProps.status !== this.props.status) {
               this.setState({
                   status: this.props.status
