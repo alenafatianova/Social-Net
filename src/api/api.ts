@@ -16,13 +16,40 @@ type getUsersResponseType = {
     error: string
 }
 type ResponseType<D = {}> = {
-    resultCode: number
+    resultCode: ResultCodeEnum
     messages: Array<string>
     data: D
 }
 type savePhotoResponseType = {
     photos: photosType
 }
+type authMeResponseType = {
+    data: {
+        id: number,
+        login: string,
+        email: string
+    }
+    resultCode: ResultCodeEnum
+    messages: number[]
+}
+type loginResponseType = {
+    data: {
+        id: number
+    }
+    resultCode: CaptchaResultCodeEnum | ResultCodeEnum
+    messages: number[]
+}
+export enum ResultCodeEnum {
+    success = 0,
+    error = 1,
+}
+export enum CaptchaResultCodeEnum {
+    captchaIsRequired = 10
+}
+
+
+
+
 export const usersAPI = {
      async getUsers(currentPage = 1 , pageSize = 10) {
       const res = await instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`);
@@ -71,15 +98,18 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get<authMeResponseType>(`auth/me`).then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean, captcha?: null | string) {
-        return instance.post<ResponseType>('auth/login', {email, password, rememberMe, captcha})
+        return instance.post<loginResponseType>('auth/login', {email, password, rememberMe, captcha})
+        .then(res => res.data)
     },
     logout() {
         return instance.delete<ResponseType>('auth/login')
     }
 }
+
+
 export const securityAPI = {
     captcha() {
         return instance.get(`security/get-captcha-url`)
