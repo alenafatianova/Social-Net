@@ -97,12 +97,13 @@ export const profileAPI = {
 }
 
 export const authAPI = {
-    me() {
-        return instance.get<authMeResponseType>(`auth/me`).then(res => res.data)
+    async me() {
+        const res = await instance.get<authMeResponseType>(`auth/me`)
+        return res.data
     },
-    login(email: string, password: string, rememberMe: boolean, captcha?: null | string) {
-        return instance.post<loginResponseType>('auth/login', {email, password, rememberMe, captcha})
-        .then(res => res.data)
+    async login(email: string, password: string, rememberMe: boolean, captcha?: null | string) {
+        const res = await instance.post<loginResponseType>('auth/login', { email, password, rememberMe, captcha })
+        return res.data
     },
     logout() {
         return instance.delete<ResponseType>('auth/login')

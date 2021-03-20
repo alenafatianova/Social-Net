@@ -43,9 +43,10 @@ type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
 
 
 export const LoginPage: React.FC = () => {
-  const captcha = useSelector((state: StateType) => state.auth.captchaURL)
-  const isAuth = useSelector((state: StateType) => state.auth.isAuth)
-  const dispatch = useDispatch()
+  
+    const captcha = useSelector((state: StateType) => state.auth.captchaURL)
+    const isAuth = useSelector((state: StateType) => state.auth.isAuth)
+    const dispatch = useDispatch()
     
   const onSubmit = (formData: FormDataType) => {
       dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))

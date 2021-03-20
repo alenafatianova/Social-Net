@@ -14,7 +14,8 @@ export function createField<FormKeysType extends string>(
         component: React.FC<WrappedFieldProps>, 
         validators: Array<FieldValidatorType>, 
         props = {},
-        text = "") {
+        text = "",
+        ) {
     return (
     <div>
         <Field 
@@ -29,7 +30,7 @@ export function createField<FormKeysType extends string>(
 }
 
 
-const FormControl: React.FC<validationProps> = ({meta: {touched, error}, element}) => {
+const FormControl: React.FC<validationProps> = React.memo(({meta: {touched, error}, element}) => {
     const hasError = touched && error
     return (
         <div className={ hasError ? style.error : style.formControl}>
@@ -39,7 +40,7 @@ const FormControl: React.FC<validationProps> = ({meta: {touched, error}, element
             </div>
         </div>
     )
-}
+})
 
 export const Textarea: React.FC<WrappedFieldProps> = (props) => {
     const {input, meta, ...restProps} = props
