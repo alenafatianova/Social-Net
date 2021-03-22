@@ -12,9 +12,9 @@ export const usersAPI = {
      .then(res => res.data)
    },
    followUser(userId: number) {
-       return instance.post<apiResponseType>(`follow/${userId}`)
+       return instance.post<apiResponseType>(`follow/${userId}`).then(res => res.data)
    },
    deleteUser(userId: number) {
-       return instance.delete<apiResponseType>(`follow/${userId}`)
+       return instance.delete<apiResponseType>(`follow/${userId}`).then(res => res.data)
    }
 }
