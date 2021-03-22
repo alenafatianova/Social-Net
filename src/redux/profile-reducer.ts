@@ -103,8 +103,12 @@ export const getProfile = (userId: number): ThunksType => async(dispatch) => {
     dispatch(setUserProfile(data))
 }
 export const getStatus = (userId: number): ThunksType => async(dispatch) => {
-  let data = await profileAPI.getStatus(userId)
-  dispatch(setStatus(data))
+  try {
+    let data = await profileAPI.getStatus(userId)
+    dispatch(setStatus(data))
+  } catch(err) {
+    console.log(err)
+  }
 }
 export const updateStatus = (status: string): ThunksType => async(dispatch) => {
   let data = await profileAPI.updateStatus(status)

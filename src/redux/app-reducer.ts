@@ -3,12 +3,11 @@ import { ThunkAction } from 'redux-thunk';
 import { authData } from './auth-reducer';
 
 
-export let initialAppState: initialAppStateType = {
+export let initialAppState = {
     initilized: false,
+    globalerror: null
 };
-export type initialAppStateType = {
-    initilized: boolean,
-}
+export type initialAppStateType = typeof initialAppState
 
 const INITILIZED_SUCCESS = 'INITILIZED_SUCCESS'
 

@@ -6,7 +6,7 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
-        'API-KEY': '2fbfa6b3-04a7-447e-953f-70ff4b37ee90'
+        'API-KEY': '00a5d8cb-3f04-4b00-8ad7-497f641fdea2'
     }
 })
 
@@ -48,8 +48,6 @@ export enum CaptchaResultCodeEnum {
 }
 
 
-
-
 export const usersAPI = {
      async getUsers(currentPage = 1 , pageSize = 10) {
       const res = await instance.get<getUsersResponseType>(`users?page=${currentPage} &count=${pageSize}`);
@@ -68,31 +66,27 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    async getProfile(userId: number) {
-        const res = await instance.get(`profile/${userId}`);
-        return res.data;
+    getProfile(userId: number) {
+        return instance.get<UserProfileType>(`profile/`+ userId).then(res => res.data)
+      
     },
-    async getStatus(userId: number) {
-        const res = await instance.get(`profile/status/${userId}`);
-        return res.data;
+    getStatus(userId: number) {
+        return instance.get<string>(`profile/status/${userId}`).then(res => res.data)
     },
-    async updateStatus(status: string) {
-        const res = await instance.put<ResponseType>('profile/status/', { status });
-        return res.data;
+    updateStatus(status: string) {
+       return instance.put<ResponseType>('profile/status/', { status }).then(res => res.data)
     },
-    async savePhoto(file: File) {
+    savePhoto(file: File) {
         const formData = new FormData()
         formData.append('image', file)
-        const res = await instance.put<ResponseType<savePhotoResponseType>>('profile/photo', formData, {
+        return instance.put<ResponseType<savePhotoResponseType>>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        });
-        return res.data;
+        }).then(res => res.data)
     },
-    async saveProfile(profile: UserProfileType) {
-       const res = await instance.put<ResponseType>(`profile`, profile);
-        return res.data;
+    saveProfile(profile: UserProfileType) {
+       return instance.put<ResponseType>(`profile`, profile).then(res => res.data)
     }
 }
 

@@ -6,12 +6,13 @@ import userAvatar from '../../../assets/images/userAvatar.jpg'
 import { ProfileDataReduxForm } from '../ProfileDataForm'
 import { contactsType, UserProfileType } from '../../../types/types'
 
+
 type ContactsType = {
     contactTitle: string, 
     contactValue: string
 }
-export type profileType = {
-    profile: UserProfileType
+export type profileInfoType = {
+    profile: UserProfileType | null
     status: string
     isOwner: boolean
     updateStatus: (status: string) => void
@@ -24,7 +25,7 @@ type profileDataProps = {
     onEditMode: () => void
 }
 
-export const ProfileInfo: React.FC<profileType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+export const ProfileInfo: React.FC<profileInfoType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     
     const [editMode, setEditMode] = useState<boolean>(false)
     
@@ -38,27 +39,23 @@ export const ProfileInfo: React.FC<profileType> = ({profile, status, updateStatu
         }
     }
     const onDataFormSubmit = (formData: UserProfileType) => {
-        saveProfile(formData).then(
-            () => {
-            setEditMode(false)
-        })  
+        saveProfile(formData).then(() => {setEditMode(false)}
+        )  
     }
 
     return (  
         <div className={style.profileInfoContainer}>
             <div className={style.profileInfo}>
                 <img className={style.profilePhoto} src={profile.photos.large || userAvatar} alt="profile"/>
+                <div className={style.sendFileButton}>
+                {isOwner && <input type="file" onChange={sendFileHandler} />}
+            </div>
                 <div className={style.statusContainer }> 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
             </div>
-            <div className={style.sendFileButton}>
-                {isOwner && <input type="file" onChange={sendFileHandler} />}
-            </div>
-            
-            {
-            editMode 
-                ? <ProfileDataReduxForm initialValues={profile} onSubmit={() => onDataFormSubmit} profile={profile} /> 
+            {editMode 
+                ? <ProfileDataReduxForm initialValues={profile} onSubmit={onDataFormSubmit} profile={profile} /> 
                 : <ProfileData profile={profile} isOwner={isOwner} onEditMode={() => setEditMode(true)}/>
             }
         </div>

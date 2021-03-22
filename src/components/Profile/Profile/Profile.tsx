@@ -7,8 +7,7 @@ import {ProfileInfo} from "../ProfileInfo/ProfileInfo";
 
 
 type ProfilePropsType = {
-  profile: UserProfileType
-  isAuth: boolean
+  profile: UserProfileType | null
   status: string
   isOwner: boolean
   updateStatus: (status: string) => void

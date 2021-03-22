@@ -1,7 +1,7 @@
-import React, { ComponentType, Suspense } from 'react';
+import React, { ComponentType } from 'react';
 import classes from './App.module.css';
 import { Navbar } from './components/Navbar/Navbar';
-import {  HashRouter, Route, withRouter } from 'react-router-dom';
+import {  HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { Friends } from './components/Friends/Friends';
 import { Music } from './components/Music/Music';
 import { Photos } from './components/Photos/Photos'
@@ -10,7 +10,7 @@ import UsersContainer  from './components/Users/UsersContainer'
 import HeaderContainer from './components/Header/HeaderContainer';
 import {LoginPage} from './components/Login/Login'
 import {initilizedAppThunk} from '../src/redux/app-reducer'
-import { connect, Provider } from 'react-redux';
+import { connect, Provider, useDispatch } from 'react-redux';
 import { compose } from 'redux';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { useEffect } from 'react';
@@ -25,13 +25,12 @@ export type appProps = {
 }
 
 export const App = (props: appProps) => {
+  const dispatch = useDispatch()
   
   useEffect(() => {
-    props.initilizedAppThunk()
-      return () => {
-    }
-  }, [props])
-    
+    dispatch(initilizedAppThunk())
+  }, [dispatch])
+
     if (props.initialized) {
       return <Preloader/>
     }
@@ -39,20 +38,26 @@ export const App = (props: appProps) => {
     return (
         <div>
           <div className={classes.Wrapper}>
+            
             <HeaderContainer  />
             <Navbar />
-            <Route exact path="/dialogs" render={() => { 
+            {/* <Route path="/dialogs" render={() => { 
               return  <Suspense fallback={<div>Loading...</div>}>
                   <DialogsContainer />
               </Suspense>
-            }}/>
-            <Route exact path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
-            <Route exact path="/friends" render={() => <Friends />} />
-            <Route exact path="/users" render={() => <UsersContainer />} />
-            <Route exact path="/music" render={() => <Music />} />
-            <Route exact path="/photos" render={() => <Photos />} />
-            <Route exact path="/settings" render={() => <Settings />} />
-            <Route exact path="/login" render={() => <LoginPage />} />
+            }}/> */}
+            <Switch>
+            <Redirect exact from='/' to='profile' />
+            <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
+            <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
+            <Route path="/friends" render={() => <Friends />} />
+            <Route path="/users" render={() => <UsersContainer />} />
+            <Route path="/music" render={() => <Music />} />
+            <Route path="/photos" render={() => <Photos />} />
+            <Route path="/settings" render={() => <Settings />} />
+            <Route path="/login" render={() => <LoginPage />} />
+            
+            </Switch>
           </div>
         </div>
     );
