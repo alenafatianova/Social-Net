@@ -70,8 +70,6 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
 }
 
 //-- action creators ---
-
-
 const actions = {
     deleteUser:  (id: number) => ({type: 'DELETE_USER', id} as const),
     followUser:  (id: number) => ({type: 'FOLLOW_USER', id} as const),

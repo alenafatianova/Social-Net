@@ -72,8 +72,7 @@ export const ProfileActions = {
 
 
 //--- redux-thunks -----
-export const getProfile = (userId: number): ThunksType => async(dispatch: Dispatch) => {  
-                       
+export const getProfile = (userId: number): ThunksType => async(dispatch: Dispatch) => {
   let data = await profileAPI.getProfile(userId)
     dispatch(ProfileActions.setUserProfile(data))
 }
@@ -86,9 +85,13 @@ export const getStatus = (userId: number): ThunksType => async(dispatch) => {
   }
 }
 export const updateStatus = (status: string): ThunksType => async(dispatch) => {
-  let data = await profileAPI.updateStatus(status)
-  if(data.resultCode === 0) {
-    dispatch(ProfileActions.setStatus(status))
+  try {
+    let data = await profileAPI.updateStatus(status)
+    if(data.resultCode === 0) {
+      dispatch(ProfileActions.setStatus(status))
+    }
+  } catch (err) {
+    console.log(err)
   }
 }
 export const savePhoto = (file: File): ThunksType => async(dispatch) => {
@@ -99,15 +102,16 @@ export const savePhoto = (file: File): ThunksType => async(dispatch) => {
 }
 export const saveProfile = (profile: UserProfileType): ThunksType => async(dispatch, getState: () => StateType) => {
   const userId = getState().auth.userId
-  const response = await profileAPI.saveProfile(profile)
-  if(response.resultCode === 0) {
+  const data = await profileAPI.saveProfile(profile)
+  if(data.resultCode === 0) {
       if(userId != null) {
         dispatch(getProfile(userId))
       } else {
         throw new Error ('userID cannot be null')
       } 
     } else {
-      dispatch(stopSubmit('edit-profile', {_error: response.messages[0]}))
+      dispatch(stopSubmit('edit-profile', {_error: data.messages[0] }))
+      return Promise.reject(data.messages[0])
     }
   }
 

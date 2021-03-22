@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom'
 import style from '../../styles/Users.module.css'
 import userAvatar from '../../assets/images/userAvatar.jpg'
 import { UserType } from '../../types/types'
-import { useDispatch } from 'react-redux'
-import { follow, unfollowUser } from '../../redux/users-reducer'
+
 
 type userTypeProps = {
     user: UserType
