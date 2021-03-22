@@ -7,7 +7,6 @@ import { Music } from './components/Music/Music';
 import { Photos } from './components/Photos/Photos'
 import { Settings } from './components/Settings/Settings';
 import UsersContainer  from './components/Users/UsersContainer'
-import HeaderContainer from './components/Header/HeaderContainer';
 import {LoginPage} from './components/Login/Login'
 import {initilizedAppThunk} from '../src/redux/app-reducer'
 import { connect, Provider, useDispatch } from 'react-redux';
@@ -16,6 +15,7 @@ import { Preloader } from './components/common/Preloader/Preloader';
 import { useEffect } from 'react';
 import store from './redux/redux-store';
 import { WithSuspense } from './hoc/WithSuspense';
+import { Header } from './components/Header/Header';
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
  
@@ -38,8 +38,7 @@ export const App = (props: appProps) => {
     return (
         <div>
           <div className={classes.Wrapper}>
-            
-            <HeaderContainer  />
+            <Header />
             <Navbar />
             {/* <Route path="/dialogs" render={() => { 
               return  <Suspense fallback={<div>Loading...</div>}>

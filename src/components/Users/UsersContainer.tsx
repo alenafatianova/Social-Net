@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react'
 import { connect } from 'react-redux'
-import { followUser, unfollowUser, requestUsers } from '../../redux/users-reducer'
+import {requestUsers, follow, unfollowUser } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
 import { Users } from './Users'
 import { Preloader } from '../common/Preloader/Preloader'
@@ -62,6 +62,6 @@ const  mapStateToProps = (state: StateType): MapStateToPropsType  => {
 
 
 export default compose<ComponentType>(connect(mapStateToProps, 
-    {followUser, unfollowUser, requestUsers}), 
+    {follow, unfollowUser, requestUsers}), 
     withAuthRedirect)(UsersContainer) 
        

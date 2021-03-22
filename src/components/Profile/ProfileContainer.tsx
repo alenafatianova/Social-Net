@@ -1,16 +1,19 @@
 import React from 'react' 
 import {connect} from 'react-redux'
 import {StateType} from '../../redux/redux-store'
-import {getProfile, getStatus, updateStatus, 
-    savePhoto, saveProfile} from '../../redux/profile-reducer'
+import {getProfile, getStatus, updateStatus, savePhoto, saveProfile} from '../../redux/profile-reducer'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import {Profile} from './Profile/Profile'
 import { compose } from 'redux'
 import { UserProfileType } from '../../types/types'
 
 
-type mapStateToPropsType = ReturnType<typeof mapStateToProps>
-
+export type mapStateToPropsType = {
+    profile: UserProfileType | null
+    isAuth: boolean
+    status: string
+    authorizedUserId: number 
+}
 export type DispatchPropsType = {
     getProfile: (userId: number) => void
     getStatus: (userId: number) => void
@@ -23,7 +26,7 @@ type PathParamsProps = {
     userId: string
 }
 
-type ProfileContainerProps = mapStateToPropsType & DispatchPropsType & RouteComponentProps<PathParamsProps>  
+export type ProfileContainerProps = RouteComponentProps<PathParamsProps> & DispatchPropsType & mapStateToPropsType
 
 export class  ProfileContainer extends React.Component<ProfileContainerProps> {
     
@@ -35,30 +38,21 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
                 this.props.history.push('/login')
             }
         }
-        if(!userId) {
-            console.error('Some error')
-        } else {
-            this.props.getProfile(userId)
-            this.props.getStatus(userId)
-        }
+        this.props.getProfile(userId)
+        this.props.getStatus(userId)
     }
-
     componentDidMount() {
       this.updateProfile();
     }
-
-    componentDidUpdate(prevProps: ProfileContainerProps, prevState: ProfileContainerProps) {
+    componentDidUpdate(prevProps: ProfileContainerProps) {
         if(this.props.match.params.userId !== prevProps.match.params.userId)
        this.updateProfile();
     }
 
-    componentWillUnmount(): void {
-
-    }
-
     render() {
         return (
-            <Profile {...this.props}
+            <Profile {...this.props} 
+                    saveProfile={this.props.saveProfile}
                     savePhoto={this.props.savePhoto}
                     isOwner={!this.props.match.params.userId}
                     profile={this.props.profile}
@@ -77,7 +71,6 @@ let mapStateToProps = (state: StateType) => ({
     isAuth: state.auth.isAuth
 })
 
-export default compose<React.ComponentType>(connect(mapStateToProps, 
-    {getProfile, getStatus, updateStatus, savePhoto, saveProfile }), 
+export default compose<React.ComponentType>(connect(mapStateToProps, {getProfile, getStatus, updateStatus, savePhoto, saveProfile }), 
     withRouter
 )(ProfileContainer)

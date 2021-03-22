@@ -66,7 +66,8 @@ const ProfileData: React.FC<profileDataProps> = ({profile, isOwner, onEditMode})
     return (
         <div className={style.profileDataBlock}>
         {
-            isOwner && <div><button className={style.editProfileInfoBtn} onClick={onEditMode}>Edit</button></div>
+            isOwner && <div><button className={style.editProfileInfoBtn} 
+            onClick={onEditMode}>Edit</button></div>
         }
         <div className={style.fullNameBlock}>
             <b>Full name:</b> {profile.fullName}

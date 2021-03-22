@@ -14,7 +14,9 @@ const ProfileDataForm: React.FC<InjectedFormProps<UserProfileType, propsType> & 
     return (
         <form onSubmit={handleSubmit}>
         <div><button>Save</button></div>
-            {error && <div>{error}</div>}
+        {
+            error && <div>{error}</div>
+        }
         <div className={style.fullNameBlock}>
             <b>Full name:</b> {createField<LoginFormValuesTypeKeys>('Full name', 'fullName', Input, [] )}
         </div>
@@ -32,7 +34,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<UserProfileType, propsType> & 
         <div>
             <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
                 return <div className={style.contactBlockForm} key={key}>
-                    <b>{key}: </b>{createField(key, 'contacts.' + key, Input, [] )}
+                    <b>{key}:{createField(key, 'contacts.' + key, Input, [] )}</b>
                 </div>
             })}
         </div>
