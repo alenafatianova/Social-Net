@@ -1,4 +1,4 @@
-import { StateType, InferActionsType } from './redux-store';
+import { StateType, InferActionsType, BaseThunkType } from './redux-store';
 import { ThunkAction } from 'redux-thunk';
 import { Dispatch } from 'redux';
 import { updateObjectInArray } from './handlers/validators/objects-helpers';
@@ -81,7 +81,7 @@ const actions = {
 }
 
 //----------getUsers, followUser, unfollowUser  это санка-------------------------
-type UsersThunksType = ThunkAction<Promise<void>, StateType, unknown, UsersActionsType>
+type UsersThunksType = BaseThunkType<UsersActionsType> 
 type UsersActionsType = InferActionsType<typeof actions>
 
 export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => async(dispatch) => {
