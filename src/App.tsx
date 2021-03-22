@@ -39,12 +39,6 @@ export const App = (props: appProps) => {
         <div>
           <div className={classes.Wrapper}>
             <Header />
-            <Navbar />
-            {/* <Route path="/dialogs" render={() => { 
-              return  <Suspense fallback={<div>Loading...</div>}>
-                  <DialogsContainer />
-              </Suspense>
-            }}/> */}
             <Switch>
             <Redirect exact from='/' to='profile' />
             <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
@@ -55,8 +49,8 @@ export const App = (props: appProps) => {
             <Route path="/photos" render={() => <Photos />} />
             <Route path="/settings" render={() => <Settings />} />
             <Route path="/login" render={() => <LoginPage />} />
-            
             </Switch>
+            <Navbar />
           </div>
         </div>
     );

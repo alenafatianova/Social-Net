@@ -9,9 +9,6 @@
     float: right;
     display: flex;
 }
-.signInLink {
-    padding-top: 10px;
-}
 a {
     font-family: monospace;
     font-size: 16px;

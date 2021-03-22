@@ -6,7 +6,6 @@ import { StateType } from '../../redux/redux-store'
 import style from '../../styles/Header.module.css' 
 
 
-
 export const Header = () => {
     const isAuth = useSelector((state: StateType) => state.auth.isAuth)
     const login = useSelector((state: StateType) => state.auth.login)
@@ -15,7 +14,7 @@ export const Header = () => {
     const logoutHandler = () => {
     dispatch(logout())
     }
-    
+
     return (
         <div className={style.header}>
            <div className={style.links}>
