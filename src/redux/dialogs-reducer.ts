@@ -1,7 +1,7 @@
 import { dialogsType, messagesType } from "../types/types";
 import { InferActionsType } from "./redux-store";
 
-let initialDialogsStore = {
+let initialDialogsState = {
     dialogsData: [
       { id: 1, name: "Chandler" },
       { id: 2, name: "Monika" },
@@ -11,7 +11,6 @@ let initialDialogsStore = {
       { id: 6, name: "Jennisse" },
       { id: 7, name: "Phoebe" },
     ] as Array<dialogsType>,
-    
     messageData: [
       { id: 1, message: "Hi, whatsapp?" },
       { id: 2, message: "Go to the cinema tonight?" },
@@ -19,10 +18,10 @@ let initialDialogsStore = {
     ] as Array<messagesType>,
 }
 
-export type InitialStateType = typeof initialDialogsStore
+export type InitialStateType = typeof initialDialogsState
 export type DialogsActionsType = InferActionsType<typeof dialogsActions>
 
-export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType): InitialStateType => {
+export const DialogsReducer = (state = initialDialogsState, action: DialogsActionsType): InitialStateType => {
   switch(action.type) {  
       case 'SEND_MESSAGE': {
         let messageBody = action.newMessageTextBody;
@@ -36,7 +35,7 @@ export const DialogsReducer = (state = initialDialogsStore, action: DialogsActio
     }
 }
 export const dialogsActions = {
-  sendMessageAC: (newMessageTextBody: string) => ({type: 'SEND_MESSAGE', newMessageTextBody} as const) 
+  sendMessage: (newMessageTextBody: string) => ({type: 'SEND_MESSAGE', newMessageTextBody} as const) 
 }
 
 

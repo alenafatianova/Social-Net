@@ -2,38 +2,41 @@ import React, { useCallback } from "react";
 import style from "../../styles/Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem"
 import { DialogsReduxForm } from "./DialogsReduxForm";
-import { Redirect } from "react-router-dom";
-import { dialogsType, messagesType } from "../../types/types";
+import { useSelector } from "react-redux";
+import { StateType } from "../../redux/redux-store";
 
 
 
 
 export type dialogDataType = {
-  dialogsData: Array<dialogsType>
-  messageData: Array<messagesType>
-  isAuth: boolean
-  sendMessage: (values: any) => void
+  sendMessage: (newMessageTextBody: string) => void
 }
-type UserMessagePropsType = {
+export type NewMessageFormTypes = {
+  newMessageTextBody: string
+}
+type MessageType = {
   message: string
   id: number
 }
 
 export const Dialogs = (props: dialogDataType) => {
 
-  let dialogsElements = props.dialogsData.map(dialog =>  <DialogItem key={dialog.id} id={dialog.id} name={dialog.name} avatar={`https://api.adorable.io/avatars/96/${dialog.name}.png`} /> ); 
-  let messagesElements = props.messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> ) 
+  const dialogsData = useSelector((state: StateType) => state.dialogsPage.dialogsData)
+  const messageData = useSelector((state: StateType) => state.dialogsPage.messageData)
+  
+  let dialogsElements = dialogsData.map(dialog =><DialogItem key={dialog.id} id={dialog.id} name={dialog.name}/>); 
+  let messagesElements = messageData.map(message => <Message key={message.id} message={message.message} id={message.id} /> ) 
 
-  const addNewMessage = useCallback((values: any) => {
+  const addNewMessage = useCallback((values: NewMessageFormTypes) => {
     props.sendMessage(values.newMessageTextBody)
   }, [props])
-
-  if(props.isAuth) return <Redirect to='/login'/>
+ 
 
   return (
     <div className={style.users_dialogs}>
       <div className={style.users}>
-        {dialogsElements}</div>
+        {dialogsElements}
+      </div>
       <div className={style.messages}>
         {messagesElements}
       <div>
@@ -45,10 +48,10 @@ export const Dialogs = (props: dialogDataType) => {
      <div>  
      </div>
     </div>
-  );
+  )
 }
 
-export const Message = (props: UserMessagePropsType) => {
+export const Message: React.FC<MessageType> = (props) => {
   return (
     <div>
       <span className={style.message}>
