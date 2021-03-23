@@ -1,6 +1,5 @@
 import {  CaptchaResultCodeEnum, ResultCodeEnum } from './../api/api'
-import { BaseThunkType, InferActionsType, StateType } from "./redux-store"
-import { ThunkAction } from "redux-thunk"
+import { BaseThunkType, InferActionsType } from "./redux-store"
 import { FormAction, stopSubmit } from "redux-form"
 import { authAPI } from '../api/auth-api'
 import { Dispatch } from 'redux'
@@ -46,14 +45,14 @@ export const authActions = {
   getCaptchaURL: (url: string) => ({type: 'GET_CAPTCHA_URL', payload: {url}} as const)
 }
 
-type AuthThunkType = BaseThunkType<AuthActionsType |FormAction >
+type AuthThunkType = BaseThunkType<AuthActionsType | FormAction >
 type AuthActionsType = InferActionsType<typeof authActions>
 
 export const authData = (): AuthThunkType => async(dispatch) => {
     let meData = await authAPI.me()
     if (meData.resultCode === ResultCodeEnum.success) {
       let { id, login, email,  } = meData.data;
-      dispatch(authActions.setAuthData(id, login, email, true))
+      dispatch(authActions.setAuthData(id, email, login,  true))
     }
 }
 

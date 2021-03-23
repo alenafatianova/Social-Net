@@ -20,7 +20,7 @@ let initialDialogsStore = {
 }
 
 export type InitialStateType = typeof initialDialogsStore
-type DialogsActionsType = InferActionsType<typeof dialogsActions>
+export type DialogsActionsType = InferActionsType<typeof dialogsActions>
 
 export const DialogsReducer = (state = initialDialogsStore, action: DialogsActionsType): InitialStateType => {
   switch(action.type) {  
