@@ -5,6 +5,7 @@ import style from '../../../styles/ProfileInfo.module.css'
 import userAvatar from '../../../assets/images/userAvatar.jpg'
 import { ProfileDataReduxForm } from '../ProfileDataForm'
 import { contactsType, UserProfileType } from '../../../types/types'
+import { useDispatch } from 'react-redux'
 
 
 type ContactsType = {
@@ -28,7 +29,7 @@ type profileDataProps = {
 export const ProfileInfo: React.FC<profileInfoType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     
     const [editMode, setEditMode] = useState<boolean>(false)
-    
+    const dispatch = useDispatch()
     if(!profile) {
         return <Preloader/>
     }
@@ -39,8 +40,8 @@ export const ProfileInfo: React.FC<profileInfoType> = ({profile, status, updateS
         }
     }
     const onDataFormSubmit = (formData: UserProfileType) => {
-        saveProfile(formData).then(() => {setEditMode(false)}
-        )  
+        dispatch(saveProfile(formData))
+        setEditMode(false)
     }
 
     return (  

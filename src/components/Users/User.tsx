@@ -10,9 +10,10 @@ type userTypeProps = {
     followingInProgress: number[]
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
+   
 }
 
-export const User: React.FC<userTypeProps> = React.memo(({user, followingInProgress, followUser, unfollowUser}) => {
+export const User: React.FC<userTypeProps> = ({user, followingInProgress, followUser, unfollowUser}) => {
     
     return (
         <div>
@@ -42,4 +43,4 @@ export const User: React.FC<userTypeProps> = React.memo(({user, followingInProgr
                     </span>
             </div>
     )
-})
+}

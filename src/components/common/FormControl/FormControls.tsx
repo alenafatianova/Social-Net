@@ -8,6 +8,7 @@ type formProps = {
     meta: WrappedFieldMetaProps
    
 }
+export type getStringKeys<T>  = Extract<keyof T, string>
 
 export function createField<FormKeysType extends string>( 
         placeholder: string | undefined, 

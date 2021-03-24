@@ -8,15 +8,9 @@ from '../../redux/users-selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { follow, requestUsers, unfollowUser } from '../../redux/users-reducer'
 
-type UsersPropsType = {
- 
-    onPageChanged: (pageNumber: number) => void
-    unfollowUser: (id: number) => void
-    followUser: (id: number) => void
-}
 
 
-export const Users = (props: UsersPropsType) => {
+export const Users = () => {
     
     const users = useSelector(getAllUsers)
     const totalUsersCount = useSelector(getTotalUsersCount)
@@ -52,6 +46,7 @@ export const Users = (props: UsersPropsType) => {
                         followUser={followUserHandler}
                         unfollowUser={unfollowUserHandler}
                         user={u}
+                        
                         />)
                 }
                 </div>

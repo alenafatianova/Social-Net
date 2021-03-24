@@ -40,11 +40,7 @@ export class UsersContainer extends React.Component<usersConatinerPropsType>
     render () {
         return <>
         {this.props.isFetching ? <Preloader/> : null}
-        <Users 
-            followUser={this.props.followUser}
-            unfollowUser={this.props.unfollowUser}
-            onPageChanged={this.onPageChanged}
-            />   
+        <Users />   
         </>  
     }
 }

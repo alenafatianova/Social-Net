@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import classes from './App.module.css';
 import { Navbar } from './components/Navbar/Navbar';
 import {  HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
@@ -9,40 +9,39 @@ import { Settings } from './components/Settings/Settings';
 import UsersContainer  from './components/Users/UsersContainer'
 import {LoginPage} from './components/Login/Login'
 import {initilizedAppThunk} from '../src/redux/app-reducer'
-import { connect, Provider, useDispatch } from 'react-redux';
+import { connect, Provider, useDispatch, useSelector } from 'react-redux';
 import { compose } from 'redux';
 import { Preloader } from './components/common/Preloader/Preloader';
 import { useEffect } from 'react';
-import store from './redux/redux-store';
+import store, { StateType } from './redux/redux-store';
 import { WithSuspense } from './hoc/WithSuspense';
 import { Header } from './components/Header/Header';
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
  
-export type appProps = {
-  initialized: boolean
-  initilizedAppThunk: () => void
-}
 
-export const App = (props: appProps) => {
+
+export const App = () => {
+  const initialized = useSelector((state: StateType) => state.app.initilized)
   const dispatch = useDispatch()
   
   useEffect(() => {
     dispatch(initilizedAppThunk())
   }, [dispatch])
 
-    if (props.initialized) {
+    if (initialized) {
       return <Preloader/>
     }
-    
+    const SuspendedDialogs = WithSuspense(DialogsContainer)
+    const SuspendedProfile = WithSuspense(ProfileContainer)
     return (
         <div>
           <div className={classes.Wrapper}>
             <Header />
             <Switch>
             <Redirect exact from='/' to='profile' />
-            <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
-            <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
+            <Route path="/dialogs" render={() => <SuspendedDialogs/>} />
+            <Route path="/profile/:userId?" render={() => <SuspendedProfile/>} />
             <Route path="/friends" render={() => <Friends />} />
             <Route path="/users" render={() => <UsersContainer />} />
             <Route path="/music" render={() => <Music />} />
@@ -58,7 +57,7 @@ export const App = (props: appProps) => {
 
 
 
-export const AppContainer = compose<ComponentType>(connect(null, {initilizedAppThunk}), withRouter)(App);
+export const AppContainer = compose<React.ComponentType>(connect(null, {initilizedAppThunk}), withRouter)(App);
 
 export const SamuraiJSApp = () => {
   return (
