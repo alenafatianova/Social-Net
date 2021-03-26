@@ -10,17 +10,20 @@ export const ProfileStatusWithHooks = React.memo((props: statusProps) => {
 
   const [editMode, setEditMode] = useState<boolean>(false)
   const [status, setStatus] = useState<string>(props.status)
+  
   const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
   }
   const activateEditMode = () => setEditMode(true)
+  
   const deactivateMode = () => {
-    setEditMode(false)
+        setEditMode(false)
     props.updateStatus(status)
-}
- useEffect(() => {
-     setStatus(props.status)
- }, [props.status]) 
+ }
+    
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status]) 
    
         return (
         <div className={style.profileStatusWrapper}>

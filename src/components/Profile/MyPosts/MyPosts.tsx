@@ -6,16 +6,20 @@ import { useDispatch } from 'react-redux';
 import { ProfileActions } from '../../../redux/profile-reducer';
 
 
-export type MyPostsType = {
+export type myPostsMapType = {
     postsData: Array<PostsDataType>
-    addPost: (newPostText: string) => void
 }
-export const MyPosts = React.memo((props: MyPostsType) => {
-    
-let postElement = props.postsData.map(posts =>
-  <Post key={posts.id} id={posts.id} post={posts.post} likes={posts.likes}/> 
-)
+export type dispatchToPropsType = {
+  addPost: (newPostText: string) => void
+}
 
+
+
+export const MyPosts = React.memo<myPostsMapType & dispatchToPropsType>((props) => {
+
+  let postElement = props.postsData.map(posts =>
+  <Post key={posts.id} post={posts.post} likes={posts.likes}/> 
+)
 //--- function for adding new post -----
 const dispatch = useDispatch()
 const addNewPost = (values: addPostFormType) => {

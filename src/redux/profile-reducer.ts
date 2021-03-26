@@ -13,7 +13,6 @@ export const initialProfileState = {
     ] as Array <PostsDataType>,
     profile: null as UserProfileType | null,
     status: '', 
-    newPostText: '',
 }
 export type initialProfileStateType = typeof initialProfileState
 export type ProfileActionsType = InferActionsType<typeof ProfileActions>
@@ -29,7 +28,6 @@ export const ProfileReducer = (state = initialProfileState, action: ProfileActio
     }
     return {
       ...state,
-      newPostText: '',
       postsData: [...state.postsData, newPost]
     }
   }
