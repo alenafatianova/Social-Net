@@ -5,10 +5,9 @@ import { NavLink } from "react-router-dom";
 type namePropsType = {
     name: string
     id: number
-    avatar: string
   }
 
-export const DialogItem = React.memo((props: namePropsType) => {
+export const DialogItem = (props: namePropsType) => {
 let path = "user/" + props.id;
 
   return (
@@ -17,5 +16,5 @@ let path = "user/" + props.id;
         <NavLink to={path}>{props.name}</NavLink>
       </div>
     </div>
-  );
-})
+  )
+}

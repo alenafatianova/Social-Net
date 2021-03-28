@@ -4,7 +4,6 @@ import style from '../../../../styles/Post.module.css'
 
  export type PostPropsType = {
     post: string
-    id: number
     likes: number
  }
 export const Post = React.memo((props: PostPropsType) => {

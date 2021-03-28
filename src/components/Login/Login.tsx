@@ -1,9 +1,9 @@
 import React from 'react'
-import { connect} from 'react-redux'
-import {reduxForm, InjectedFormProps} from 'redux-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { reduxForm, InjectedFormProps } from 'redux-form'
 import { required } from '../../redux/handlers/validators/validators'
 import { createField, Input } from '../common/FormControl/FormControls'
-import { login, logout } from '../../redux/auth-reducer'
+import { login } from '../../redux/auth-reducer'
 import { Redirect } from 'react-router'
 import { StateType } from '../../redux/redux-store'
 import style from '../../styles/formControls.module.scss'
@@ -12,13 +12,13 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean 
-}
-type formPageProps = {
-    login: (email: string, password: string, rememberMe: boolean ) => void
-    isAuth: boolean
+    captcha: string 
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo(({handleSubmit, error}) => {
+type captchaProps = {
+    captcha: string | null
+}
+const LoginForm: React.FC<InjectedFormProps<FormDataType, captchaProps> & captchaProps> = ({handleSubmit, error, captcha}) => {
    return (
     <form onSubmit={handleSubmit}>
         {createField<LoginFormValuesTypeKeys>('Email', 'email', Input, [required])}
@@ -28,37 +28,41 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo(({handle
             {error}
         </div>
     }
+    {captcha && <img src={captcha} alt='captchaImage'/>}
+    {captcha && createField('Symbols from image', 'captcha', Input, [required])}
     <div>
         <button>Login</button>
     </div>
 </form>
    )
-})
+}
 
 //---------- This is "HOC" for form -------------------------
-const LoginReduxForm  = reduxForm<FormDataType>({form: 'login'})(LoginForm)
-
+const LoginReduxForm  = reduxForm<FormDataType, captchaProps>({form: 'login'})(LoginForm)
 type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
 
-const LoginPage = React.memo((props: formPageProps) => {
+
+export const LoginPage: React.FC = () => {
   
-    const onSubmit = (formData: FormDataType) => {
-      login(formData.email, formData.password, formData.rememberMe)
+    const captcha = useSelector((state: StateType) => state.auth.captchaURL)
+    const isAuth = useSelector((state: StateType) => state.auth.isAuth)
+    const dispatch = useDispatch()
+    
+  const onSubmit = (formData: FormDataType) => {
+      dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
-    if(props.isAuth) {
+    
+    if(isAuth) {
         return <Redirect to='/profile'/> 
     }
+
     return (
         <div>
            <div>
                <h1>Login</h1>
-                 <LoginReduxForm onSubmit={onSubmit} />
+                 <LoginReduxForm onSubmit={onSubmit} captcha={captcha} />
             </div> 
         </div>
     )
-})
+}
 
-const mapStateToProps = (state: StateType) => ({
-    isAuth: state.auth.isAuth
-})
-export default connect(mapStateToProps, {login, logout})(LoginPage)

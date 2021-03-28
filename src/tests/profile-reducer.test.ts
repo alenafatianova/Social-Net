@@ -1,4 +1,5 @@
-import { ProfileReducer, addPostActionCreator, deletePost } from './../redux/profile-reducer';
+import { UserProfileType } from '../types/types';
+import { ProfileReducer, ProfileActions } from './../redux/profile-reducer';
 
 let initialProfileState = {
     postsData: [
@@ -6,13 +7,14 @@ let initialProfileState = {
       { id: 2, post: "Let's go and eat some pizza!!!", likes: 65 },
       { id: 3, post: "Found 10 dollars today...anyone lost it?", likes: 12 },
     ],
-    profile: null,
-    status: '',
+    profile: null as UserProfileType | null,
+    status: '', 
+    newPostText: '',
 }
 
 it('new post should be added', () => {
     // 1. test data
-    let action = addPostActionCreator("newPostText")
+    let action = ProfileActions.addPostActionCreator("newPostText")
 
     // 2. new action
     let newState = ProfileReducer(initialProfileState, action)
@@ -22,7 +24,7 @@ it('new post should be added', () => {
 });
 
 it('new post text should be "newPostText"', () => {
-    let action = addPostActionCreator("newPostText")
+    let action = ProfileActions.addPostActionCreator("newPostText")
 
     let newState = ProfileReducer(initialProfileState, action)
 
@@ -30,7 +32,7 @@ it('new post text should be "newPostText"', () => {
 });
 
 it('after deleting amount of posts should be decremented', () => {
-    let action = deletePost(1)
+    let action = ProfileActions.deletePost(1)
     
     let newState = ProfileReducer(initialProfileState, action)
     
@@ -38,7 +40,7 @@ it('after deleting amount of posts should be decremented', () => {
 });
 
 it('after deleting length should not be decremented', () => {
-    let action = deletePost(1000)
+    let action = ProfileActions.deletePost(1000)
     
     let newState = ProfileReducer(initialProfileState, action)
     

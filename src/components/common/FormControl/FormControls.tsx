@@ -1,12 +1,14 @@
 import React from 'react'
-import { Field, WrappedFieldMetaProps, WrappedFieldProps } from 'redux-form'
+import { Field,  WrappedFieldProps } from 'redux-form'
 import { FieldValidatorType } from '../../../redux/handlers/validators/validators'
 import style from '../../../styles/formControls.module.scss'
+import {WrappedFieldMetaProps} from 'redux-form/lib/Field'
 
-type validationProps = {
+type formProps = {
     meta: WrappedFieldMetaProps
-    element: any
+   
 }
+export type getStringKeys<T>  = Extract<keyof T, string>
 
 export function createField<FormKeysType extends string>( 
         placeholder: string | undefined, 
@@ -28,25 +30,32 @@ export function createField<FormKeysType extends string>(
 }
 
 
-const FormControl: React.FC<validationProps> = React.memo(({meta: {touched, error}, element}) => {
+const FormControl: React.FC<formProps> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error
     return (
         <div className={ hasError ? style.error : style.formControl}>
             <div>
-                <div>{element}</div>
-               { hasError && <span>{error}</span>}
+                <div>
+                    {children}
+                </div>
+               {hasError && <span>{error}</span>}
             </div>
         </div>
     )
-})
+}
 
-
-export const Textarea: React.FC<WrappedFieldProps> = React.memo((props) => {
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
     const {input, meta, ...restProps} = props
-   return <FormControl {...props} element={React.createElement('textarea', {...input, ...meta, ...restProps})}></FormControl>   
-})
+   return <FormControl {...props}>
+       <textarea {...input} {...restProps}/>
+    </FormControl>   
+}
 
-export const Input: React.FC<WrappedFieldProps> = React.memo((props) => {
+
+
+export const Input: React.FC<WrappedFieldProps> = (props) => {
     const {input, meta, ...restProps} = props
-    return <FormControl {...props} element={React.createElement('input', {...input, ...meta, ...restProps})}></FormControl>
-})
+    return <FormControl {...props}>
+        <input {...input} {...restProps} />
+    </FormControl>
+}

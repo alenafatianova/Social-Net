@@ -7,9 +7,7 @@ let mapStateToPropsRedirect = (state: StateType) => ({
     isAuth: state.auth.isAuth
 })
 
-type mapDispatchToProps = {
-
-}
+type mapDispatchToProps = {}
 
 type withAuthRedirectProps = {
     isAuth: boolean 

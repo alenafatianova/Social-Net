@@ -10,7 +10,7 @@ type paginatorProps = {
     portionSize?: number
 }
 
-export const Paginator: React.FC<paginatorProps> = React.memo((
+export const Paginator: React.FC<paginatorProps> = (
     {onPageChanged, currentPage, totalItemsCount, pageSize, portionSize = 10}) => {
     
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
@@ -43,4 +43,4 @@ export const Paginator: React.FC<paginatorProps> = React.memo((
                         <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>}
         </div>
     )
-})
+}

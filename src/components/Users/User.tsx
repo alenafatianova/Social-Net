@@ -1,17 +1,20 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { UsersType } from '../../redux/users-reducer'
 import style from '../../styles/Users.module.css'
 import userAvatar from '../../assets/images/userAvatar.jpg'
+import { UserType } from '../../types/types'
+
 
 type userTypeProps = {
-    user: UsersType
+    user: UserType
     followingInProgress: number[]
-    unfollowUser: (id: number) => void
     followUser: (id: number) => void
+    unfollowUser: (id: number) => void
+   
 }
 
-export const User: React.FC<userTypeProps> = React.memo(({user, followingInProgress, unfollowUser, followUser}) => {
+export const User: React.FC<userTypeProps> = ({user, followingInProgress, followUser, unfollowUser}) => {
+    
     return (
         <div>
            <span>
@@ -24,9 +27,9 @@ export const User: React.FC<userTypeProps> = React.memo(({user, followingInProgr
                                 {
                                     user.followed 
                                     ? <button disabled={followingInProgress.some(id => id === user.id)} 
-                                        onClick = {() => {unfollowUser(user.id)}}>Delete</button>
+                                        onClick = {() => unfollowUser(user.id)}>Delete</button>
                                     : <button disabled={followingInProgress.some(id => id === user.id)} 
-                                        onClick={() => {followUser(user.id)}}>Add</button> 
+                                        onClick={() => followUser(user.id)}>Add</button> 
                                 }
                             </div>
                 </span>
@@ -40,4 +43,4 @@ export const User: React.FC<userTypeProps> = React.memo(({user, followingInProgr
                     </span>
             </div>
     )
-})
+}

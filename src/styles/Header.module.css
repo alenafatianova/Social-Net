@@ -3,19 +3,26 @@
     background: linear-gradient(90deg, #ffffff 0%, #00D9F5 100%);
     font-family: monospace;
 }
-
 .links {
     margin-right: 100px;
-    padding-top: 20px;
+    padding-top: 10px;
     float: right;
     display: flex;
 }
 a {
     font-family: monospace;
+    font-size: 16px;
 }
 a.active {
-    color: rgb(31, 86, 236);
+    color: rgb(36, 47, 78);
 }
 .login {
     margin-right: 50px;
+}
+.logoutButton {
+    width: 100px;
+    height: 30px;
+    border: none;
+    background-color: #fff;
+    border-radius: 10px;
 }
