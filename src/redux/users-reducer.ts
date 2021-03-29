@@ -5,8 +5,7 @@ import { UserType } from '../types/types';
 import { usersAPI } from '../api/users-api';
 
 
-
-const InitialUsersState = {
+export const InitialUsersState = {
     users: [] as Array<UserType>,
     pageSize: 10,
     totalCount: 0,
@@ -69,7 +68,7 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
 }
 
 //-- action creators ---
-const actions = {
+export const actions = {
     deleteUser:  (id: number) => ({type: 'DELETE_USER', id} as const),
     followUser:  (id: number) => ({type: 'FOLLOW_USER', id} as const),
     setUsers: (users: Array<UserType>) => ({type: 'SET_USERS', users} as const), 
@@ -81,7 +80,7 @@ const actions = {
 
 //----------getUsers, followUser, unfollowUser  это санка-------------------------
 type UsersThunksType = BaseThunkType<UsersActionsType> 
-type UsersActionsType = InferActionsType<typeof actions>
+export type UsersActionsType = InferActionsType<typeof actions>
 
 export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => async(dispatch) => {
         dispatch(actions.setCurrentPage(currentPage))

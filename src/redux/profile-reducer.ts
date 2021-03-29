@@ -71,6 +71,7 @@ export const ProfileActions = {
 
 //--- redux-thunks -----
 export const getProfile = (userId: number): ProfileThunkType => async(dispatch: Dispatch) => {
+  debugger
   let data = await profileAPI.getProfile(userId)
     dispatch(ProfileActions.setUserProfile(data))
 }
@@ -93,9 +94,14 @@ export const updateStatus = (status: string): ProfileThunkType => async(dispatch
   }
 }
 export const savePhoto = (file: File): ProfileThunkType => async(dispatch) => {
-  let data = await profileAPI.savePhoto(file)
-  if(data.resultCode === 0) {
+  
+    let data = await profileAPI.savePhoto(file)
+    try {
+    if(data.resultCode === 0) {
     dispatch(ProfileActions.savePhotoSuccess(data.data.photos))
+    }
+  } catch(err) {
+    console.log(err)
   }
 }
 export const saveProfile = (profile: UserProfileType): ProfileThunkType => async(dispatch, getState: () => StateType) => {
@@ -114,5 +120,5 @@ export const saveProfile = (profile: UserProfileType): ProfileThunkType => async
   }
 
 
-
+ 
             

@@ -14,7 +14,7 @@ let initialProfileState = {
 
 it('new post should be added', () => {
     // 1. test data
-    let action = ProfileActions.addPostActionCreator("newPostText")
+    let action = ProfileActions.addPost("newPostText")
 
     // 2. new action
     let newState = ProfileReducer(initialProfileState, action)
@@ -24,7 +24,7 @@ it('new post should be added', () => {
 });
 
 it('new post text should be "newPostText"', () => {
-    let action = ProfileActions.addPostActionCreator("newPostText")
+    let action = ProfileActions.addPost("newPostText")
 
     let newState = ProfileReducer(initialProfileState, action)
 

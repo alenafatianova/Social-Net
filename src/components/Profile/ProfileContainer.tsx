@@ -29,9 +29,7 @@ type PathParamsProps = {
 export type ProfileContainerProps = RouteComponentProps<PathParamsProps> & DispatchPropsType & mapStateToPropsType
 
 export class  ProfileContainer extends React.Component<ProfileContainerProps> {
-    constructor(props: ProfileContainerProps) {
-        super(props)
-    }
+    
     updateProfile() {
         let userId: number | null = +this.props.match.params.userId
         if(!userId) {
