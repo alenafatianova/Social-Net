@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { updateObjectInArray } from './handlers/validators/objects-helpers';
 import { UserType } from '../types/types';
 import { usersAPI } from '../api/users-api';
+import { apiResponseType } from '../api/api';
 
 
 export const InitialUsersState = {
@@ -21,13 +22,13 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
         case 'FOLLOW_USER': {
             return  {
                 ...state, 
-                users: updateObjectInArray(state.users, action.id, 'id', {followed: true})
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
             }
         }
         case 'DELETE_USER': {
            return  {
                 ...state,
-                users: updateObjectInArray(state.users, action.id, 'id', {followed: false})
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
             } 
         }
         case 'SET_USERS': {
@@ -58,8 +59,8 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
             return {
                 ...state, 
                 followingInProgress: action.isFetching 
-                ? [...state.followingInProgress, action.id]
-                : state.followingInProgress.filter(id => id !== action.id)
+                ? [...state.followingInProgress, action.userId]
+                : state.followingInProgress.filter(id => id !== action.userId)
             }
         }
         default: 
@@ -69,20 +70,21 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
 
 //-- action creators ---
 export const actions = {
-    deleteUser:  (id: number) => ({type: 'DELETE_USER', id} as const),
-    followUser:  (id: number) => ({type: 'FOLLOW_USER', id} as const),
+    deleteUser:  (userId: number) => ({type: 'DELETE_USER', userId} as const),
+    followUser:  (userId: number) => ({type: 'FOLLOW_USER', userId} as const),
     setUsers: (users: Array<UserType>) => ({type: 'SET_USERS', users} as const), 
     setCurrentPage:  (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage} as const),
     setTotalUsersCount: (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT',  totalCount} as const),
     setPreloader: (isFetching: boolean) => ({type: 'SET_PRELOADER', isFetching} as const),
-    setFollowingInProgress: (isFetching: boolean, id: number ) => ({type: 'FOLLOWING_IN_PROGRESS', id, isFetching} as const)
+    setFollowingInProgress: (isFetching: boolean, userId: number ) => ({type: 'FOLLOWING_IN_PROGRESS', userId, isFetching} as const)
 }
 
 //----------getUsers, followUser, unfollowUser  это санка-------------------------
 type UsersThunksType = BaseThunkType<UsersActionsType> 
-export type UsersActionsType = InferActionsType<typeof actions>
+type UsersActionsType = InferActionsType<typeof actions>
 
-export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => async(dispatch) => {
+export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => async(dispatch, getState) => {
+        dispatch(actions.setPreloader(true))
         dispatch(actions.setCurrentPage(currentPage))
         const data = await usersAPI.getUsers(currentPage, pageSize)
         dispatch(actions.setPreloader(false))
@@ -90,24 +92,28 @@ export const requestUsers = (currentPage: number, pageSize: number ): UsersThunk
         dispatch(actions.setTotalUsersCount(data.totalCount))
 }
 
-const followUnfollowUser =  async(dispatch: Dispatch, id: number, apiMethod: any, actionCreator: (userId: number) => UsersActionsType) => {
-    dispatch(actions.setFollowingInProgress(true, id))
-    const response = await apiMethod(id) 
-    if (response.data.resultCode === 0) {
-        dispatch(actionCreator(id))
+const _followUnfollowFlow = async (dispatch: Dispatch<UsersActionsType>,
+    userId: number,
+    apiMethod: (userId: number) => Promise<apiResponseType>,
+    actionCreator: (userId: number) => UsersActionsType) => {
+    dispatch(actions.setFollowingInProgress(true, userId))
+    let response = await apiMethod(userId)
+
+    if (response.resultCode === 0) {
+        dispatch(actionCreator(userId))
     }
-    dispatch(actions.setFollowingInProgress(false, id))
+    dispatch(actions.setFollowingInProgress(false, userId))
 }
 
-export const unfollowUser = (id: number): UsersThunksType => {
-    return async(dispatch: Dispatch) => { 
-        followUnfollowUser(dispatch, id, usersAPI.deleteUser.bind(usersAPI), actions.deleteUser)             
+export const unfollowUser = (userId: number): UsersThunksType => {
+    return async(dispatch) => { 
+        await _followUnfollowFlow(dispatch, userId, usersAPI.deleteUser.bind(usersAPI), actions.deleteUser)             
     }
 }
  
-export const follow = (id: number) => {
-    return async(dispatch: Dispatch) => {    
-        followUnfollowUser(dispatch, id, usersAPI.followUser.bind(usersAPI), actions.followUser)
+export const follow = (userId: number): UsersThunksType => {
+    return async(dispatch) => {    
+        await _followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), actions.followUser)
     }
 } 
 

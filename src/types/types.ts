@@ -33,7 +33,7 @@ export type photosType = {
 }
 
 export type UserType = {
-    id: number
+    userId: number
     followed: boolean
     name: string
     age: number

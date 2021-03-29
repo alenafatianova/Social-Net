@@ -17,15 +17,15 @@ export const Users = () => {
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
     const followingInProgress = useSelector(getFollowingProgress)
-    const filter = useSelector(getAllUsersSelector)
+    
     
     const dispatch = useDispatch()
     
-    const followUserHandler = (id: number) => {
-        dispatch(follow(id))
+    const followUserHandler = (userId: number) => {
+        dispatch(follow(userId))
     }
-    const unfollowUserHandler = (id: number) => {
-        dispatch(unfollowUser(id))
+    const unfollowUserHandler = (userId: number) => {
+        dispatch(unfollowUser(userId))
     }
     const onPageChanged = (pageNumber: number) => {
         dispatch(requestUsers(pageNumber, pageSize))
@@ -41,7 +41,7 @@ export const Users = () => {
             <div>
                 {
                    users.map(u => <User 
-                        key={u.id}  
+                        key={u.userId}  
                         followingInProgress={followingInProgress} 
                         followUser={followUserHandler}
                         unfollowUser={unfollowUserHandler}

@@ -19,17 +19,17 @@ export const User: React.FC<userTypeProps> = ({user, followingInProgress, follow
         <div>
            <span>
                 <div>
-                    <NavLink to={'/profile/' + user.id}>
+                    <NavLink to={'/profile/' + user.userId}>
                         <img alt="user-avatar" className={style.img} src={user.photos.small != null ? user.photos.small : userAvatar}/>
                     </NavLink>
                         </div>
                             <div>
                                 {
                                     user.followed 
-                                    ? <button disabled={followingInProgress.some(id => id === user.id)} 
-                                        onClick = {() => unfollowUser(user.id)}>Delete</button>
-                                    : <button disabled={followingInProgress.some(id => id === user.id)} 
-                                        onClick={() => followUser(user.id)}>Add</button> 
+                                    ? <button disabled={followingInProgress.some(id => id === user.userId)} 
+                                        onClick = {() => unfollowUser(user.userId)}>Delete</button>
+                                    : <button disabled={followingInProgress.some(id => id === user.userId)} 
+                                        onClick={() => followUser(user.userId)}>Add</button> 
                                 }
                             </div>
                 </span>
