@@ -20,6 +20,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3.8.3",
     "final-form": "^4.20.1",
+    "formik": "^2.2.6",
     "node-sass": "^4.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
