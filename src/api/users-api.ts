@@ -7,13 +7,13 @@ type getUsersResponseType = {
     error: string | null
 }
 export const usersAPI = {
-    getUsers(currentPage = 1 , pageSize = 10, term = '') {
-     return instance.get<getUsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`).then(res => res.data)
+    getUsers(currentPage = 1 , pageSize = 10, term = '', friend: null | boolean = null) {
+     return instance.get<getUsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + 
+        (friend === null ? '' : `&friend=${friend}`)).then(res => res.data)
    },
-   async followUser(userId: number) {
+    followUser(userId: number) {
        debugger
-       const res = await instance.post<apiResponseType>(`follow/${userId}`);
-       return res.data; 
+       return instance.post<apiResponseType>(`follow/${userId}`).then(res => res.data) 
    },
    deleteUser(userId: number) {
        return instance.delete<apiResponseType>(`follow/${userId}`).then(res => res.data)

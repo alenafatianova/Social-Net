@@ -28,10 +28,10 @@ export const Users: React.FC = React.memo(() => {
         dispatch(unfollowUser(userId))
     }
     const onPageChanged = (pageNumber: number) => {
-        dispatch(requestUsers(pageNumber, pageSize, filter.term))
+        dispatch(requestUsers(pageNumber, pageSize, filter))
     }
     const onFilterChanged = (filter: FilterType) => {
-        dispatch(requestUsers(1, pageSize, filter.term))
+        dispatch(requestUsers(1, pageSize, filter))
     }
     return (
         <div>

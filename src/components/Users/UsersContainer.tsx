@@ -22,27 +22,20 @@ type MapStateToPropsType = {
 }
 type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void,
-    setFollowingInProgress: (isFetching: boolean, id: number) => void,
-    requestUsers: (currentPage: number, pageSize: number, term: string) => void,  
-    unfollowUser: (id: number) => void,
-    followUser: (id: number) => void,
-    setTerm: (term: string) => void
+    setFollowingInProgress: (isFetching: boolean, userId: number) => void,
+    requestUsers: (currentPage: number, pageSize: number, filter: FilterType) => void,  
+    unfollowUser: (userId: number) => void,
+    followUser: (userId: number) => void,
+    setTerm: (filter: FilterType) => void 
 }
 export type usersConatinerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
 export class UsersContainer extends React.Component<usersConatinerPropsType> 
    
     {componentDidMount() {
+        const {currentPage, pageSize, filter} = this.props;
         if (this.props.users.length ===  0) {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize, '')}
-    }
-    // onPageChanged = (pageNumber: number) => {
-    //     this.props.setCurrentPage(pageNumber)
-    //     this.props.requestUsers(pageNumber, this.props.pageSize, this.props.filter.term)
-    // }
-    onFilterChanged = (filter: FilterType) => {
-        const {currentPage, pageSize } = this.props;
-        this.props.requestUsers(currentPage, pageSize, filter.term)
+        this.props.requestUsers(currentPage, pageSize, filter)}
     }
 
     render () {
