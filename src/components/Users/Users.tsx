@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }  from 'react'
 import { Paginator } from '../common/Paginator/Paginator'
 import { User } from './User'
 import {getAllUsers, 
@@ -18,6 +18,10 @@ export const Users: React.FC = React.memo(() => {
     const currentPage = useSelector(getCurrentPage)
     const followingInProgress = useSelector(getFollowingProgress)
     const filter = useSelector(getUsersFilter)
+    
+    useEffect(() => {
+       dispatch(requestUsers(currentPage, pageSize, filter))
+    }, [currentPage, pageSize, filter])
     
     const dispatch = useDispatch()
     

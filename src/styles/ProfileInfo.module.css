@@ -14,7 +14,7 @@
 }
 .sendFileButton {
     display: flex;
-    
+    margin-top: 20px;
 }
 .lookingForAJobBlock, .aboutMeBlock, .fullNameBlock, .skills  {
    display: flex;

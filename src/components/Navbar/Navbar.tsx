@@ -26,6 +26,9 @@ export const Navbar = React.memo(() => {
            <div className={style.link}>
                <NavLink  to='/settings' activeClassName={style.active}>Settings</NavLink >
             </div>
+            <div className={style.chat}>
+               <NavLink  to='/chat' activeClassName={style.active}>Chat</NavLink >
+            </div>
         </div>
     )
 })
