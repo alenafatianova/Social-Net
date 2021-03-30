@@ -48,7 +48,7 @@ export const Users: React.FC = React.memo(() => {
                 {
                    users.map(u =>
                      <User 
-                        key={u.userId}  
+                        key={u.id}  
                         followingInProgress={followingInProgress} 
                         followUser={followUserHandler}
                         unfollowUser={unfollowUserHandler}

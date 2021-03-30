@@ -8,28 +8,27 @@ import { UserType } from '../../types/types'
 type userTypeProps = {
     user: UserType
     followingInProgress: number[]
-    followUser: (id: number) => void
-    unfollowUser: (id: number) => void
+    followUser: (userId: number) => void
+    unfollowUser: (userId: number) => void
    
 }
 
-export const User: React.FC<userTypeProps> = ({user, followingInProgress, followUser, unfollowUser}) => {
-    
+export const User: React.FC<userTypeProps> = React.memo(({user, followingInProgress, followUser, unfollowUser}) => {
     return (
         <div>
            <span>
                 <div>
-                    <NavLink to={'/profile/' + user.userId}>
+                    <NavLink to={'/profile/' + user.id}>
                         <img alt="user-avatar" className={style.img} src={user.photos.small != null ? user.photos.small : userAvatar}/>
                     </NavLink>
                         </div>
                             <div>
                                 {
                                     user.followed 
-                                    ? <button disabled={followingInProgress.some(id => id === user.userId)} 
-                                        onClick = {() => unfollowUser(user.userId)}>Delete</button>
-                                    : <button disabled={followingInProgress.some(id => id === user.userId)} 
-                                        onClick={() => followUser(user.userId)}>Add</button> 
+                                    ? <button disabled={followingInProgress.some(id => id === user.id)} 
+                                        onClick = {() => unfollowUser(user.id)}>Delete</button>
+                                    : <button disabled={followingInProgress.some(id => id === user.id)} 
+                                        onClick={() => followUser(user.id)}>Add</button> 
                                 }
                             </div>
                 </span>
@@ -43,4 +42,4 @@ export const User: React.FC<userTypeProps> = ({user, followingInProgress, follow
                     </span>
             </div>
     )
-}
+})

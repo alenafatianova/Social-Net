@@ -26,13 +26,13 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
         case 'FOLLOW_USER': {
             return  {
                 ...state, 
-                users: updateObjectInArray(state.users, action.userId, 'userId', {followed: true})
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
             }
         }
         case 'DELETE_USER': {
            return  {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, 'userId', {followed: false})
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
             } 
         }
         case 'SET_USERS': {
@@ -96,49 +96,41 @@ type UsersThunksType = BaseThunkType<UsersActionsType>
 type UsersActionsType = InferActionsType<typeof actions>
 export type FilterType = typeof InitialUsersState.filter
 
-export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType ): UsersThunksType => async(dispatch, getState) => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType ): UsersThunksType => {
+    return async(dispatch, getState) => {
         dispatch(actions.setPreloader(true))
         dispatch(actions.setCurrentPage(currentPage))
         dispatch(actions.setTerm(filter))
 
-        const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
+        let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
         dispatch(actions.setPreloader(false))
         dispatch(actions.setUsers(data.items))
         dispatch(actions.setTotalUsersCount(data.totalCount))
-}
+}}
 
-const _followUnfollowFlow = async (dispatch: Dispatch<UsersActionsType>, userId: number, apiMethod: (userId: number) => Promise<apiResponseType>,
-    actionCreator: (userId: number) => UsersActionsType) => {
-        try {
+const _followUnfollowFlow = async (dispatch: Dispatch<UsersActionsType>, 
+        userId: number, 
+        apiMethod: (userId: number) => Promise<apiResponseType>,
+        actionCreator: (userId: number) => UsersActionsType) => {
             dispatch(actions.setFollowingInProgress(true, userId))
             let response = await apiMethod(userId)
         
             if (response.resultCode === 0) {
                 dispatch(actionCreator(userId))
-            }
+            
             dispatch(actions.setFollowingInProgress(false, userId))
-        } catch(err) {
-            console.log(err)
-        }
+        } 
 }
 
 export const unfollowUser = (userId: number): UsersThunksType => {
     return async(dispatch) => { 
-        try {
-            await _followUnfollowFlow(dispatch, userId, usersAPI.deleteUser.bind(usersAPI), actions.deleteUser) 
-        } catch(err)  {
-            console.log(err)
-        }            
+       await _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.deleteUser)           
     }
 }
  
 export const follow = (userId: number): UsersThunksType => {
     return async(dispatch) => {   
-        try {
-            await _followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), actions.followUser)
-        } catch(err) {
-            console.log(err)
-        }
+        await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followUser)
     }
 } 
 
