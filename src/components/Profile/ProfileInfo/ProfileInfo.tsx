@@ -6,6 +6,7 @@ import userAvatar from '../../../assets/images/userAvatar.jpg'
 import { ProfileDataReduxForm } from '../ProfileDataForm'
 import { contactsType, UserProfileType } from '../../../types/types'
 import { useDispatch } from 'react-redux'
+import { saveProfile } from '../../../redux/profile-reducer'
 
 
 type ContactsType = {
@@ -26,10 +27,11 @@ type profileDataProps = {
     onEditMode: () => void
 }
 
-export const ProfileInfo: React.FC<profileInfoType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+export const ProfileInfo: React.FC<profileInfoType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
     
     const [editMode, setEditMode] = useState<boolean>(false)
     const dispatch = useDispatch()
+    
     if(!profile) {
         return <Preloader/>
     }

@@ -52,10 +52,10 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
     componentWillUnmount(): void {
          
     }
+
     render() {
         return (
             <Profile {...this.props} 
-                    saveProfile={this.props.saveProfile}
                     savePhoto={this.props.savePhoto}
                     isOwner={!this.props.match.params.userId}
                     profile={this.props.profile}
