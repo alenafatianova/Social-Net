@@ -1,59 +1,44 @@
-import { Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React from 'react'
+import { FilterType } from '../../../redux/users-reducer';
+  
+type usersSearchFormPropsType = {
+    onFilterChanged: (filter: FilterType) => void
+}
 
-export const UserSearchForm = () => {
+const searchValidate = (values: any) => {
+    const errors = {};
+    // if (!values.email) {
+    //   errors.email = 'Required';
+    // } else if (
+    //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+    // ) {
+    //   errors.email = 'Invalid email address';
+    // }
+    return errors;
+}
+
+export const UserSearchForm: React.FC<usersSearchFormPropsType> = (props) => {
+  
+    const formSubmitHandler = (values: FilterType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        props.onFilterChanged(values)
+        setSubmitting(false)
+    }
     return (
         <div>
-            <Formik
-       initialValues={{ email: '', password: '' }}
-       validate={values => {
-         const errors = {};
-         if (!values.email) {
-           //errors.email = 'Required';
-         } else if (
-           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-         ) {
-           //errors.email = 'Invalid email address';
-         }
-         return errors;
-       }}
-       onSubmit={(values, { setSubmitting }) => {
-         setTimeout(() => {
-           alert(JSON.stringify(values, null, 2));
-           setSubmitting(false);
-         }, 400);
-       }}
-     >
-       {({
-         values,
-         errors,
-         touched,
-         handleChange,
-         handleBlur,
-         handleSubmit,
-         isSubmitting,
-       }) => (
-         <form onSubmit={handleSubmit}>
-           <input
-             type="email"
-             name="email"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.email}
-           />
-           {errors.email && touched.email && errors.email}
-           <input
-             type="password"
-             name="password"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.password}
-           />
-           {errors.password && touched.password && errors.password}
+        <Formik
+            initialValues={{ term: '' }}
+            validate={searchValidate}
+            onSubmit={formSubmitHandler}
+        >
+       {({ isSubmitting }) => (
+         <Form>
+           <Field type="text" name="term" />
+           <ErrorMessage name="term" component="div" />
            <button type="submit" disabled={isSubmitting}>
              Submit
            </button>
-         </form>
+         </Form>
        )}
      </Formik>
         </div>

@@ -12,7 +12,8 @@ export const InitialUsersState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [] as Array<number>   //array of user's id
+    followingInProgress: [] as Array<number>,   //array of user's id
+    filter: {term: ''}
 }
 
 export type InitialUsersStateType = typeof InitialUsersState
@@ -63,6 +64,12 @@ export const UsersReducer = (state = InitialUsersState , action: UsersActionsTyp
                 : state.followingInProgress.filter(id => id !== action.userId)
             }
         }
+        case 'SET_TERM_FILTER': {
+            return {
+                ...state,
+                filter: action.payload
+            }
+        }
         default: 
             return state;
     }
@@ -76,17 +83,21 @@ export const actions = {
     setCurrentPage:  (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage} as const),
     setTotalUsersCount: (totalCount: number) => ({type: 'SET_TOTAL_USERS_COUNT',  totalCount} as const),
     setPreloader: (isFetching: boolean) => ({type: 'SET_PRELOADER', isFetching} as const),
-    setFollowingInProgress: (isFetching: boolean, userId: number ) => ({type: 'FOLLOWING_IN_PROGRESS', userId, isFetching} as const)
+    setFollowingInProgress: (isFetching: boolean, userId: number ) => ({type: 'FOLLOWING_IN_PROGRESS', userId, isFetching} as const),
+    setTerm: (term: string) => ({type: 'SET_TERM_FILTER', payload: {term}} as const)
 }
 
 //----------getUsers, followUser, unfollowUser  это санка-------------------------
 type UsersThunksType = BaseThunkType<UsersActionsType> 
 type UsersActionsType = InferActionsType<typeof actions>
+export type FilterType = typeof InitialUsersState.filter
 
-export const requestUsers = (currentPage: number, pageSize: number ): UsersThunksType => async(dispatch, getState) => {
+export const requestUsers = (currentPage: number, pageSize: number, term: string ): UsersThunksType => async(dispatch, getState) => {
         dispatch(actions.setPreloader(true))
         dispatch(actions.setCurrentPage(currentPage))
-        const data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(actions.setTerm(term))
+
+        const data = await usersAPI.getUsers(currentPage, pageSize, term)
         dispatch(actions.setPreloader(false))
         dispatch(actions.setUsers(data.items))
         dispatch(actions.setTotalUsersCount(data.totalCount))
@@ -107,7 +118,11 @@ const _followUnfollowFlow = async (dispatch: Dispatch<UsersActionsType>,
 
 export const unfollowUser = (userId: number): UsersThunksType => {
     return async(dispatch) => { 
-        await _followUnfollowFlow(dispatch, userId, usersAPI.deleteUser.bind(usersAPI), actions.deleteUser)             
+        try {
+            await _followUnfollowFlow(dispatch, userId, usersAPI.deleteUser.bind(usersAPI), actions.deleteUser) 
+        } catch(err)  {
+            console.log(err)
+        }            
     }
 }
  

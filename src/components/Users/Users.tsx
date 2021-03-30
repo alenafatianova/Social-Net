@@ -1,23 +1,23 @@
 import React from 'react'
 import { Paginator } from '../common/Paginator/Paginator'
 import { User } from './User'
-import {getAllUsers, getAllUsersSelector, 
+import {getAllUsers, 
         getPageSize, getTotalUsersCount, 
-        getCurrentPage, getFollowingProgress} 
+        getCurrentPage, getFollowingProgress, getUsersFilter} 
 from '../../redux/users-selectors'
 import { useDispatch, useSelector } from 'react-redux'
-import { follow, requestUsers, unfollowUser } from '../../redux/users-reducer'
+import { FilterType, follow, requestUsers, unfollowUser } from '../../redux/users-reducer'
+import { UserSearchForm } from '../common/SearchForm/UserSearchForm'
 
 
-
-export const Users = () => {
+export const Users: React.FC = React.memo(() => {
     
     const users = useSelector(getAllUsers)
     const totalUsersCount = useSelector(getTotalUsersCount)
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
     const followingInProgress = useSelector(getFollowingProgress)
-    
+    const filter = useSelector(getUsersFilter)
     
     const dispatch = useDispatch()
     
@@ -28,10 +28,16 @@ export const Users = () => {
         dispatch(unfollowUser(userId))
     }
     const onPageChanged = (pageNumber: number) => {
-        dispatch(requestUsers(pageNumber, pageSize))
+        dispatch(requestUsers(pageNumber, pageSize, filter.term))
+    }
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(requestUsers(1, pageSize, filter.term))
     }
     return (
         <div>
+            <div> 
+                <UserSearchForm onFilterChanged={onFilterChanged}/>
+            </div>
             <Paginator 
                 onPageChanged={onPageChanged} 
                 currentPage={currentPage} 
@@ -40,16 +46,17 @@ export const Users = () => {
                 /> 
             <div>
                 {
-                   users.map(u => <User 
+                   users.map(u =>
+                     <User 
                         key={u.userId}  
                         followingInProgress={followingInProgress} 
                         followUser={followUserHandler}
                         unfollowUser={unfollowUserHandler}
                         user={u}
-                        
-                        />)
+                        />
+                    )
                 }
                 </div>
              </div>
     )
-}
+})
