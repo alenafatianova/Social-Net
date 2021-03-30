@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import {requestUsers, follow, unfollowUser, FilterType } from '../../redux/users-reducer'
 import { StateType } from '../../redux/redux-store'
 import { Users } from './Users'
@@ -30,6 +30,18 @@ type MapDispatchToPropsType = {
 }
 export type usersConatinerPropsType = MapDispatchToPropsType & MapStateToPropsType
 
+
+export const UsersPage = () => {
+    const isFetching = useSelector(getFetching)
+    return (
+        <div>
+            {isFetching ? <Preloader/> : null}
+            <Users  />  
+        </div>
+         
+      
+    )
+}
 export class UsersContainer extends React.Component<usersConatinerPropsType> 
    
     {componentDidMount() {

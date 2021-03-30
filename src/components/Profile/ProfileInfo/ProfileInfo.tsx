@@ -50,13 +50,11 @@ export const ProfileInfo: React.FC<profileInfoType> = ({profile, status, updateS
         <div className={style.profileInfoContainer}>
             <div className={style.profileInfo}>
                 <img className={style.profilePhoto} src={profile.photos.large || userAvatar} alt="profile"/>
-                <div className={style.sendFileButton}>
-                {isOwner && <input type="file" onChange={sendFileHandler} />}
-            </div>
-                <div className={style.statusContainer }> 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-            </div>
+            <div className={style.sendFileButton}>
+                    {isOwner && <input type="file" onChange={sendFileHandler} />}
+                </div>
             {editMode 
                 ? <ProfileDataReduxForm initialValues={profile} onSubmit={onDataFormSubmit} profile={profile} /> 
                 : <ProfileData profile={profile} isOwner={isOwner} onEditMode={() => setEditMode(true)}/>
@@ -80,8 +78,9 @@ const ProfileData: React.FC<profileDataProps> = ({profile, isOwner, onEditMode})
         </div>
         <div className={style.lookingForAJobBlock}>
                 <b>Looking for a job:</b> {profile.lookingForAJob ? `I'm opened for offers` : "Currently working"} 
-                <div>{profile.lookingForAJob && profile.lookingForAJobDescription}</div>
+ 
         </div>
+        <div className={style.skills}><b>Professionals skills: </b>{profile.lookingForAJobDescription}</div>
         <div className={style.contactsBlock}>
             <b>Contacts:</b> {Object.keys(profile.contacts).map(key => {
                 return <Contacts  key={key} contactTitle={key} contactValue={profile.contacts[key as keyof contactsType]} />

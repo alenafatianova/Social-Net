@@ -33,15 +33,13 @@ export const ProfileStatusWithHooks = React.memo((props: statusProps) => {
             </div>
             }
             {editMode &&
-            <div>
                 <input 
-                    className={style.statusInput}
                     onChange={changeStatus}
                     autoFocus={true}
                     onBlur={deactivateMode} 
                     value={status} 
                     placeholder="what are you thinking about?"/>
-            </div>
+         
             }
         </div>
     )
