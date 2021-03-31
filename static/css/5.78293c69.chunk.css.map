@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles/ChatMessageItem.module.css","webpack://src/styles/ChatMessages.module.css"],"names":[],"mappings":"AAAA,4CACI,UACJ,CCFA,kCACI,YAAa,CACb,aACJ","file":"5.78293c69.chunk.css","sourcesContent":[".userAvatarContainer {\n    width: 30px;\n}",".chatMessages {\n    height: 400px;\n    overflow: auto; \n}"]}
