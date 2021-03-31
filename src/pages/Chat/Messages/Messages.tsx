@@ -3,17 +3,19 @@ import { ChatMessageItem, chatMessageType } from './ChatMessageItem'
 import style from '../../../styles/ChatMessages.module.css'
 
 
-const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+export const webSocketChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 export const Messages = () => {
    
     const [chatMessages, setChatMessages] = useState<chatMessageType[]>([])
    
     useEffect(() => {
-        ws.addEventListener('message', (e) => {
-            setChatMessages(JSON.parse(e.data))
+        webSocketChannel.addEventListener('message', (e: MessageEvent) => {
+            const newMessages = JSON.parse(e.data)
+            setChatMessages([...chatMessages, ...newMessages])
         })
-    }, [])
+    }, [chatMessages])
+    
     return (
         <div>
            <div className={style.chatMessages}>
