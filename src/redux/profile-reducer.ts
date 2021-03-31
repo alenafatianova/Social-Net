@@ -71,10 +71,14 @@ export const ProfileActions = {
 
 //--- redux-thunks -----
 export const getProfile = (userId: number): ProfileThunkType => async(dispatch: Dispatch) => {
-  let data = await profileAPI.getProfile(userId)
+  try {
+    let data = await profileAPI.getProfile(userId)
     dispatch(ProfileActions.setUserProfile(data))
+  } catch(error) {
+    console.log(error)}
 }
-export const getStatus = (userId: number): ProfileThunkType => async(dispatch) => {
+
+export const getStatus = (userId: number): ProfileThunkType => async(dispatch: Dispatch) => {
   try {
     let data = await profileAPI.getStatus(userId)
     dispatch(ProfileActions.setStatus(data))
@@ -82,6 +86,7 @@ export const getStatus = (userId: number): ProfileThunkType => async(dispatch) =
     console.log(err)
   }
 }
+
 export const updateStatus = (status: string): ProfileThunkType => async(dispatch) => {
   try {
     let data = await profileAPI.updateStatus(status)
@@ -93,14 +98,18 @@ export const updateStatus = (status: string): ProfileThunkType => async(dispatch
   }
 }
 export const savePhoto = (file: File): ProfileThunkType => async(dispatch) => {
-  let data = await profileAPI.savePhoto(file)
-  if(data.resultCode === 0) {
+  try {
+    let data = await profileAPI.savePhoto(file)
+    if(data.resultCode === 0) {
     dispatch(ProfileActions.savePhotoSuccess(data.data.photos))
+    }
+  } catch(err) {
+    console.log(err)
   }
 }
 export const saveProfile = (profile: UserProfileType): ProfileThunkType => async(dispatch, getState: () => StateType) => {
   const userId = getState().auth.userId
-  const data = await profileAPI.saveProfile(profile)
+  let data = await profileAPI.saveProfile(profile)
   if(data.resultCode === 0) {
       if(userId != null) {
         dispatch(getProfile(userId))
@@ -114,5 +123,5 @@ export const saveProfile = (profile: UserProfileType): ProfileThunkType => async
   }
 
 
-
+ 
             

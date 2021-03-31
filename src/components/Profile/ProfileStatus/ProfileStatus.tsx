@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react'
-import { StateType } from '../../../redux/redux-store'
 import style from '../../../styles/ProfileStatus.module.css'
 
 export type statusProps = {

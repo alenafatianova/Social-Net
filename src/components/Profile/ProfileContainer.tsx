@@ -29,15 +29,14 @@ type PathParamsProps = {
 export type ProfileContainerProps = RouteComponentProps<PathParamsProps> & DispatchPropsType & mapStateToPropsType
 
 export class  ProfileContainer extends React.Component<ProfileContainerProps> {
-    constructor(props: ProfileContainerProps) {
-        super(props)
-    }
+    
     updateProfile() {
         let userId: number | null = +this.props.match.params.userId
         if(!userId) {
             userId = this.props.authorizedUserId
             if (!userId) {
                 this.props.history.push('/login')
+                return
             }
         }
         this.props.getProfile(userId)
@@ -53,10 +52,10 @@ export class  ProfileContainer extends React.Component<ProfileContainerProps> {
     componentWillUnmount(): void {
          
     }
+
     render() {
         return (
             <Profile {...this.props} 
-                    saveProfile={this.props.saveProfile}
                     savePhoto={this.props.savePhoto}
                     isOwner={!this.props.match.params.userId}
                     profile={this.props.profile}
